@@ -140,6 +140,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Clients\_List.cshtml" />
+    <Content Include="Views\Clients\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

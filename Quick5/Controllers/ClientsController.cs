@@ -15,5 +15,16 @@ namespace Quick5.Controllers
 
             return View(clients);
         }
+
+        //
+        // GET: /Clients/Details/5
+
+        public ViewResult Details(int id)
+        {
+            var db = new SqlExtra();
+            var client = db.GetClient(id);
+
+            return View(client);
+        }
     }
 }

@@ -1,0 +1,14 @@
+﻿@model Quick5.Models.Client
+
+@{
+    ViewBag.Title = "Clients / " + Model.Nom;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_List", new List<Quick5.Models.Client>() { Model })
+
+<h3>Garanties</h3>
+
+<h3>Décisions</h3>
+

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Dapper;
 
 namespace Quick5.Models
@@ -33,6 +34,38 @@ namespace Quick5.Models
             {
                 connexion.Open();
                 data = connexion.Query<Client>(sql);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                connexion.Close();
+            }
+
+            return data;
+        }
+
+        public Client GetClient(int id)
+        {
+            var data = new Client();
+
+            var sql = @"SELECT IdCompany AS Client_ID
+                             , Name AS Nom
+                             , Siren
+                             , Fld109 AS Siret
+                             , PostCode AS CodePostal
+                             , City AS Ville
+                             , Fld138 AS Type
+                             , DECODE(Fld129, NULL, 0, -1) AS EstBloque
+                        FROM   Cy
+                        WHERE  IdCompany = " + id.ToString();
+
+            try
+            {
+                connexion.Open();
+                data = connexion.Query<Client>(sql).FirstOrDefault();
             }
             catch
             {
