@@ -9,6 +9,9 @@ namespace Quick5.Models
 
         public IEnumerable<Client> GetClients(string q)
         {
+            if (string.IsNullOrEmpty(q)) return new List<Client>();
+            if (q.Length <= 3) return new List<Client>();
+
             IEnumerable<Client> data = null;
 
             var sql = @"SELECT IdCompany AS Client_ID
@@ -20,11 +23,11 @@ namespace Quick5.Models
                              , Fld138 AS Type
                              , DECODE(Fld129, NULL, 0, -1) AS EstBloque
                         FROM   Cy
-                        WHERE  (Name LIKE '%{q}%')
+                        WHERE  (UPPER(Name) LIKE '%{q}%')
                         OR     (Fld109 LIKE '{q}%')
                         ORDER BY UPPER(Name)
                                , UPPER(City)";
-            sql = sql.Replace("{q}", q);
+            sql = sql.Replace("{q}", q.ToUpperInvariant());
 
             try
             {

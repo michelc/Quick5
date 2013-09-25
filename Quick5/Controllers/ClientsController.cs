@@ -8,10 +8,10 @@ namespace Quick5.Controllers
         //
         // GET: /Clients/
 
-        public ActionResult Index()
+        public ActionResult Index(string q)
         {
             var db = new SqlExtra();
-            var clients = db.GetClients("343691374");
+            var clients = db.GetClients(q);
 
             return View(clients);
         }
