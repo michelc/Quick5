@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Quick5</title>
+
+    <!-- Le styles -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Le HTML5 modernizr, for IE6-8 support of HTML5 elements -->
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+
+    <header class="navbar navbar-inverse navbar-static-top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Quick5", "Index", "Home", null, new { @class = "navbar-brand" })
+            </div>
+            <nav class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    @Html.Bootstrap().NavLink("Home", "Index", "Home", null)
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+
+        @RenderSection("featured", required: false)
+
+        <section class="row">
+            @RenderBody()
+        </section>
+
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Quick5</p>
+        </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/Scripts/jquery-2.0.3.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
