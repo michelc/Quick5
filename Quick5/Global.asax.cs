@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Routing;
+using StackExchange.Profiling;
 
 namespace Quick5
 {
@@ -13,6 +15,16 @@ namespace Quick5
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            if (Request.IsLocal) MiniProfiler.Start();
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            MiniProfiler.Stop();
         }
     }
 }

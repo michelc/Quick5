@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using Dapper;
+using StackExchange.Profiling;
 
 namespace Quick5.Models
 {
@@ -25,7 +26,7 @@ namespace Quick5.Models
             var conn = factory.CreateConnection();
             conn.ConnectionString = settings.ConnectionString;
 
-            return conn;
+            return new StackExchange.Profiling.Data.ProfiledDbConnection(conn, MiniProfiler.Current);
         }
 
         public void Close()

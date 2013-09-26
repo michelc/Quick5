@@ -8,7 +8,7 @@ namespace Quick5.Models
     {
         public SqlExtra() : base("Extra") { }
 
-        public IEnumerable<Client> GetClients(string q)
+        public IEnumerable<Client> GetClients(string q, string NSiren = "")
         {
             IEnumerable<Client> data = null;
 
@@ -28,6 +28,23 @@ namespace Quick5.Models
                                , UPPER(City)";
             sql = sql.Replace("{nom}", q.ToUpperInvariant());
             sql = sql.Replace("{siren}", q.ToUpperInvariant().Replace(" ", ""));
+
+            if (NSiren != "")
+            {
+                sql = @"SELECT IdCompany AS Client_ID
+                             , Name AS Nom
+                             , Siren AS NSiren
+                             , Fld109 AS NSiret
+                             , PostCode AS CodePostal
+                             , City AS Ville
+                             , Fld138 AS Type
+                             , DECODE(Fld129, NULL, 0, -1) AS EstBloque
+                        FROM   Cy
+                        WHERE  (Siren = '{siren}%')
+                        ORDER BY UPPER(Name)
+                               , UPPER(City)";
+                sql = sql.Replace("{siren}", NSiren);
+            }
 
             try
             {
@@ -91,6 +108,7 @@ namespace Quick5.Models
                         AND    ((UPPER(Raison_Social) LIKE '%{nom}%') OR (Siren LIKE '{siren}%'))
                         ORDER BY UPPER(Raison_Social)
                                , Siren";
+
             sql = sql.Replace("{nom}", q.ToUpperInvariant());
             sql = sql.Replace("{siren}", q.ToUpperInvariant().Replace(" ", ""));
 
@@ -244,10 +262,10 @@ namespace Quick5.Models
                 sql += @"    , Ct_Fiche_Siren S
                          WHERE (S.ID = {siren_id})
                          AND   (H.Siren = S.Siren)
-                         ORDER BY H.Decision_Date ASC
-                                , H.Date_Effet ASC
-                                , H.Date_Last_Update ASC
-                                , H.Historique_ID ASC";
+                         ORDER BY H.Decision_Date DESC
+                                , H.Date_Effet DESC
+                                , H.Date_Last_Update DESC
+                                , H.Historique_ID DESC";
                 sql = sql.Replace("{siren_id}", Siren_ID.ToString());
             }
 
