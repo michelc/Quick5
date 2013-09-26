@@ -18,15 +18,15 @@
 @foreach (var item in Model)
 {
     <tr>
-        <th>@Html.ActionLink(" ", "Details", "Garanties", new { id = item.Garantie_ID}, new { @class="glyphicon glyphicon-play" })</th>
-        <td>@Html.DisplayTextFor(modelItem => item.GarOption)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.GarMontant)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.CplMontant)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.IntMontant)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.OalMontant)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.CapOption)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.CapMontant)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.Deblocage)</td>
+        <th class="iconwidth">@Html.ActionLink(" ", "Details", "Garanties", new { id = item.Garantie_ID}, new { @class="glyphicon glyphicon-play" })</th>
+        <td>@Html.DisplayFor(modelItem => item.GarOption)</td>
+        <td>@Html.DisplayFor(modelItem => item.GarMontant)</td>
+        <td>@Html.DisplayFor(modelItem => item.CplMontant)</td>
+        <td>@Html.DisplayFor(modelItem => item.IntMontant)</td>
+        <td>@Html.DisplayFor(modelItem => item.OalMontant)</td>
+        <td>@Html.DisplayFor(modelItem => item.CapOption)</td>
+        <td>@Html.DisplayFor(modelItem => item.CapMontant)</td>
+        <td>@Html.DisplayFor(modelItem => item.Deblocage)</td>
     </tr>
 }
 </tbody>

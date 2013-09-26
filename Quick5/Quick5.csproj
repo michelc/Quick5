@@ -150,6 +150,8 @@
     <Content Include="Views\Garanties\_List.cshtml" />
     <Content Include="Views\Garanties\Details.cshtml" />
     <Content Include="Views\Garanties\_Item.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Decimal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,13 +16,13 @@
 @foreach (var item in Model)
 {
     <tr>
-        <th>@Html.ActionLink(" ", "Details", "Clients", new { id = item.Client_ID }, new { @class="glyphicon glyphicon-play" })</th>
-        <td>@Html.DisplayTextFor(modelItem => item.Nom)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.NSiret)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.CodePostal)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.Ville)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.Type)</td>
-        <td>@Html.DisplayTextFor(modelItem => item.EstBloque)</td>
+        <th class="iconwidth">@Html.ActionLink(" ", "Details", "Clients", new { id = item.Client_ID }, new { @class="glyphicon glyphicon-play" })</th>
+        <td>@Html.DisplayFor(modelItem => item.Nom)</td>
+        <td>@Html.DisplayFor(modelItem => item.NSiret)</td>
+        <td>@Html.DisplayFor(modelItem => item.CodePostal)</td>
+        <td>@Html.DisplayFor(modelItem => item.Ville)</td>
+        <td>@Html.DisplayFor(modelItem => item.Type)</td>
+        <td>@Html.DisplayFor(modelItem => item.EstBloque)</td>
     </tr>
 }
 </tbody>
