@@ -5,35 +5,35 @@ using Quick5.Models;
 
 namespace Quick5.Controllers
 {
-    public class ClientsController : Controller
+    public class SirensController : Controller
     {
         //
-        // GET: /Clients/
+        // GET: /Sirens/
 
         public ActionResult Index(string q)
         {
-            var clients = new List<Client>();
+            var sirens = new List<Siren>();
             if (!string.IsNullOrEmpty(q))
             {
                 if (q.Length > 3)
                 {
                     var db = new SqlExtra();
-                    clients = db.GetClients(q).ToList();
+                    sirens = db.GetSirens(q).ToList();
                 }
             }
 
-            return View(clients);
+            return View(sirens);
         }
 
         //
-        // GET: /Clients/Details/5
+        // GET: /Sirens/Details/5
 
         public ViewResult Details(int id)
         {
             var db = new SqlExtra();
-            var client = db.GetClient(id);
+            var siren = db.GetSiren(id);
 
-            return View(client);
+            return View(siren);
         }
     }
 }

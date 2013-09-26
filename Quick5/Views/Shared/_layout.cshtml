@@ -25,10 +25,11 @@
             </div>
             <nav class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
+                    @Html.Bootstrap().NavLink("Sirens", "Index", "Sirens", null)
                     @Html.Bootstrap().NavLink("Clients", "Index", "Clients", null)
                 </ul>
                 <div class="col-sm-3 col-md-3 pull-right">
-                    @using (Html.BeginForm("Index", "Clients", FormMethod.Get, new { @class="navbar-form", @role="search" }))
+                    @using (Html.BeginForm("Index", "Sirens", FormMethod.Get, new { @class="navbar-form", @role="search" }))
                     {
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search" name="q" id="q">

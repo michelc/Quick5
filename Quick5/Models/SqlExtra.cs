@@ -10,25 +10,24 @@ namespace Quick5.Models
 
         public IEnumerable<Client> GetClients(string q)
         {
-            if (string.IsNullOrEmpty(q)) return new List<Client>();
-            if (q.Length <= 3) return new List<Client>();
-
             IEnumerable<Client> data = null;
 
             var sql = @"SELECT IdCompany AS Client_ID
                              , Name AS Nom
-                             , Siren
-                             , Fld109 AS Siret
+                             , Siren AS NSiren
+                             , Fld109 AS NSiret
                              , PostCode AS CodePostal
                              , City AS Ville
                              , Fld138 AS Type
                              , DECODE(Fld129, NULL, 0, -1) AS EstBloque
                         FROM   Cy
-                        WHERE  (UPPER(Name) LIKE '%{q}%')
-                        OR     (Fld109 LIKE '{q}%')
+                        WHERE  (UPPER(Name) LIKE '%{nom}%')
+                        OR     (Siren LIKE '{siren}%')
+                        OR     (Fld109 LIKE '{siren}%')
                         ORDER BY UPPER(Name)
                                , UPPER(City)";
-            sql = sql.Replace("{q}", q.ToUpperInvariant());
+            sql = sql.Replace("{nom}", q.ToUpperInvariant());
+            sql = sql.Replace("{siren}", q.ToUpperInvariant().Replace(" ", ""));
 
             try
             {
@@ -53,8 +52,8 @@ namespace Quick5.Models
 
             var sql = @"SELECT IdCompany AS Client_ID
                              , Name AS Nom
-                             , Siren
-                             , Fld109 AS Siret
+                             , Siren AS NSiren
+                             , Fld109 AS NSiret
                              , PostCode AS CodePostal
                              , City AS Ville
                              , Fld138 AS Type
@@ -66,6 +65,67 @@ namespace Quick5.Models
             {
                 connexion.Open();
                 data = connexion.Query<Client>(sql).FirstOrDefault();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                connexion.Close();
+            }
+
+            return data;
+        }
+
+        public IEnumerable<Siren> GetSirens(string q)
+        {
+            IEnumerable<Siren> data = null;
+
+            var sql = @"SELECT ID AS Siren_ID
+                             , Raison_Social AS Nom
+                             , Siren AS NSiren
+                             , DECODE(Blocage, NULL, 0, -1) AS EstBloque
+                        FROM   Ct_Fiche_Siren
+                        WHERE  (Societe_ID = '001')
+                        AND    ((UPPER(Raison_Social) LIKE '%{nom}%') OR (Siren LIKE '{siren}%'))
+                        ORDER BY UPPER(Raison_Social)
+                               , Siren";
+            sql = sql.Replace("{nom}", q.ToUpperInvariant());
+            sql = sql.Replace("{siren}", q.ToUpperInvariant().Replace(" ", ""));
+
+            try
+            {
+                connexion.Open();
+                data = connexion.Query<Siren>(sql);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                connexion.Close();
+            }
+
+            return data;
+        }
+
+        public Siren GetSiren(int id)
+        {
+            var data = new Siren();
+
+            var sql = @"SELECT ID AS Siren_ID
+                             , Raison_Social AS Nom
+                             , Siren AS NSiren
+                             , DECODE(Blocage, NULL, 0, -1) AS EstBloque
+                        FROM   Ct_Fiche_Siren
+                        WHERE  ID = " + id.ToString();
+
+            try
+            {
+                connexion.Open();
+                data = connexion.Query<Siren>(sql).FirstOrDefault();
             }
             catch
             {

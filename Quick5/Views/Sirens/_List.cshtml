@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Quick5.Models.Siren>
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        <th></th>
+        <th>Nom</th>
+        <th>Siren</th>
+        <th>Bloqué?</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <th>@Html.ActionLink(" ", "Details", new { id = item.Siren_ID }, new { @class="glyphicon glyphicon-play" })</th>
+        <td>@Html.DisplayTextFor(modelItem => item.Nom)</td>
+        <td>@Html.DisplayTextFor(modelItem => item.NSiren)</td>
+        <td>@Html.DisplayTextFor(modelItem => item.EstBloque)</td>
+    </tr>
+}
+</tbody>
+</table>
