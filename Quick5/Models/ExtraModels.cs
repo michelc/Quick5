@@ -27,6 +27,7 @@ namespace Quick5.Models
 
         public IEnumerable<Client> Clients { get; set; }
         public IEnumerable<Garantie> Garanties { get; set; }
+        public IEnumerable<Decision> Decisions { get; set; }
     }
 
     public class Garantie
@@ -63,5 +64,26 @@ namespace Quick5.Models
 
         public Client Client { get; set; }
         public Siren Siren { get; set; }
+    }
+
+    public class Decision
+    {
+        public int Decision_ID { get; set; }
+        public int Siren_ID { get; set; }
+        public DateTime DDecision { get; set; }
+        public bool Significatif { get; set; }
+        public string Resultat { get; set; }
+        public string Code { get; set; }
+        public string Condition { get; set; }
+        public decimal Montant { get; set; }
+        public decimal Complement { get; set; }
+        public DateTime Debut { get; set; }
+        public DateTime Fin { get; set; }
+        public DateTime DEntree { get; set; }
+        public string TCode { get; set; }
+        public bool Super { get; set; }
+        public DateTime DUpdate { get; set; }
+        public DateTime DImport { get; set; }
+        public DateTime DFichier { get; set; }
     }
 }

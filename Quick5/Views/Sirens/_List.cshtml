@@ -3,7 +3,7 @@
 <table class="table table-condensed table-striped table-hover">
 <thead>
     <tr>
-        <th></th>
+        <th class="hidden-print"></th>
         <th>Nom</th>
         <th>Siren</th>
         <th>Bloqué?</th>
@@ -13,7 +13,7 @@
 @foreach (var item in Model)
 {
     <tr>
-        <th class="iconwidth">@Html.ActionLink(" ", "Details", "Sirens", new { id = item.Siren_ID }, new { @class="glyphicon glyphicon-play" })</th>
+        <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Details", "Sirens", new { id = item.Siren_ID }, new { @class="glyphicon glyphicon-play" })</th>
         <td>@Html.DisplayFor(modelItem => item.Nom)</td>
         <td>@Html.DisplayFor(modelItem => item.NSiren)</td>
         <td>@Html.DisplayFor(modelItem => item.EstBloque)</td>

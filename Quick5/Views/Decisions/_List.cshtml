@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Quick5.Models.Decision>
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        <th class="hidden-print"></th>
+        <th>Date</th>
+        <th>Sig</th>
+        <th>Resu</th>
+        <th>Code</th>
+        <th>Cond</th>
+        <th>Montant</th>
+        <th>Compl</th>
+        <th>Début</th>
+        <th>Fin</th>
+        <th>Entrée</th>
+        <th>TCode</th>
+        <th>Sup</th>
+        <th>Update</th>
+        <th>Import</th>
+        <th>Fichier</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Details", "Decisions", new { id = item.Decision_ID}, new { @class="glyphicon glyphicon-play" })</th>
+        <td>@Html.DisplayFor(modelItem => item.DDecision)</td>
+        <td>@Html.DisplayFor(modelItem => item.Significatif)</td>
+        <td>@Html.DisplayFor(modelItem => item.Resultat)</td>
+        <td>@Html.DisplayFor(modelItem => item.Code)</td>
+        <td>@Html.DisplayFor(modelItem => item.Condition)</td>
+        <td>@Html.DisplayFor(modelItem => item.Montant)</td>
+        <td>@Html.DisplayFor(modelItem => item.Complement)</td>
+        <td>@Html.DisplayFor(modelItem => item.Debut)</td>
+        <td>@Html.DisplayFor(modelItem => item.Fin)</td>
+        <td>@Html.DisplayFor(modelItem => item.DEntree)</td>
+        <td>@Html.DisplayFor(modelItem => item.TCode)</td>
+        <td>@Html.DisplayFor(modelItem => item.Super)</td>
+        <td>@Html.DisplayFor(modelItem => item.DUpdate)</td>
+        <td>@Html.DisplayFor(modelItem => item.DImport)</td>
+        <td>@Html.DisplayFor(modelItem => item.DFichier)</td>
+    </tr>
+}
+</tbody>
+</table>

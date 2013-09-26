@@ -208,5 +208,64 @@ namespace Quick5.Models
 
             return data;
         }
+
+        public IEnumerable<Decision> GetDecisions(int Siren_ID = 0, int Decision_ID = 0)
+        {
+            IEnumerable<Decision> data = null;
+
+            var sql = @"SELECT H.Historique_ID    AS Decision_ID
+                             , S.ID               AS Siren_ID
+                             , H.Decision_Date    AS DDecision
+                             , DECODE(H.Significatif, 0, 0, -1) AS Significatif
+                             , H.Result_Code      AS Resultat
+                             , H.Decision_Code    AS Code
+                             , H.Condition_Code   AS Condition
+                             , H.Montant
+                             , H.Second_Montant   AS Complement
+                             , H.Date_Effet       AS Debut
+                             , H.Date_Fin_Effet   AS Fin
+                             , H.Date_Entree      AS DEntree
+                             , H.TCode
+                             , DECODE(H.Supersede, 0, 0, -1) AS Super
+                             , H.Date_Last_Update AS DUpdate
+                             , H.Date_Import      AS DImport
+                             , H.Date_Fichier     AS DFichier
+                        FROM   Ct_Historique_Atradius H ";
+
+            if (Decision_ID != 0)
+            {
+                sql += @"    , Ct_Fiche_Siren S
+                         WHERE (H.Historique_ID = {decision_id})
+                         AND   (S.Siren = H.Siren)";
+                sql = sql.Replace("{decision_id}", Decision_ID.ToString());
+            }
+            else
+            {
+                sql += @"    , Ct_Fiche_Siren S
+                         WHERE (S.ID = {siren_id})
+                         AND   (H.Siren = S.Siren)
+                         ORDER BY H.Decision_Date ASC
+                                , H.Date_Effet ASC
+                                , H.Date_Last_Update ASC
+                                , H.Historique_ID ASC";
+                sql = sql.Replace("{siren_id}", Siren_ID.ToString());
+            }
+
+            try
+            {
+                connexion.Open();
+                data = connexion.Query<Decision>(sql);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                connexion.Close();
+            }
+
+            return data;
+        }
     }
 }

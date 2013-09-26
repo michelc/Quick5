@@ -35,6 +35,7 @@ namespace Quick5.Controllers
 
             siren.Clients = db.GetClients(siren.NSiren);
             siren.Garanties = db.GetGaranties(Siren_ID: siren.Siren_ID);
+            siren.Decisions = db.GetDecisions(Siren_ID: siren.Siren_ID).Reverse();
 
             return View(siren);
         }
