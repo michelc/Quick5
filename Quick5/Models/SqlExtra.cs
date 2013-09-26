@@ -163,6 +163,13 @@ namespace Quick5.Models
                              , R.Option_Cap AS CapOption
                              , R.Dte_Debut_Cap AS CapDebut
                              , R.Dte_Fin_Cap AS CapFin
+                             , R.Montant_Deblocage AS Deblocage
+                             , R.Montant_Risque
+                             + R.Montant_Risque_Compl
+                             + R.Garantie_Interne
+                             + R.Mnt_Oal
+                             + R.Mnt_Cap
+                             + R.Montant_Deblocage AS Totale
                         FROM   Ct_Risques_Clients R ";
 
             if (Garantie_ID != 0)
@@ -179,7 +186,9 @@ namespace Quick5.Models
                              , Ct_Fiche_Siren S
                          WHERE (S.ID = {siren_id})
                          AND   (C.Siren = S.Siren)
-                         AND   (R.Client_ID = C.IdCompany)";
+                         AND   (R.Client_ID = C.IdCompany)
+                         ORDER BY UPPER(C.Name)
+                                , UPPER(C.City)";
                 sql = sql.Replace("{siren_id}", Siren_ID.ToString());
             }
 

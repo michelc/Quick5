@@ -58,5 +58,10 @@ namespace Quick5.Models
         public DateTime CapFin { get; set; }
         // Montant déblocage
         public decimal Deblocage { get; set; }
+        // Garantie totale
+        public decimal Totale { get; set; }
+
+        public Client Client { get; set; }
+        public Siren Siren { get; set; }
     }
 }

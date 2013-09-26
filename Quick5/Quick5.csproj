@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\GarantiesController.cs" />
     <Compile Include="Controllers\SirensController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -147,6 +148,7 @@
     <Content Include="Views\Sirens\Details.cshtml" />
     <Content Include="Views\Sirens\Index.cshtml" />
     <Content Include="Views\Garanties\_List.cshtml" />
+    <Content Include="Views\Garanties\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
