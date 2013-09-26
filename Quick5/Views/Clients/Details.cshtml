@@ -10,7 +10,11 @@
 
 <h3>Siren</h3>
 
-<h3>Garanties</h3>
+@Html.Partial("../Sirens/_List", new List<Quick5.Models.Siren>() { Model.Siren })
+
+<h3>Garantie</h3>
+
+@Html.Partial("../Garanties/_List", new List<Quick5.Models.Garantie>() { Model.Garantie })
 
 <h3>Décisions</h3>
 

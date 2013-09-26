@@ -16,7 +16,7 @@
 @foreach (var item in Model)
 {
     <tr>
-        <th>@Html.ActionLink(" ", "Details", new { id = item.Client_ID }, new { @class="glyphicon glyphicon-play" })</th>
+        <th>@Html.ActionLink(" ", "Details", "Clients", new { id = item.Client_ID }, new { @class="glyphicon glyphicon-play" })</th>
         <td>@Html.DisplayTextFor(modelItem => item.Nom)</td>
         <td>@Html.DisplayTextFor(modelItem => item.NSiret)</td>
         <td>@Html.DisplayTextFor(modelItem => item.CodePostal)</td>

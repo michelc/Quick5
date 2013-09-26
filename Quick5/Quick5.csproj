@@ -146,6 +146,7 @@
     <Content Include="Views\Sirens\_List.cshtml" />
     <Content Include="Views\Sirens\Details.cshtml" />
     <Content Include="Views\Sirens\Index.cshtml" />
+    <Content Include="Views\Garanties\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

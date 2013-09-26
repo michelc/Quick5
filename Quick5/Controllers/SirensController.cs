@@ -33,6 +33,9 @@ namespace Quick5.Controllers
             var db = new SqlExtra();
             var siren = db.GetSiren(id);
 
+            siren.Clients = db.GetClients(siren.NSiren);
+            siren.Garanties = db.GetGaranties(Siren_ID: siren.Siren_ID);
+
             return View(siren);
         }
     }

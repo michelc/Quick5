@@ -138,5 +138,66 @@ namespace Quick5.Models
 
             return data;
         }
+
+        public IEnumerable<Garantie> GetGaranties(int Siren_ID = 0, int Client_ID = 0, int Garantie_ID = 0)
+        {
+            IEnumerable<Garantie> data = null;
+
+            var sql = @"SELECT R.Risque_ID AS Garantie_ID
+                             , R.Client_ID
+                             , R.Montant_Risque AS GarMontant
+                             , R.Option_Risque AS GarOption
+                             , R.Date_Risque AS GarDate
+                             , R.Periode_Debut AS GarDebut
+                             , R.Periode_Fin AS GarFin
+                             , R.Montant_Risque_Compl AS CplMontant
+                             , R.Date_Debut_Risque AS CplDebut
+                             , R.Date_Fin_Risque AS CplFin
+                             , R.Garantie_Interne AS IntMontant
+                             , R.Garantie_Periode_Debut AS IntDebut
+                             , R.Garantie_Periode_Fin AS IntFin
+                             , R.Mnt_Oal AS OalMontant
+                             , R.Dte_Debut_Oal AS OalDebut
+                             , R.Dte_Fin_Oal AS OalFin
+                             , R.Mnt_Cap AS CapMontant
+                             , R.Option_Cap AS CapOption
+                             , R.Dte_Debut_Cap AS CapDebut
+                             , R.Dte_Fin_Cap AS CapFin
+                        FROM   Ct_Risques_Clients R ";
+
+            if (Garantie_ID != 0)
+            {
+                sql += "WHERE R.Risque_ID = " + Garantie_ID.ToString();
+            }
+            else if (Client_ID != 0)
+            {
+                sql += "WHERE R.Client_ID = " + Client_ID.ToString();
+            }
+            else
+            {
+                sql += @"    , Cy C
+                             , Ct_Fiche_Siren S
+                         WHERE (S.ID = {siren_id})
+                         AND   (C.Siren = S.Siren)
+                         AND   (R.Client_ID = C.IdCompany)";
+                sql = sql.Replace("{siren_id}", Siren_ID.ToString());
+            }
+
+            try
+            {
+                connexion.Open();
+                data = connexion.Query<Garantie>(sql);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                connexion.Close();
+            }
+
+            return data;
+        }
     }
 }

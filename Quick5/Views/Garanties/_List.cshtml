@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Quick5.Models.Garantie>
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        <th></th>
+        <th>Garantie</th>
+        <th>Montant</th>
+        <th>Complément</th>
+        <th>Interne</th>
+        <th>Oal</th>
+        <th>Cap</th>
+        <th>Montant</th>
+        <th>Déblocage</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <th>@Html.ActionLink(" ", "Details", "Garanties", new { id = item.Garantie_ID}, new { @class="glyphicon glyphicon-play" })</th>
+        <td>@Html.DisplayTextFor(modelItem => item.GarOption)</td>
+        <td>@Html.DisplayTextFor(modelItem => item.GarMontant)</td>
+        <td>@Html.DisplayTextFor(modelItem => item.CplMontant)</td>
+        <td>@Html.DisplayTextFor(modelItem => item.IntMontant)</td>
+        <td>@Html.DisplayTextFor(modelItem => item.OalMontant)</td>
+        <td>@Html.DisplayTextFor(modelItem => item.CapOption)</td>
+        <td>@Html.DisplayTextFor(modelItem => item.CapMontant)</td>
+        <td>@Html.DisplayTextFor(modelItem => item.Deblocage)</td>
+    </tr>
+}
+</tbody>
+</table>
