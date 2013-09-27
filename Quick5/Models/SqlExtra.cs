@@ -40,7 +40,7 @@ namespace Quick5.Models
                              , Fld138 AS Type
                              , DECODE(Fld129, NULL, 0, -1) AS EstBloque
                         FROM   Cy
-                        WHERE  (Siren = '{siren}%')
+                        WHERE  (Siren = '{siren}')
                         ORDER BY UPPER(Name)
                                , UPPER(City)";
                 sql = sql.Replace("{siren}", NSiren);
