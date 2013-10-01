@@ -17,7 +17,7 @@ namespace Quick5.Controllers
             {
                 if (q.Length > 3)
                 {
-                    var db = new SqlExtra();
+                    var db = new ExtraBase();
                     clients = db.GetClients(q).ToList();
                 }
             }
@@ -30,7 +30,7 @@ namespace Quick5.Controllers
 
         public ViewResult Details(int id)
         {
-            var db = new SqlExtra();
+            var db = new ExtraBase();
             var client = db.GetClient(id);
 
             client.Siren = db.GetSirens(client.NSiren).FirstOrDefault();

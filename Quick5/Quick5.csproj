@@ -120,6 +120,7 @@
     <Compile Include="Models\ExtraModels.cs" />
     <Compile Include="Models\SqlBase.cs" />
     <Compile Include="Models\SqlExtra.cs" />
+    <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

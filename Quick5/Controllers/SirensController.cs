@@ -18,7 +18,7 @@ namespace Quick5.Controllers
             {
                 if (q.Length > 3)
                 {
-                    var db = new SqlExtra();
+                    var db = new ExtraBase();
                     sirens = db.GetSirens(q).ToList();
 
                     if (sirens.Count() == 1)
@@ -37,7 +37,7 @@ namespace Quick5.Controllers
 
         public ViewResult Details(int id)
         {
-            var db = new SqlExtra();
+            var db = new ExtraBase();
 
             var profiler = MiniProfiler.Current;
 
@@ -70,7 +70,7 @@ namespace Quick5.Controllers
 
         public ViewResult Details_Backup(int id)
         {
-            var db = new SqlExtra();
+            var db = new ExtraBase();
             var siren = db.GetSiren(id);
 
             siren.Clients = db.GetClients(siren.NSiren);

@@ -6,9 +6,9 @@ using Quick5.Helpers;
 
 namespace Quick5.Models
 {
-    public class SqlExtra : SqlBase
+    public class ExtraBase : SqlBase
     {
-        public SqlExtra() : base("Extra") { }
+        public ExtraBase() : base("Extra") { }
 
         public IEnumerable<Client> GetClients(string q, string NSiren = "")
         {

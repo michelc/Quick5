@@ -12,7 +12,7 @@ namespace Quick5.Controllers
 
         public ViewResult Details(int id)
         {
-            var db = new SqlExtra();
+            var db = new ExtraBase();
             var garantie = db.GetGaranties(Garantie_ID: id).FirstOrDefault();
 
             garantie.Client = db.GetClient(garantie.Client_ID);
