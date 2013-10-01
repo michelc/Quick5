@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="Helpers\BootstrapHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\Tools.cs" />
     <Compile Include="Models\ExtraModels.cs" />
     <Compile Include="Models\SqlBase.cs" />
     <Compile Include="Models\SqlExtra.cs" />

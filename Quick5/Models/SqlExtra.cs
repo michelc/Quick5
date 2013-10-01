@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using Quick5.Helpers;
 
 namespace Quick5.Models
 {
@@ -104,13 +105,32 @@ namespace Quick5.Models
                              , Siren AS NSiren
                              , DECODE(Blocage, NULL, 0, -1) AS EstBloque
                         FROM   Ct_Fiche_Siren
-                        WHERE  (Societe_ID = '001')
-                        AND    ((UPPER(Raison_Social) LIKE '%{nom}%') OR (Siren LIKE '{siren}%'))
-                        ORDER BY UPPER(Raison_Social)
-                               , Siren";
+                        WHERE  (Societe_ID = '001') ";
 
-            sql = sql.Replace("{nom}", q.ToUpperInvariant());
-            sql = sql.Replace("{siren}", q.ToUpperInvariant().Replace(" ", ""));
+            var siren = Tools.DigitOnly(q);
+            if (siren.Length == 9)
+            {
+                // Recherche par n° siren
+                sql += "AND    (Siren = '{siren}')";
+                sql = sql.Replace("{siren}", siren);
+            }
+            else if (siren.Length < 3)
+            {
+                // Recherche par raison sociale seule
+                sql += @"AND    (UPPER(Raison_Social) LIKE '%{nom}%')
+                         ORDER BY UPPER(Raison_Social)
+                               , Siren";
+                sql = sql.Replace("{nom}", q.ToUpperInvariant());
+            }
+            else
+            {
+                // Recherche par raison sociale ou n° siren
+                sql += @"AND    ((UPPER(Raison_Social) LIKE '%{nom}%') OR (Siren LIKE '{siren}%'))
+                         ORDER BY UPPER(Raison_Social)
+                               , Siren";
+                sql = sql.Replace("{nom}", q.ToUpperInvariant());
+                sql = sql.Replace("{siren}", siren);
+            }
 
             try
             {
