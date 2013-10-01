@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Dapper;
 using Quick5.Helpers;
 
@@ -98,12 +99,12 @@ namespace Quick5.Models
 
         public IEnumerable<Siren> GetSirens(string q)
         {
-            IEnumerable<Siren> data = null;
+            IEnumerable<DbSiren> data = null;
 
-            var sql = @"SELECT ID AS Siren_ID
-                             , Raison_Social AS Nom
-                             , Siren AS NSiren
-                             , DECODE(Blocage, NULL, 0, -1) AS EstBloque
+            var sql = @"SELECT ID
+                             , Raison_Social
+                             , Siren
+                             , Blocage
                         FROM   Ct_Fiche_Siren
                         WHERE  (Societe_ID = '001') ";
 
@@ -135,7 +136,7 @@ namespace Quick5.Models
             try
             {
                 connexion.Open();
-                data = connexion.Query<Siren>(sql);
+                data = connexion.Query<DbSiren>(sql);
             }
             catch
             {
@@ -146,24 +147,25 @@ namespace Quick5.Models
                 connexion.Close();
             }
 
-            return data;
+            var view_model = Mapper.Map<IEnumerable<DbSiren>, IEnumerable<Siren>>(data);
+            return view_model;
         }
 
         public Siren GetSiren(int id)
         {
-            var data = new Siren();
+            var data = new DbSiren();
 
-            var sql = @"SELECT ID AS Siren_ID
-                             , Raison_Social AS Nom
-                             , Siren AS NSiren
-                             , DECODE(Blocage, NULL, 0, -1) AS EstBloque
+            var sql = @"SELECT ID
+                             , Raison_Social
+                             , Siren
+                             , Blocage
                         FROM   Ct_Fiche_Siren
                         WHERE  ID = " + id.ToString();
 
             try
             {
                 connexion.Open();
-                data = connexion.Query<Siren>(sql).FirstOrDefault();
+                data = connexion.Query<DbSiren>(sql).FirstOrDefault();
             }
             catch
             {
@@ -174,7 +176,8 @@ namespace Quick5.Models
                 connexion.Close();
             }
 
-            return data;
+            var view_model = Mapper.Map<Siren>(data);
+            return view_model;
         }
 
         public IEnumerable<Garantie> GetGaranties(int Siren_ID = 0, int Client_ID = 0, int Garantie_ID = 0)

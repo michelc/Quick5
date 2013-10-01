@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Quick5.Models;
 using StackExchange.Profiling;
 
 namespace Quick5
@@ -17,6 +18,8 @@ namespace Quick5
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            AutoMapperConfiguration.Configure();
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

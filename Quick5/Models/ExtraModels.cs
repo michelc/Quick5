@@ -18,6 +18,14 @@ namespace Quick5.Models
         public Garantie Garantie { get; set; }
     }
 
+    public class DbSiren
+    {
+        public int ID { get; set; }
+        public string Raison_Social { get; set; }
+        public string Siren { get; set; }
+        public string Blocage { get; set; }
+    }
+
     public class Siren
     {
         public int Siren_ID { get; set; }
