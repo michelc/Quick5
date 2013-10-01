@@ -12,16 +12,16 @@ namespace Quick5.Models
 
         public IEnumerable<Client> GetClients(string q, string NSiren = "")
         {
-            IEnumerable<Client> data = null;
+            IEnumerable<DbClient> data = null;
 
-            var sql = @"SELECT IdCompany AS Client_ID
-                             , Name AS Nom
-                             , Siren AS NSiren
-                             , Fld109 AS NSiret
-                             , PostCode AS CodePostal
-                             , City AS Ville
-                             , Fld138 AS Type
-                             , DECODE(Fld129, NULL, 0, -1) AS EstBloque
+            var sql = @"SELECT IdCompany
+                             , Name
+                             , Siren
+                             , Fld109
+                             , PostCode
+                             , City
+                             , Fld138
+                             , Fld129
                         FROM   Cy
                         WHERE  (UPPER(Name) LIKE '%{nom}%')
                         OR     (Siren LIKE '{siren}%')
@@ -33,14 +33,14 @@ namespace Quick5.Models
 
             if (NSiren != "")
             {
-                sql = @"SELECT IdCompany AS Client_ID
-                             , Name AS Nom
-                             , Siren AS NSiren
-                             , Fld109 AS NSiret
-                             , PostCode AS CodePostal
-                             , City AS Ville
-                             , Fld138 AS Type
-                             , DECODE(Fld129, NULL, 0, -1) AS EstBloque
+                sql = @"SELECT IdCompany
+                             , Name
+                             , Siren
+                             , Fld109
+                             , PostCode
+                             , City
+                             , Fld138
+                             , Fld129
                         FROM   Cy
                         WHERE  (Siren = '{siren}')
                         ORDER BY UPPER(Name)
@@ -51,7 +51,7 @@ namespace Quick5.Models
             try
             {
                 connexion.Open();
-                data = connexion.Query<Client>(sql);
+                data = connexion.Query<DbClient>(sql);
             }
             catch
             {
@@ -62,28 +62,29 @@ namespace Quick5.Models
                 connexion.Close();
             }
 
-            return data;
+            var view_model = Mapper.Map<IEnumerable<DbClient>, IEnumerable<Client>>(data);
+            return view_model;
         }
 
         public Client GetClient(int id)
         {
-            var data = new Client();
+            var data = new DbClient();
 
-            var sql = @"SELECT IdCompany AS Client_ID
-                             , Name AS Nom
-                             , Siren AS NSiren
-                             , Fld109 AS NSiret
-                             , PostCode AS CodePostal
-                             , City AS Ville
-                             , Fld138 AS Type
-                             , DECODE(Fld129, NULL, 0, -1) AS EstBloque
+            var sql = @"SELECT IdCompany
+                             , Name
+                             , Siren
+                             , Fld109
+                             , PostCode
+                             , City
+                             , Fld138
+                             , Fld129
                         FROM   Cy
                         WHERE  IdCompany = " + id.ToString();
 
             try
             {
                 connexion.Open();
-                data = connexion.Query<Client>(sql).FirstOrDefault();
+                data = connexion.Query<DbClient>(sql).FirstOrDefault();
             }
             catch
             {
@@ -94,7 +95,8 @@ namespace Quick5.Models
                 connexion.Close();
             }
 
-            return data;
+            var view_model = Mapper.Map<Client>(data);
+            return view_model;
         }
 
         public IEnumerable<Siren> GetSirens(string q)

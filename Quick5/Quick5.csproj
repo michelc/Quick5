@@ -117,9 +117,9 @@
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="Models\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\ExtraBase.cs" />
     <Compile Include="Models\ExtraModels.cs" />
     <Compile Include="Models\SqlBase.cs" />
-    <Compile Include="Models\SqlExtra.cs" />
     <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
