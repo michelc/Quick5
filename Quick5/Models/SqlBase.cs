@@ -15,6 +15,7 @@ namespace Quick5.Models
         public SqlBase(string config_key)
         {
             connexion = GetConnection(config_key);
+            MvcApplication.IsDbProduction = connexion.ConnectionString.ToUpper().Contains("=EXTRACV;");
         }
 
         private IDbConnection GetConnection(string config_key)

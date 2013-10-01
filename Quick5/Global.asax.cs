@@ -9,6 +9,8 @@ namespace Quick5
     // visitez http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
+        public static bool IsDbProduction { get; set; }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
