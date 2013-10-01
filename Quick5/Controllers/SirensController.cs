@@ -20,6 +20,12 @@ namespace Quick5.Controllers
                 {
                     var db = new SqlExtra();
                     sirens = db.GetSirens(q).ToList();
+
+                    if (sirens.Count() == 1)
+                    {
+                        var id = sirens.First().Siren_ID;
+                        return RedirectToAction("Details", new { id });
+                    }
                 }
             }
 
