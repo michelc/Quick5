@@ -50,6 +50,9 @@
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.13\lib\net45\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper.SimpleCRUD">
+      <HintPath>..\packages\Dapper.SimpleCRUD.1.2.2\lib\net40\Dapper.SimpleCRUD.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MiniProfiler">
       <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
