@@ -184,35 +184,29 @@ namespace Quick5.Models
 
         public IEnumerable<Garantie> GetGaranties(int Siren_ID = 0, int Client_ID = 0, int Garantie_ID = 0)
         {
-            IEnumerable<Garantie> data = null;
+            IEnumerable<DbGarantie> data = null;
 
-            var sql = @"SELECT R.Risque_ID AS Garantie_ID
+            var sql = @"SELECT R.Risque_ID
                              , R.Client_ID
-                             , R.Montant_Risque AS GarMontant
-                             , R.Option_Risque AS GarOption
-                             , R.Date_Risque AS GarDate
-                             , R.Periode_Debut AS GarDebut
-                             , R.Periode_Fin AS GarFin
-                             , R.Montant_Risque_Compl AS CplMontant
-                             , R.Date_Debut_Risque AS CplDebut
-                             , R.Date_Fin_Risque AS CplFin
-                             , R.Garantie_Interne AS IntMontant
-                             , R.Garantie_Periode_Debut AS IntDebut
-                             , R.Garantie_Periode_Fin AS IntFin
-                             , R.Mnt_Oal AS OalMontant
-                             , R.Dte_Debut_Oal AS OalDebut
-                             , R.Dte_Fin_Oal AS OalFin
-                             , R.Mnt_Cap AS CapMontant
-                             , R.Option_Cap AS CapOption
-                             , R.Dte_Debut_Cap AS CapDebut
-                             , R.Dte_Fin_Cap AS CapFin
-                             , R.Montant_Deblocage AS Deblocage
                              , R.Montant_Risque
-                             + R.Montant_Risque_Compl
-                             + R.Garantie_Interne
-                             + R.Mnt_Oal
-                             + R.Mnt_Cap
-                             + R.Montant_Deblocage AS Totale
+                             , R.Option_Risque
+                             , R.Date_Risque
+                             , R.Periode_Debut
+                             , R.Periode_Fin
+                             , R.Montant_Risque_Compl
+                             , R.Date_Debut_Risque
+                             , R.Date_Fin_Risque
+                             , R.Garantie_Interne
+                             , R.Garantie_Periode_Debut
+                             , R.Garantie_Periode_Fin
+                             , R.Mnt_Oal
+                             , R.Dte_Debut_Oal
+                             , R.Dte_Fin_Oal
+                             , R.Mnt_Cap
+                             , R.Option_Cap
+                             , R.Dte_Debut_Cap
+                             , R.Dte_Fin_Cap
+                             , R.Montant_Deblocage
                         FROM   Ct_Risques_Clients R ";
 
             if (Garantie_ID != 0)
@@ -238,7 +232,7 @@ namespace Quick5.Models
             try
             {
                 connexion.Open();
-                data = connexion.Query<Garantie>(sql);
+                data = connexion.Query<DbGarantie>(sql);
             }
             catch
             {
@@ -249,30 +243,31 @@ namespace Quick5.Models
                 connexion.Close();
             }
 
-            return data;
+            var view_model = Mapper.Map<IEnumerable<DbGarantie>, IEnumerable<Garantie>>(data);
+            return view_model;
         }
 
         public IEnumerable<Decision> GetDecisions(int Siren_ID = 0, int Decision_ID = 0)
         {
-            IEnumerable<Decision> data = null;
+            IEnumerable<DbDecision> data = null;
 
-            var sql = @"SELECT H.Historique_ID    AS Decision_ID
-                             , S.ID               AS Siren_ID
-                             , H.Decision_Date    AS DDecision
-                             , DECODE(H.Significatif, 0, 0, -1) AS Significatif
-                             , H.Result_Code      AS Resultat
-                             , H.Decision_Code    AS Code
-                             , H.Condition_Code   AS Condition
+            var sql = @"SELECT H.Historique_ID
+                             , S.ID AS Siren_ID
+                             , H.Decision_Date
+                             , H.Significatif
+                             , H.Result_Code
+                             , H.Decision_Code
+                             , H.Condition_Code
                              , H.Montant
-                             , H.Second_Montant   AS Complement
-                             , H.Date_Effet       AS Debut
-                             , H.Date_Fin_Effet   AS Fin
-                             , H.Date_Entree      AS DEntree
+                             , H.Second_Montant
+                             , H.Date_Effet
+                             , H.Date_Fin_Effet
+                             , H.Date_Entree
                              , H.TCode
-                             , DECODE(H.Supersede, 0, 0, -1) AS Super
-                             , H.Date_Last_Update AS DUpdate
-                             , H.Date_Import      AS DImport
-                             , H.Date_Fichier     AS DFichier
+                             , H.Supersede
+                             , H.Date_Last_Update
+                             , H.Date_Import
+                             , H.Date_Fichier
                         FROM   Ct_Historique_Atradius H ";
 
             if (Decision_ID != 0)
@@ -297,7 +292,7 @@ namespace Quick5.Models
             try
             {
                 connexion.Open();
-                data = connexion.Query<Decision>(sql);
+                data = connexion.Query<DbDecision>(sql);
             }
             catch
             {
@@ -308,7 +303,8 @@ namespace Quick5.Models
                 connexion.Close();
             }
 
-            return data;
+            var view_model = Mapper.Map<IEnumerable<DbDecision>, IEnumerable<Decision>>(data);
+            return view_model;
         }
     }
 }
