@@ -10,7 +10,7 @@ namespace Quick5.Models
     {
         public ExtraBase() : base("Extra") { }
 
-        public IEnumerable<Client> GetClients(string q, string NSiren = "")
+        public IEnumerable<Client> GetClients(string q)
         {
             IEnumerable<DbClient> data = null;
 
@@ -22,36 +22,40 @@ namespace Quick5.Models
                              , City
                              , Fld138
                              , Fld129
-                        FROM   Cy
-                        WHERE  (UPPER(Name) LIKE '%{nom}%')
-                        OR     (Siren LIKE '{siren}%')
-                        OR     (Fld109 LIKE '{siren}%')
-                        ORDER BY UPPER(Name)
-                               , UPPER(City)";
-            sql = sql.Replace("{nom}", q.ToUpperInvariant());
-            sql = sql.Replace("{siren}", q.ToUpperInvariant().Replace(" ", ""));
-
-            if (NSiren != "")
-            {
-                sql = @"SELECT IdCompany
-                             , Name
-                             , Siren
-                             , Fld109
-                             , PostCode
-                             , City
-                             , Fld138
-                             , Fld129
-                        FROM   Cy
-                        WHERE  (Siren = '{siren}')
-                        ORDER BY UPPER(Name)
-                               , UPPER(City)";
-                sql = sql.Replace("{siren}", NSiren);
-            }
+                        FROM   Cy ";
 
             try
             {
                 connexion.Open();
-                data = connexion.Query<DbClient>(sql);
+
+                var siren = Tools.DigitOnly(q);
+                object param = null;
+                if (siren.Length >= 14)
+                {
+                    // Recherche par n° siret
+                    sql += "WHERE  (Fld109 = :Siret)";
+                    param = new { Siret = siren.Substring(0, 14) };
+                }
+                else if (siren.Length >= 9)
+                {
+                    // Recherche par n° siren
+                    sql += "WHERE  (Siren = :Siren)";
+                    param = new { Siren = siren.Substring(0, 9) };
+                }
+                else if (siren.Length < 3)
+                {
+                    // Recherche par nom client seul
+                    sql += "WHERE  (UPPER(Name) LIKE :Nom)";
+                    param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
+                }
+                else
+                {
+                    // Recherche par nom client ou n° siren
+                    sql += "WHERE  ((UPPER(Name) LIKE :Nom) OR (Siren LIKE :Siren))";
+                    param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
+                }
+                sql += " ORDER BY UPPER(Name), UPPER(City)";
+                data = connexion.Query<DbClient>(sql, param);
             }
             catch
             {
@@ -79,12 +83,12 @@ namespace Quick5.Models
                              , Fld138
                              , Fld129
                         FROM   Cy
-                        WHERE  IdCompany = " + id.ToString();
+                        WHERE  IdCompany = :Id";
 
             try
             {
                 connexion.Open();
-                data = connexion.Query<DbClient>(sql).FirstOrDefault();
+                data = connexion.Query<DbClient>(sql, new { id }).FirstOrDefault();
             }
             catch
             {
@@ -110,35 +114,32 @@ namespace Quick5.Models
                         FROM   Ct_Fiche_Siren
                         WHERE  (Societe_ID = '001') ";
 
-            var siren = Tools.DigitOnly(q);
-            if (siren.Length == 9)
-            {
-                // Recherche par n° siren
-                sql += "AND    (Siren = '{siren}')";
-                sql = sql.Replace("{siren}", siren);
-            }
-            else if (siren.Length < 3)
-            {
-                // Recherche par raison sociale seule
-                sql += @"AND    (UPPER(Raison_Social) LIKE '%{nom}%')
-                         ORDER BY UPPER(Raison_Social)
-                               , Siren";
-                sql = sql.Replace("{nom}", q.ToUpperInvariant());
-            }
-            else
-            {
-                // Recherche par raison sociale ou n° siren
-                sql += @"AND    ((UPPER(Raison_Social) LIKE '%{nom}%') OR (Siren LIKE '{siren}%'))
-                         ORDER BY UPPER(Raison_Social)
-                               , Siren";
-                sql = sql.Replace("{nom}", q.ToUpperInvariant());
-                sql = sql.Replace("{siren}", siren);
-            }
-
             try
             {
                 connexion.Open();
-                data = connexion.Query<DbSiren>(sql);
+
+                var siren = Tools.DigitOnly(q);
+                object param = null;
+                if (siren.Length >= 9)
+                {
+                    // Recherche par n° siren
+                    sql += "AND    (Siren = :Siren)";
+                    param = new { Siren = siren.Substring(0, 9) };
+                }
+                else if (siren.Length < 3)
+                {
+                    // Recherche par raison sociale seule
+                    sql += "AND    (UPPER(Raison_Social) LIKE :Nom)";
+                    param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
+                }
+                else
+                {
+                    // Recherche par raison sociale ou n° siren
+                    sql += "AND    ((UPPER(Raison_Social) LIKE :Nom) OR (Siren LIKE :Siren))";
+                    param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
+                }
+                sql += " ORDER BY UPPER(Raison_Social), Siren";
+                data = connexion.Query<DbSiren>(sql, param);
             }
             catch
             {
@@ -162,12 +163,12 @@ namespace Quick5.Models
                              , Siren
                              , Blocage
                         FROM   Ct_Fiche_Siren
-                        WHERE  ID = " + id.ToString();
+                        WHERE  ID = :Id";
 
             try
             {
                 connexion.Open();
-                data = connexion.Query<DbSiren>(sql).FirstOrDefault();
+                data = connexion.Query<DbSiren>(sql, new { id }).FirstOrDefault();
             }
             catch
             {
