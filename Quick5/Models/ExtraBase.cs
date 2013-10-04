@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Dapper;
@@ -107,19 +108,14 @@ namespace Quick5.Models
         {
             IEnumerable<DbSiren> data = null;
 
-            var sql = @"SELECT ID
-                             , Raison_Social
-                             , Siren
-                             , Blocage
-                        FROM   Ct_Fiche_Siren
-                        WHERE  (Societe_ID = '001') ";
-
             try
             {
                 connexion.Open();
 
+                var sql = SirenTools.Sql() + "WHERE  (Societe_ID = '001')" + Environment.NewLine;
                 var siren = Tools.DigitOnly(q);
                 object param = null;
+
                 if (siren.Length >= 9)
                 {
                     // Recherche par n° siren
@@ -158,16 +154,10 @@ namespace Quick5.Models
         {
             var data = new DbSiren();
 
-            var sql = @"SELECT ID
-                             , Raison_Social
-                             , Siren
-                             , Blocage
-                        FROM   Ct_Fiche_Siren
-                        WHERE  ID = :Id";
-
             try
             {
                 connexion.Open();
+                var sql = SirenTools.Sql() + "WHERE  (ID = :Id)";
                 data = connexion.Query<DbSiren>(sql, new { id }).FirstOrDefault();
             }
             catch

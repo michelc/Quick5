@@ -18,18 +18,6 @@ namespace Quick5.Models
         public Garantie Garantie { get; set; }
     }
 
-    public class Siren
-    {
-        public int Siren_ID { get; set; }
-        public string Nom { get; set; }
-        public string NSiren { get; set; }
-        public bool EstBloque { get; set; }
-
-        public IEnumerable<Client> Clients { get; set; }
-        public IEnumerable<Garantie> Garanties { get; set; }
-        public IEnumerable<Decision> Decisions { get; set; }
-    }
-
     public class Garantie
     {
         public int Garantie_ID { get; set; }

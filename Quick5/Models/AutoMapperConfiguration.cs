@@ -7,14 +7,7 @@ namespace Quick5.Models
         public static void Configure()
         {
             // Siren
-            // http://stackoverflow.com/questions/954480/automapper-ignore-the-rest#8433682
-            Mapper.CreateMap<DbSiren, Siren>().ForAllMembers(opt => opt.Ignore());
-            Mapper.CreateMap<DbSiren, Siren>()
-                .ForMember(dest => dest.Siren_ID, opt => opt.MapFrom(src => src.ID))
-                .ForMember(dest => dest.Nom, opt => opt.MapFrom(src => src.Raison_Social))
-                .ForMember(dest => dest.NSiren, opt => opt.MapFrom(src => src.Siren))
-                .ForMember(dest => dest.EstBloque, opt => opt.MapFrom(src => !string.IsNullOrEmpty(src.Blocage)))
-                ;
+            SirenTools.AutoMap();
 
             // Client
             Mapper.CreateMap<DbClient, Client>().ForAllMembers(opt => opt.Ignore());
