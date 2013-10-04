@@ -11,6 +11,21 @@ namespace Quick5.Models
     {
         public ExtraBase() : base("Extra") { }
 
+        public Sirens Sirens
+        {
+            get
+            {
+                if (_Sirens == null) _Sirens = new Sirens(this.connexion);
+                return _Sirens;
+            }
+            set
+            {
+                _Sirens = value;
+            }
+
+        }
+        private Sirens _Sirens;
+
         public IEnumerable<Client> GetClients(string q)
         {
             IEnumerable<DbClient> data = null;
@@ -101,75 +116,6 @@ namespace Quick5.Models
             }
 
             var view_model = Mapper.Map<Client>(data);
-            return view_model;
-        }
-
-        public IEnumerable<Siren> GetSirens(string q)
-        {
-            IEnumerable<DbSiren> data = null;
-
-            try
-            {
-                connexion.Open();
-
-                var sql = SirenTools.Sql() + "WHERE  (Societe_ID = '001')" + Environment.NewLine;
-                var siren = Tools.DigitOnly(q);
-                object param = null;
-
-                if (siren.Length >= 9)
-                {
-                    // Recherche par n° siren
-                    sql += "AND    (Siren = :Siren)";
-                    param = new { Siren = siren.Substring(0, 9) };
-                }
-                else if (siren.Length < 3)
-                {
-                    // Recherche par raison sociale seule
-                    sql += "AND    (UPPER(Raison_Social) LIKE :Nom)";
-                    param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
-                }
-                else
-                {
-                    // Recherche par raison sociale ou n° siren
-                    sql += "AND    ((UPPER(Raison_Social) LIKE :Nom) OR (Siren LIKE :Siren))";
-                    param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
-                }
-                sql += " ORDER BY UPPER(Raison_Social), Siren";
-                data = connexion.Query<DbSiren>(sql, param);
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
-            }
-
-            var view_model = Mapper.Map<IEnumerable<DbSiren>, IEnumerable<Siren>>(data);
-            return view_model;
-        }
-
-        public Siren GetSiren(int id)
-        {
-            var data = new DbSiren();
-
-            try
-            {
-                connexion.Open();
-                var sql = SirenTools.Sql() + "WHERE  (ID = :Id)";
-                data = connexion.Query<DbSiren>(sql, new { id }).FirstOrDefault();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
-            }
-
-            var view_model = Mapper.Map<Siren>(data);
             return view_model;
         }
 

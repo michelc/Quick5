@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using AutoMapper;
+using Dapper;
+using Quick5.Helpers;
 
 namespace Quick5.Models
 {
@@ -32,28 +37,89 @@ namespace Quick5.Models
     /// <summary>
     /// Fonctions utilitaires pour gérer les sirens
     /// </summary>
-    public static class SirenTools
+    public class Sirens
     {
-        /// <summary>
-        /// Configuration AutoMapper pour passer de DbSiren à Siren
-        /// </summary>
-        public static void AutoMap()
+        private IDbConnection connexion;
+
+        public Sirens(IDbConnection connexion)
         {
-            // http://stackoverflow.com/questions/954480/automapper-ignore-the-rest#8433682
-            Mapper.CreateMap<DbSiren, Siren>().ForAllMembers(opt => opt.Ignore());
-            Mapper.CreateMap<DbSiren, Siren>()
-                .ForMember(dest => dest.Siren_ID, opt => opt.MapFrom(src => src.ID))
-                .ForMember(dest => dest.Nom, opt => opt.MapFrom(src => src.Raison_Social))
-                .ForMember(dest => dest.NSiren, opt => opt.MapFrom(src => src.Siren))
-                .ForMember(dest => dest.EstBloque, opt => opt.MapFrom(src => !string.IsNullOrEmpty(src.Blocage)))
-                ;
+            this.connexion = connexion;
+        }
+
+        public IEnumerable<Siren> List(string q)
+        {
+            IEnumerable<DbSiren> data = null;
+
+            try
+            {
+                connexion.Open();
+
+                var sql = Sql() + "WHERE  (Societe_ID = '001')" + Environment.NewLine;
+                var siren = Tools.DigitOnly(q);
+                object param = null;
+
+                if (siren.Length >= 9)
+                {
+                    // Recherche par n° siren
+                    sql += "AND    (Siren = :Siren)";
+                    param = new { Siren = siren.Substring(0, 9) };
+                }
+                else if (siren.Length < 3)
+                {
+                    // Recherche par raison sociale seule
+                    sql += "AND    (UPPER(Raison_Social) LIKE :Nom)";
+                    param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
+                }
+                else
+                {
+                    // Recherche par raison sociale ou n° siren
+                    sql += "AND    ((UPPER(Raison_Social) LIKE :Nom) OR (Siren LIKE :Siren))";
+                    param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
+                }
+                sql += " ORDER BY UPPER(Raison_Social), Siren";
+                data = connexion.Query<DbSiren>(sql, param);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                connexion.Close();
+            }
+
+            var view_model = Mapper.Map<IEnumerable<DbSiren>, IEnumerable<Siren>>(data);
+            return view_model;
+        }
+
+        public Siren Get(int id)
+        {
+            var data = new DbSiren();
+
+            try
+            {
+                connexion.Open();
+                var sql = Sql() + "WHERE  (ID = :Id)";
+                data = connexion.Query<DbSiren>(sql, new { id }).FirstOrDefault();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                connexion.Close();
+            }
+
+            var view_model = Mapper.Map<Siren>(data);
+            return view_model;
         }
 
         /// <summary>
         /// Requête SQL pour attaquer la table des Sirens
         /// </summary>
         /// <returns></returns>
-        public static string Sql()
+        private string Sql()
         {
             var sql = @"SELECT ID
                              , Raison_Social
@@ -63,6 +129,24 @@ namespace Quick5.Models
                         ";
 
             return sql;
+        }
+    }
+
+    public static partial class AutoMapConfigure
+    {
+        /// <summary>
+        /// Configuration AutoMapper pour passer de DbSiren à Siren
+        /// </summary>
+        public static void Sirens()
+        {
+            // http://stackoverflow.com/questions/954480/automapper-ignore-the-rest#8433682
+            Mapper.CreateMap<DbSiren, Siren>().ForAllMembers(opt => opt.Ignore());
+            Mapper.CreateMap<DbSiren, Siren>()
+                .ForMember(dest => dest.Siren_ID, opt => opt.MapFrom(src => src.ID))
+                .ForMember(dest => dest.Nom, opt => opt.MapFrom(src => src.Raison_Social))
+                .ForMember(dest => dest.NSiren, opt => opt.MapFrom(src => src.Siren))
+                .ForMember(dest => dest.EstBloque, opt => opt.MapFrom(src => !string.IsNullOrEmpty(src.Blocage)))
+                ;
         }
     }
 }

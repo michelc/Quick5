@@ -33,7 +33,7 @@ namespace Quick5.Controllers
             var db = new ExtraBase();
             var client = db.GetClient(id);
 
-            client.Siren = db.GetSirens(client.NSiren).FirstOrDefault();
+            client.Siren = db.Sirens.List(client.NSiren).FirstOrDefault();
             client.Garantie = db.GetGaranties(Client_ID: client.Client_ID).FirstOrDefault();
 
             return View(client);

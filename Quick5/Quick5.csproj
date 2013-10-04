@@ -122,6 +122,7 @@
     <Compile Include="Models\AutoMapperConfiguration.cs" />
     <Compile Include="Models\ExtraBase.cs" />
     <Compile Include="Models\ExtraModels.cs" />
+    <Compile Include="Models\Siren.cs" />
     <Compile Include="Models\SqlBase.cs" />
     <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

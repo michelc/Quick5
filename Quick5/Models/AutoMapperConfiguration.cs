@@ -6,8 +6,7 @@ namespace Quick5.Models
     {
         public static void Configure()
         {
-            // Siren
-            SirenTools.AutoMap();
+            AutoMapConfigure.Sirens();
 
             // Client
             Mapper.CreateMap<DbClient, Client>().ForAllMembers(opt => opt.Ignore());

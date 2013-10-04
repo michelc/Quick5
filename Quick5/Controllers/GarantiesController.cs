@@ -16,7 +16,7 @@ namespace Quick5.Controllers
             var garantie = db.GetGaranties(Garantie_ID: id).FirstOrDefault();
 
             garantie.Client = db.GetClient(garantie.Client_ID);
-            garantie.Siren = db.GetSirens(garantie.Client.NSiren).FirstOrDefault();
+            garantie.Siren = db.Sirens.List(garantie.Client.NSiren).FirstOrDefault();
 
             return View(garantie);
         }
