@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using Quick5.Models;
-using StackExchange.Profiling;
 
 namespace Quick5.Controllers
 {
@@ -38,9 +37,7 @@ namespace Quick5.Controllers
         public ViewResult Details(int id)
         {
             var db = new ExtraBase();
-
-            Siren siren = null;
-            siren = db.Sirens.Get(id);
+            var siren = db.Sirens.Get(id);
 
             siren.Clients = db.Clients.List(siren.NSiren);
             siren.Garanties = db.Garanties.List(siren.NSiren);

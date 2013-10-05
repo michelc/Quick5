@@ -35,14 +35,14 @@ namespace Quick5.Models
             connexion.Close();
         }
 
-        public int ExecuteSql(string sql)
+        public int ExecuteSql(string sql, object param = null)
         {
             int data = 0;
             bool is_open_before = (connexion.State == ConnectionState.Open);
             try
             {
                 if (!is_open_before) connexion.Open();
-                data = connexion.Execute(sql);
+                data = connexion.Execute(sql, param);
             }
             catch
             {
@@ -56,40 +56,19 @@ namespace Quick5.Models
             return data;
         }
 
-        public int ExecuteSql(string sql, object param)
+        public int ExecuteScalar(string sql, object param = null)
         {
             int data = 0;
             bool is_open_before = (connexion.State == ConnectionState.Open);
             try
             {
                 if (!is_open_before) connexion.Open();
-                data = connexion.Execute(sql, param);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (!is_open_before) connexion.Close();
-            }
-
-            return data;
-        }
-
-        public int ExecuteScalar(string sql)
-        {
-            int data = 0;
-            bool is_open_before = (connexion.State == ConnectionState.Open);
-            try
-            {
-                if (!is_open_before) connexion.Open();
-                data = connexion.Query<int>(sql).FirstOrDefault();
+                data = connexion.Query<int>(sql, param).FirstOrDefault();
             }
             catch (InvalidCastException)
             {
                 // Avec Oracle, COUNT(*) renvoie un decimal !
-                data = (int)connexion.Query<decimal>(sql).FirstOrDefault();
+                data = (int)connexion.Query<decimal>(sql, param).FirstOrDefault();
             }
             catch (Exception ex)
             {

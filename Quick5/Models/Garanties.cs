@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using AutoMapper;
 using Dapper;
-using Quick5.Helpers;
 
 namespace Quick5.Models
 {
