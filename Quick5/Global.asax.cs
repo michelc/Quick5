@@ -19,7 +19,7 @@ namespace Quick5
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            AutoMapperConfiguration.Configure();
+            MappingConfig.RegisterMappings();
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

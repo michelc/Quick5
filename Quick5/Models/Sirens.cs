@@ -29,6 +29,7 @@ namespace Quick5.Models
     public class DbSiren
     {
         public int ID { get; set; }
+        public string Societe_ID { get; set; }
         public string Raison_Social { get; set; }
         public string Siren { get; set; }
         public string Blocage { get; set; }
@@ -116,12 +117,13 @@ namespace Quick5.Models
         }
 
         /// <summary>
-        /// Requête SQL pour attaquer la table des Sirens
+        /// Requête SQL pour attaquer la table des sirens
         /// </summary>
         /// <returns></returns>
         private string Sql()
         {
             var sql = @"SELECT ID
+                             , Societe_ID
                              , Raison_Social
                              , Siren
                              , Blocage
@@ -132,7 +134,7 @@ namespace Quick5.Models
         }
     }
 
-    public static partial class AutoMapConfigure
+    public partial class MappingConfig
     {
         /// <summary>
         /// Configuration AutoMapper pour passer de DbSiren à Siren

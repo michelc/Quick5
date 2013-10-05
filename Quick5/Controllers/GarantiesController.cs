@@ -13,9 +13,9 @@ namespace Quick5.Controllers
         public ViewResult Details(int id)
         {
             var db = new ExtraBase();
-            var garantie = db.GetGaranties(Garantie_ID: id).FirstOrDefault();
+            var garantie = db.Garanties.Get(id);
 
-            garantie.Client = db.GetClient(garantie.Client_ID);
+            garantie.Client = db.Clients.Get(garantie.Client_ID);
             garantie.Siren = db.Sirens.List(garantie.Client.NSiren).FirstOrDefault();
 
             return View(garantie);

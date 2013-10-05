@@ -16,7 +16,7 @@ namespace Quick5.Controllers
             var sirens = new List<Siren>();
             if (!string.IsNullOrEmpty(q))
             {
-                if (q.Length > 3)
+                if (q.Length >= 3)
                 {
                     var db = new ExtraBase();
                     sirens = db.Sirens.List(q).ToList();
@@ -42,9 +42,9 @@ namespace Quick5.Controllers
             Siren siren = null;
             siren = db.Sirens.Get(id);
 
-            siren.Clients = db.GetClients(siren.NSiren);
-            siren.Garanties = db.GetGaranties(Siren_ID: siren.Siren_ID);
-            siren.Decisions = db.GetDecisions(Siren_ID: siren.Siren_ID);
+            siren.Clients = db.Clients.List(siren.NSiren);
+            siren.Garanties = db.Garanties.List(siren.NSiren);
+            siren.Decisions = db.Decisions.List(siren.NSiren);
 
             return View(siren);
         }

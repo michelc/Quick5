@@ -15,10 +15,10 @@ namespace Quick5.Controllers
             var clients = new List<Client>();
             if (!string.IsNullOrEmpty(q))
             {
-                if (q.Length > 3)
+                if (q.Length >= 3)
                 {
                     var db = new ExtraBase();
-                    clients = db.GetClients(q).ToList();
+                    clients = db.Clients.List(q).ToList();
                 }
             }
 
@@ -31,10 +31,11 @@ namespace Quick5.Controllers
         public ViewResult Details(int id)
         {
             var db = new ExtraBase();
-            var client = db.GetClient(id);
+            var client = db.Clients.Get(id);
 
             client.Siren = db.Sirens.List(client.NSiren).FirstOrDefault();
-            client.Garantie = db.GetGaranties(Client_ID: client.Client_ID).FirstOrDefault();
+            client.Garantie = db.Garanties.List(client.Client_ID).FirstOrDefault();
+            if (client.Garantie == null) client.Garantie = new Garantie();
 
             return View(client);
         }

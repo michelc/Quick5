@@ -119,12 +119,13 @@
     <Compile Include="Helpers\BootstrapHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\Tools.cs" />
-    <Compile Include="Models\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\MappingConfig.cs" />
+    <Compile Include="Models\Clients.cs" />
+    <Compile Include="Models\Decisions.cs" />
     <Compile Include="Models\ExtraBase.cs" />
-    <Compile Include="Models\ExtraModels.cs" />
-    <Compile Include="Models\Siren.cs" />
+    <Compile Include="Models\Garanties.cs" />
+    <Compile Include="Models\Sirens.cs" />
     <Compile Include="Models\SqlBase.cs" />
-    <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
