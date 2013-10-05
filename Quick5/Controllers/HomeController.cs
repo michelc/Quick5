@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Quick5.Models;
 
 namespace Quick5.Controllers
 {
@@ -9,6 +10,9 @@ namespace Quick5.Controllers
 
         public ActionResult Index()
         {
+            var db = new ExtraBase();
+            ViewBag.Table = db.GetTableName(typeof(DbSiren));
+
             return View();
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using AutoMapper;
@@ -28,6 +29,7 @@ namespace Quick5.Models
     /// <summary>
     /// Objet DbClient stocké dans la base de données
     /// </summary>
+    [Table("Cy")]
     public class DbClient
     {
         public int IdCompany { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using AutoMapper;
@@ -49,6 +50,7 @@ namespace Quick5.Models
     /// <summary>
     /// Objet DbGarantie stocké dans la base de données
     /// </summary>
+    [Table("Ct_Risques_Clients")]
     public class DbGarantie
     {
         public int Risque_ID { get; set; }

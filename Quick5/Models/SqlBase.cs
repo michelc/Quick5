@@ -81,5 +81,13 @@ namespace Quick5.Models
 
             return data;
         }
+
+        public string GetTableName(Type type)
+        {
+            var attribute = type.GetCustomAttributes(false).SingleOrDefault(a => a.GetType().Name == "TableAttribute") as dynamic;
+            if (attribute != null) return attribute.Name;
+
+            return type.Name + "s";
+        }
     }
 }

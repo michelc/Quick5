@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using AutoMapper;
@@ -26,6 +27,7 @@ namespace Quick5.Models
     /// <summary>
     /// Objet DbSiren stocké dans la base de données
     /// </summary>
+    [Table("Ct_Fiche_Siren")]
     public class DbSiren
     {
         public int ID { get; set; }

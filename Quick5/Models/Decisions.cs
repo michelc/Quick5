@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using AutoMapper;
 using Dapper;
@@ -32,6 +33,7 @@ namespace Quick5.Models
     /// <summary>
     /// Objet DbDecision stocké dans la base de données
     /// </summary>
+    [Table("Ct_Historique_Atradius")]
     public class DbDecision
     {
         public int Historique_ID { get; set; }
