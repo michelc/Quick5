@@ -3,7 +3,10 @@
 <table class="table table-condensed table-striped table-hover">
 <thead>
     <tr>
-        <th>Garantie</th>
+        <th>
+            @Html.ActionLink(" ", "Details", "Garanties", new { id = Model.Garantie_ID}, new { @class="glyphicon glyphicon-play" })
+            Garantie
+        </th>
         <th>Date</th>
         <th>Option</th>
         <th>Montant</th>

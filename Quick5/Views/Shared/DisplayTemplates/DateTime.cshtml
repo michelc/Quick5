@@ -1,2 +1,2 @@
-﻿@model DateTime
-@if (Model != DateTime.MinValue) { @Model.ToShortDateString() }
+﻿@model DateTime?
+@if (Model.GetValueOrDefault() != DateTime.MinValue) { @Model.GetValueOrDefault().ToShortDateString() }

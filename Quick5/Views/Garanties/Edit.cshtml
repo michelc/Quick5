@@ -12,8 +12,16 @@
 
 @Html.Partial("../Sirens/_List", new List<Quick5.Models.Siren>() { Model.Siren })
 
-<h3>Garantie <small>(@Html.ActionLink("Remplacer par la garantie d'un autre client de ce siren", "Edit", new { id = Model.Garantie_ID }))</small></h3>
+<h3>Garantie actuelle</h3>
 
 @Html.Partial("_Item", Model)
 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+<h3>
+    Garantie après remplacement
+    <button type="submit" class="btn btn-primary">Ok pour remplacer !</button>
+</h3>
+}
 
+@Html.Partial("_Item", (Quick5.Models.Garantie)ViewBag.Recopier)

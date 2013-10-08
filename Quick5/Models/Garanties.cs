@@ -18,26 +18,26 @@ namespace Quick5.Models
         // Garantie principale
         public decimal GarMontant { get; set; }
         public string GarOption { get; set; }
-        public DateTime GarDate { get; set; }
-        public DateTime GarDebut { get; set; }
-        public DateTime GarFin { get; set; }
+        public DateTime? GarDate { get; set; }
+        public DateTime? GarDebut { get; set; }
+        public DateTime? GarFin { get; set; }
         // Garantie complémentaire
         public decimal CplMontant { get; set; }
-        public DateTime CplDebut { get; set; }
-        public DateTime CplFin { get; set; }
+        public DateTime? CplDebut { get; set; }
+        public DateTime? CplFin { get; set; }
         // Garantie interne
         public decimal IntMontant { get; set; }
-        public DateTime IntDebut { get; set; }
-        public DateTime IntFin { get; set; }
+        public DateTime? IntDebut { get; set; }
+        public DateTime? IntFin { get; set; }
         // Garantie OAL
         public decimal OalMontant { get; set; }
-        public DateTime OalDebut { get; set; }
-        public DateTime OalFin { get; set; }
+        public DateTime? OalDebut { get; set; }
+        public DateTime? OalFin { get; set; }
         // Garantie CAP
         public decimal CapMontant { get; set; }
         public string CapOption { get; set; }
-        public DateTime CapDebut { get; set; }
-        public DateTime CapFin { get; set; }
+        public DateTime? CapDebut { get; set; }
+        public DateTime? CapFin { get; set; }
         // Montant déblocage
         public decimal Deblocage { get; set; }
         // Garantie totale
@@ -157,6 +157,34 @@ namespace Quick5.Models
             return view_model;
         }
 
+        public int Save(Garantie model)
+        {
+            var result = 0;
+            var data = Mapper.Map<DbGarantie>(model);
+
+            var sql = "UPDATE Ct_Risques_Clients SET ";
+            var columns = typeof(DbGarantie).GetProperties().ToArray().Select(p => p.Name);
+            var cols = columns.Skip(1).Select(c => c + " = :" + c + Environment.NewLine);
+            sql += string.Join(", ", columns.Select(c => c + " = :" + c));
+            sql += " WHERE  (Risque_ID = :Risque_ID)";
+
+            try
+            {
+                connexion.Open();
+                result = connexion.Execute(sql, data);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                connexion.Close();
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Requête SQL pour attaquer la table des garanties
         /// </summary>
@@ -227,6 +255,31 @@ namespace Quick5.Models
                                                                         + src.Mnt_Oal
                                                                         + src.Mnt_Cap
                                                                         + src.Montant_Deblocage))
+                ;
+
+            Mapper.CreateMap<Garantie, DbGarantie>().ForAllMembers(opt => opt.Ignore());
+            Mapper.CreateMap<Garantie, DbGarantie>()
+                .ForMember(dest => dest.Risque_ID, opt => opt.MapFrom(src => src.Garantie_ID))
+                .ForMember(dest => dest.Client_ID, opt => opt.MapFrom(src => src.Client_ID))
+                .ForMember(dest => dest.Montant_Risque, opt => opt.MapFrom(src => src.GarMontant))
+                .ForMember(dest => dest.Option_Risque, opt => opt.MapFrom(src => src.GarOption))
+                .ForMember(dest => dest.Date_Risque, opt => opt.MapFrom(src => src.GarDate))
+                .ForMember(dest => dest.Periode_Debut, opt => opt.MapFrom(src => src.GarDebut))
+                .ForMember(dest => dest.Periode_Fin, opt => opt.MapFrom(src => src.GarFin))
+                .ForMember(dest => dest.Montant_Risque_Compl, opt => opt.MapFrom(src => src.CplMontant))
+                .ForMember(dest => dest.Date_Debut_Risque, opt => opt.MapFrom(src => src.CplDebut))
+                .ForMember(dest => dest.Date_Debut_Risque, opt => opt.MapFrom(src => src.CplFin))
+                .ForMember(dest => dest.Garantie_Interne, opt => opt.MapFrom(src => src.IntMontant))
+                .ForMember(dest => dest.Garantie_Periode_Debut, opt => opt.MapFrom(src => src.IntDebut))
+                .ForMember(dest => dest.Garantie_Periode_Fin, opt => opt.MapFrom(src => src.IntFin))
+                .ForMember(dest => dest.Mnt_Oal, opt => opt.MapFrom(src => src.OalMontant))
+                .ForMember(dest => dest.Dte_Debut_Oal, opt => opt.MapFrom(src => src.OalDebut))
+                .ForMember(dest => dest.Dte_Fin_Oal, opt => opt.MapFrom(src => src.OalFin))
+                .ForMember(dest => dest.Mnt_Cap, opt => opt.MapFrom(src => src.CapMontant))
+                .ForMember(dest => dest.Option_Cap, opt => opt.MapFrom(src => src.CapOption))
+                .ForMember(dest => dest.Dte_Debut_Cap, opt => opt.MapFrom(src => src.CapDebut))
+                .ForMember(dest => dest.Dte_Fin_Cap, opt => opt.MapFrom(src => src.CapFin))
+                .ForMember(dest => dest.Montant_Deblocage, opt => opt.MapFrom(src => src.Deblocage))
                 ;
         }
     }
