@@ -237,7 +237,7 @@ namespace Quick5.Models
                 .ForMember(dest => dest.GarFin, opt => opt.MapFrom(src => src.Periode_Fin))
                 .ForMember(dest => dest.CplMontant, opt => opt.MapFrom(src => src.Montant_Risque_Compl))
                 .ForMember(dest => dest.CplDebut, opt => opt.MapFrom(src => src.Date_Debut_Risque))
-                .ForMember(dest => dest.CplFin, opt => opt.MapFrom(src => src.Date_Debut_Risque))
+                .ForMember(dest => dest.CplFin, opt => opt.MapFrom(src => src.Date_Fin_Risque))
                 .ForMember(dest => dest.IntMontant, opt => opt.MapFrom(src => src.Garantie_Interne))
                 .ForMember(dest => dest.IntDebut, opt => opt.MapFrom(src => src.Garantie_Periode_Debut))
                 .ForMember(dest => dest.IntFin, opt => opt.MapFrom(src => src.Garantie_Periode_Fin))
