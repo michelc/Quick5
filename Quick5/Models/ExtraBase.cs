@@ -63,5 +63,20 @@
 
         }
         private Decisions _Decisions;
+
+        public EdiAccords EdiAccords
+        {
+            get
+            {
+                if (_EdiAccords == null) _EdiAccords = new EdiAccords(this.connexion);
+                return _EdiAccords;
+            }
+            set
+            {
+                _EdiAccords = value;
+            }
+
+        }
+        private EdiAccords _EdiAccords;
     }
 }

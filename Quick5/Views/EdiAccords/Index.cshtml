@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Quick5.Models.EdiAccord>
+
+@{
+    ViewBag.Title = "Accords EDI";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        <th class="hidden-print"></th>
+        <th>Nom</th>
+        <th>Siren</th>
+        <th>Code</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Details", "EdiAccords", new { id = item.Accord_ID }, new { @class="glyphicon glyphicon-play" })</th>
+        <td>@Html.DisplayFor(modelItem => item.Nom)</td>
+        <td>@Html.DisplayFor(modelItem => item.NSiren)</td>
+        <td>@Html.DisplayFor(modelItem => item.Code)</td>
+    </tr>
+}
+</tbody>
+</table>

@@ -8,6 +8,7 @@
             Clients();
             Garanties();
             Decisions();
+            EdiAccords();
         }
     }
 }
