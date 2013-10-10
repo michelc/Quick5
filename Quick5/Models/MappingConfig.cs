@@ -9,6 +9,7 @@
             Garanties();
             Decisions();
             EdiAccords();
+            EdiSites();
         }
     }
 }

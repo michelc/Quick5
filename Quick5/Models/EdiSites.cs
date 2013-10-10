@@ -8,52 +8,52 @@ using Dapper;
 namespace Quick5.Models
 {
     /// <summary>
-    /// Objet EdiAccord utilisé par l'application (essentiellement dans les vues)
+    /// Objet EdiSite utilisé par l'application (essentiellement dans les vues)
     /// </summary>
-    public class EdiAccord
+    public class EdiSite
     {
+        public int Site_ID { get; set; }
         public int Accord_ID { get; set; }
         public string Nom { get; set; }
-        public string NSiren { get; set; }
+        public string NSiret { get; set; }
         public string Code { get; set; }
-
-        public IEnumerable<EdiSite> Sites { get; set; }
     }
 
     /// <summary>
-    /// Objet DbEdiAccord stocké dans la base de données
+    /// Objet DbEdiSite stocké dans la base de données
     /// </summary>
-    [Table("Accord_Edi_National")]
-    public class DbEdiAccord
+    [Table("Etablissement_Edi")]
+    public class DbEdiSite
     {
         public int Id { get; set; }
+        public int Accord_National_Id { get; set; }
         public string Libelle { get; set; }
-        public string Siren { get; set; }
+        public string Siret { get; set; }
         public string Code_Externe_Eu { get; set; }
     }
 
     /// <summary>
     /// Fonctions utilitaires pour gérer les accords
     /// </summary>
-    public class EdiAccords
+    public class EdiSites
     {
         private IDbConnection connexion;
 
-        public EdiAccords(IDbConnection connexion)
+        public EdiSites(IDbConnection connexion)
         {
             this.connexion = connexion;
         }
 
-        public IEnumerable<EdiAccord> List()
+        public IEnumerable<EdiSite> List(int Accord_ID)
         {
-            IEnumerable<DbEdiAccord> data = null;
+            IEnumerable<DbEdiSite> data = null;
 
             try
             {
                 connexion.Open();
 
-                var sql = Sql();
-                data = connexion.Query<DbEdiAccord>(sql).OrderBy(a => a.Libelle.ToUpperInvariant());
+                var sql = Sql() + "WHERE  (Accord_National_Id = :Id)";
+                data = connexion.Query<DbEdiSite>(sql, new { id = Accord_ID }).OrderBy(a => a.Libelle.ToUpperInvariant());
             }
             catch
             {
@@ -64,19 +64,19 @@ namespace Quick5.Models
                 connexion.Close();
             }
 
-            var view_model = Mapper.Map<IEnumerable<DbEdiAccord>, IEnumerable<EdiAccord>>(data);
+            var view_model = Mapper.Map<IEnumerable<DbEdiSite>, IEnumerable<EdiSite>>(data);
             return view_model;
         }
 
-        public EdiAccord Get(int id)
+        public EdiSite Get(int id)
         {
-            var data = new DbEdiAccord();
+            var data = new DbEdiSite();
 
             try
             {
                 connexion.Open();
                 var sql = Sql() + "WHERE  (Id = :Id)";
-                data = connexion.Query<DbEdiAccord>(sql, new { id }).FirstOrDefault();
+                data = connexion.Query<DbEdiSite>(sql, new { id }).FirstOrDefault();
             }
             catch
             {
@@ -87,7 +87,7 @@ namespace Quick5.Models
                 connexion.Close();
             }
 
-            var view_model = Mapper.Map<EdiAccord>(data);
+            var view_model = Mapper.Map<EdiSite>(data);
             return view_model;
         }
 
@@ -98,10 +98,11 @@ namespace Quick5.Models
         private string Sql()
         {
             var sql = @"SELECT Id
+                             , Accord_National_Id
                              , Libelle
-                             , Siren
+                             , Siret
                              , Code_Externe_Eu
-                        FROM   Accord_Edi_National
+                        FROM   Etablissement_Edi
                         ";
 
             return sql;
@@ -111,15 +112,16 @@ namespace Quick5.Models
     public partial class MappingConfig
     {
         /// <summary>
-        /// Configuration AutoMapper pour passer de DbEdiAccord à EdiAccord
+        /// Configuration AutoMapper pour passer de DbEdiSite à EdiSite
         /// </summary>
-        public static void EdiAccords()
+        public static void EdiSites()
         {
-            Mapper.CreateMap<DbEdiAccord, EdiAccord>().ForAllMembers(opt => opt.Ignore());
-            Mapper.CreateMap<DbEdiAccord, EdiAccord>()
-                .ForMember(dest => dest.Accord_ID, opt => opt.MapFrom(src => src.Id))
+            Mapper.CreateMap<DbEdiSite, EdiSite>().ForAllMembers(opt => opt.Ignore());
+            Mapper.CreateMap<DbEdiSite, EdiSite>()
+                .ForMember(dest => dest.Site_ID, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Accord_ID, opt => opt.MapFrom(src => src.Accord_National_Id))
                 .ForMember(dest => dest.Nom, opt => opt.MapFrom(src => src.Libelle))
-                .ForMember(dest => dest.NSiren, opt => opt.MapFrom(src => src.Siren))
+                .ForMember(dest => dest.NSiret, opt => opt.MapFrom(src => src.Siret))
                 .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code_Externe_Eu))
             ;
         }

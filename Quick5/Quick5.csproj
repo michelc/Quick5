@@ -118,6 +118,7 @@
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="Models\EdiAccord.cs" />
+    <Compile Include="Models\EdiSites.cs" />
     <Compile Include="Models\MappingConfig.cs" />
     <Compile Include="Models\Clients.cs" />
     <Compile Include="Models\Decisions.cs" />
@@ -176,6 +177,9 @@
     <Content Include="Views\Decisions\_List.cshtml" />
     <Content Include="Views\Garanties\Edit.cshtml" />
     <Content Include="Views\EdiAccords\Index.cshtml" />
+    <Content Include="Views\EdiAccords\Details.cshtml" />
+    <Content Include="Views\EdiAccords\_List.cshtml" />
+    <Content Include="Views\EdiSites\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

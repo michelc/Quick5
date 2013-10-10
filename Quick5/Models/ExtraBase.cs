@@ -78,5 +78,20 @@
 
         }
         private EdiAccords _EdiAccords;
+
+        public EdiSites EdiSites
+        {
+            get
+            {
+                if (_EdiSites == null) _EdiSites = new EdiSites(this.connexion);
+                return _EdiSites;
+            }
+            set
+            {
+                _EdiSites = value;
+            }
+
+        }
+        private EdiSites _EdiSites;
     }
 }

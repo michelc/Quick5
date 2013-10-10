@@ -18,5 +18,18 @@ namespace Quick5.Controllers
 
             return View(accords);
         }
+
+        //
+        // GET: /EdiAccords/Details/5
+
+        public ViewResult Details(int id)
+        {
+            var db = new ExtraBase();
+            var accord = db.EdiAccords.Get(id);
+
+            accord.Sites = db.EdiSites.List(accord.Accord_ID);
+
+            return View(accord);
+        }
     }
 }
