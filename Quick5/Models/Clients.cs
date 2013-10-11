@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Linq;
 using AutoMapper;
-using Dapper;
 using Quick5.Helpers;
 
 namespace Quick5.Models
@@ -99,27 +97,7 @@ namespace Quick5.Models
 
             return view_model;
         }
-
-        /// <summary>
-        /// Requête SQL pour attaquer la table des clients
-        /// </summary>
-        /// <returns></returns>
-        private string Sql()
-        {
-            var sql = @"SELECT IdCompany
-                             , Name
-                             , Siren
-                             , Fld109
-                             , PostCode
-                             , City
-                             , Fld138
-                             , Fld129
-                        FROM   Cy
-                        ";
-
-            return sql;
-        }
-     }
+    }
 
     public partial class MappingConfig
     {

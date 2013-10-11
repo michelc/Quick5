@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using AutoMapper;
-using Dapper;
 
 namespace Quick5.Models
 {
@@ -87,35 +86,6 @@ namespace Quick5.Models
             var view_model = Mapper.Map<Decision>(data);
 
             return view_model;
-        }
-
-        /// <summary>
-        /// Requête SQL pour attaquer la table des décisions
-        /// </summary>
-        /// <returns></returns>
-        private string Sql()
-        {
-            var sql = @"SELECT Historique_ID
-                            , Siren
-                            , Decision_Date
-                            , Significatif
-                            , Result_Code
-                            , Decision_Code
-                            , Condition_Code
-                            , Montant
-                            , Second_Montant
-                            , Date_Effet
-                            , Date_Fin_Effet
-                            , Date_Entree
-                            , TCode
-                            , Supersede
-                            , Date_Last_Update
-                            , Date_Import
-                            , Date_Fichier
-                        FROM   Ct_Historique_Atradius
-                        ";
-
-            return sql;
         }
     }
 

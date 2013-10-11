@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Linq;
 using AutoMapper;
-using Dapper;
 using Quick5.Helpers;
 
 namespace Quick5.Models
@@ -87,23 +84,6 @@ namespace Quick5.Models
             var view_model = Mapper.Map<Siren>(data);
 
             return view_model;
-        }
-
-        /// <summary>
-        /// Requête SQL pour attaquer la table des sirens
-        /// </summary>
-        /// <returns></returns>
-        private string Sql()
-        {
-            var sql = @"SELECT ID
-                             , Societe_ID
-                             , Raison_Social
-                             , Siren
-                             , Blocage
-                        FROM   Ct_Fiche_Siren
-                        ";
-
-            return sql;
         }
     }
 

@@ -156,39 +156,6 @@ namespace Quick5.Models
 
             return result;
         }
-
-        /// <summary>
-        /// Requête SQL pour attaquer la table des garanties
-        /// </summary>
-        /// <returns></returns>
-        private string Sql()
-        {
-            var sql = @"SELECT Risque_ID
-                             , Client_ID
-                             , Montant_Risque
-                             , Option_Risque
-                             , Date_Risque
-                             , Periode_Debut
-                             , Periode_Fin
-                             , Montant_Risque_Compl
-                             , Date_Debut_Risque
-                             , Date_Fin_Risque
-                             , Garantie_Interne
-                             , Garantie_Periode_Debut
-                             , Garantie_Periode_Fin
-                             , Mnt_Oal
-                             , Dte_Debut_Oal
-                             , Dte_Fin_Oal
-                             , Mnt_Cap
-                             , Option_Cap
-                             , Dte_Debut_Cap
-                             , Dte_Fin_Cap
-                             , Montant_Deblocage
-                        FROM   Ct_Risques_Clients
-                        ";
-
-            return sql;
-        }
     }
 
     public partial class MappingConfig

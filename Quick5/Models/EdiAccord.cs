@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Linq;
 using AutoMapper;
-using Dapper;
 
 namespace Quick5.Models
 {
@@ -60,22 +58,6 @@ namespace Quick5.Models
             var view_model = Mapper.Map<EdiAccord>(data);
 
             return view_model;
-        }
-
-        /// <summary>
-        /// Requête SQL pour attaquer la table des accords edi
-        /// </summary>
-        /// <returns></returns>
-        private string Sql()
-        {
-            var sql = @"SELECT Id
-                             , Libelle
-                             , Siren
-                             , Code_Externe_Eu
-                        FROM   Accord_Edi_National
-                        ";
-
-            return sql;
         }
     }
 
