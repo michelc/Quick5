@@ -118,6 +118,29 @@ namespace Quick5.Models
             return data;
         }
 
+        public static IEnumerable<T> List<T>(this IDbConnection cnx, string where, object param)
+        {
+            IEnumerable<T> data = null;
+
+            var is_open_before = (cnx.State == ConnectionState.Open);
+            try
+            {
+                if (!is_open_before) cnx.Open();
+                var sql = GetSelect(typeof(T)) + where;
+                data = cnx.Query<T>(sql, param);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (!is_open_before) cnx.Close();
+            }
+
+            return data;
+        }
+
         private static string GetSelect(Type type, bool where_id = false)
         {
             var columns = GetColumns(type);

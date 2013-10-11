@@ -51,47 +51,33 @@ namespace Quick5.Models
 
         public IEnumerable<Siren> List(string q)
         {
-            IEnumerable<DbSiren> data = null;
+            var where = "WHERE  (Societe_ID = '001')";
+            object param = null;
 
-            try
+            var siren = Tools.DigitOnly(q);
+            if (siren.Length >= 9)
             {
-                connexion.Open();
-
-                var sql = Sql() + "WHERE  (Societe_ID = '001')" + Environment.NewLine;
-                var siren = Tools.DigitOnly(q);
-                object param = null;
-
-                if (siren.Length >= 9)
-                {
-                    // Recherche par n° siren
-                    sql += "AND    (Siren = :Siren)";
-                    param = new { Siren = siren.Substring(0, 9) };
-                }
-                else if (siren.Length < 3)
-                {
-                    // Recherche par raison sociale seule
-                    sql += "AND    (UPPER(Raison_Social) LIKE :Nom)";
-                    param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
-                }
-                else
-                {
-                    // Recherche par raison sociale ou n° siren
-                    sql += "AND    ((UPPER(Raison_Social) LIKE :Nom) OR (Siren LIKE :Siren))";
-                    param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
-                }
-                sql += " ORDER BY UPPER(Raison_Social), Siren";
-                data = connexion.Query<DbSiren>(sql, param);
+                // Recherche par n° siren
+                where += "AND    (Siren = :Siren)";
+                param = new { Siren = siren.Substring(0, 9) };
             }
-            catch
+            else if (siren.Length < 3)
             {
-                throw;
+                // Recherche par raison sociale seule
+                where += "AND    (UPPER(Raison_Social) LIKE :Nom)";
+                param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
             }
-            finally
+            else
             {
-                connexion.Close();
+                // Recherche par raison sociale ou n° siren
+                where += "AND    ((UPPER(Raison_Social) LIKE :Nom) OR (Siren LIKE :Siren))";
+                param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
             }
+            where += " ORDER BY UPPER(Raison_Social), Siren";
 
+            var data = connexion.List<DbSiren>(where, param);
             var view_model = Mapper.Map<IEnumerable<DbSiren>, IEnumerable<Siren>>(data);
+
             return view_model;
         }
 

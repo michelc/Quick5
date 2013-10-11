@@ -56,53 +56,39 @@ namespace Quick5.Models
 
         public IEnumerable<Client> List(string q)
         {
-            IEnumerable<DbClient> data = null;
+            var where = "";
+            object param = null;
 
-            try
+            var siren = Tools.DigitOnly(q);
+            if (siren.Length >= 14)
             {
-                connexion.Open();
-
-                var sql = Sql();
-                var siren = Tools.DigitOnly(q);
-                object param = null;
-
-                if (siren.Length >= 14)
-                {
-                    // Recherche par n° siret
-                    sql += "WHERE  (Fld109 = :Siret)";
-                    param = new { Siret = siren.Substring(0, 14) };
-                }
-                else if (siren.Length >= 9)
-                {
-                    // Recherche par n° siren
-                    sql += "WHERE  (Siren = :Siren)";
-                    param = new { Siren = siren.Substring(0, 9) };
-                }
-                else if (siren.Length < 3)
-                {
-                    // Recherche par nom client seul
-                    sql += "WHERE  (UPPER(Name) LIKE :Nom)";
-                    param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
-                }
-                else
-                {
-                    // Recherche par nom client ou n° siren
-                    sql += "WHERE  ((UPPER(Name) LIKE :Nom) OR (Siren LIKE :Siren))";
-                    param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
-                }
-                sql += " ORDER BY UPPER(Name), UPPER(City)";
-                data = connexion.Query<DbClient>(sql, param);
+                // Recherche par n° siret
+                where += "WHERE  (Fld109 = :Siret)";
+                param = new { Siret = siren.Substring(0, 14) };
             }
-            catch
+            else if (siren.Length >= 9)
             {
-                throw;
+                // Recherche par n° siren
+                where += "WHERE  (Siren = :Siren)";
+                param = new { Siren = siren.Substring(0, 9) };
             }
-            finally
+            else if (siren.Length < 3)
             {
-                connexion.Close();
+                // Recherche par nom client seul
+                where += "WHERE  (UPPER(Name) LIKE :Nom)";
+                param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
             }
+            else
+            {
+                // Recherche par nom client ou n° siren
+                where += "WHERE  ((UPPER(Name) LIKE :Nom) OR (Siren LIKE :Siren))";
+                param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
+            }
+            where += " ORDER BY UPPER(Name), UPPER(City)";
 
+            var data = connexion.List<DbClient>(where, param);
             var view_model = Mapper.Map<IEnumerable<DbClient>, IEnumerable<Client>>(data);
+
             return view_model;
         }
 

@@ -96,41 +96,28 @@ namespace Quick5.Models
 
         public IEnumerable<Garantie> List(object id)
         {
-            IEnumerable<DbGarantie> data = null;
+            var where = "";
+            object param = null;
 
-            try
+            if (id.GetType().Name == "String")
             {
-                connexion.Open();
-                var sql = Sql();
-                object param = null;
-
-                if (id.GetType().Name == "String")
-                {
-                    // Recherche par n° siren
-                    sql += @"     , Cy
-                             WHERE  (Siren = :Siren)
-                             AND    (Client_ID = IdCompany)
-                             ORDER BY UPPER(Name), UPPER(City)";
-                    param = new { Siren = (string)id };
-                }
-                else
-                {
-                    // Recherche par ID client
-                    sql += "WHERE  (Client_ID = :Client_ID)";
-                    param = new { Client_ID = (int)id };
-                }
-                data = connexion.Query<DbGarantie>(sql, param);
+                // Recherche par n° siren
+                where += @"     , Cy
+                           WHERE  (Siren = :Siren)
+                           AND    (Client_ID = IdCompany)
+                           ORDER BY UPPER(Name), UPPER(City)";
+                param = new { Siren = (string)id };
             }
-            catch
+            else
             {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
+                // Recherche par ID client
+                where += "WHERE  (Client_ID = :Client_ID)";
+                param = new { Client_ID = (int)id };
             }
 
+            var data = connexion.List<DbGarantie>(where, param);
             var view_model = Mapper.Map<IEnumerable<DbGarantie>, IEnumerable<Garantie>>(data);
+
             return view_model;
         }
 

@@ -69,30 +69,15 @@ namespace Quick5.Models
 
         public IEnumerable<Decision> List(string NSiren)
         {
-            IEnumerable<DbDecision> data = null;
+            var where = @"WHERE (Siren = :NSiren)
+                          ORDER BY Decision_Date DESC
+                                 , Date_Effet DESC
+                                 , Date_Last_Update DESC
+                                 , Historique_ID DESC";
 
-            try
-            {
-                connexion.Open();
-                var sql = Sql();
-                sql += @"WHERE (Siren = :NSiren)
-                         ORDER BY Decision_Date DESC
-                                , Date_Effet DESC
-                                , Date_Last_Update DESC
-                                , Historique_ID DESC";
-
-                data = connexion.Query<DbDecision>(sql, new { NSiren });
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
-            }
-
+            var data = connexion.List<DbDecision>(where, new { NSiren });
             var view_model = Mapper.Map<IEnumerable<DbDecision>, IEnumerable<Decision>>(data);
+
             return view_model;
         }
 
