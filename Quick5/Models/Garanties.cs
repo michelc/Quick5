@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Linq;
 using AutoMapper;
-using Dapper;
 
 namespace Quick5.Models
 {
@@ -129,30 +127,10 @@ namespace Quick5.Models
             return view_model;
         }
 
-        public int Save(Garantie model)
+        public int Update(Garantie model)
         {
-            var result = 0;
             var data = Mapper.Map<DbGarantie>(model);
-
-            var sql = "UPDATE Ct_Risques_Clients SET ";
-            var columns = typeof(DbGarantie).GetProperties().ToArray().Select(p => p.Name);
-            var cols = columns.Skip(1).Select(c => c + " = :" + c + Environment.NewLine);
-            sql += string.Join(", ", columns.Select(c => c + " = :" + c));
-            sql += " WHERE  (Risque_ID = :Risque_ID)";
-
-            try
-            {
-                connexion.Open();
-                result = connexion.Execute(sql, data);
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
-            }
+            var result = this.connexion.Update<DbGarantie>(data);
 
             return result;
         }

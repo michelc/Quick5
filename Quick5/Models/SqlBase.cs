@@ -118,7 +118,7 @@ namespace Quick5.Models
             return data;
         }
 
-        public static IEnumerable<T> List<T>(this IDbConnection cnx, string where, object param)
+        public static IEnumerable<T> List<T>(this IDbConnection cnx, string where, object param) where T : class
         {
             IEnumerable<T> data = null;
 
@@ -141,6 +141,107 @@ namespace Quick5.Models
             return data;
         }
 
+        public static int Insert<T>(this IDbConnection connexion, T data) where T : class
+        {
+            var type = typeof(T);
+            var columns = GetColumns(type).Skip(1);
+            var table_name = GetTableName(type);
+
+            var sql = new StringBuilder();
+            sql.Append("INSERT INTO ");
+            sql.Append(table_name);
+            sql.Append(" (");
+            sql.Append(string.Join(", ", columns));
+            sql.Append(") VALUES (:");
+            sql.Append(string.Join(", :", columns));
+            sql.Append(")");
+
+            int result = 0;
+            bool is_open_before = (connexion.State == ConnectionState.Open);
+            try
+            {
+                if (!is_open_before) connexion.Open();
+                result = connexion.Execute(sql.ToString(), data);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                if (!is_open_before) connexion.Close();
+            }
+
+            return result;
+        }
+
+        public static int Update<T>(this IDbConnection connexion, T data) where T : class
+        {
+            var type = typeof(T);
+            var columns = GetColumns(type);
+            var table_name = GetTableName(type);
+
+            var sql = new StringBuilder();
+            sql.Append("UPDATE ");
+            sql.Append(table_name);
+            sql.Append(" SET ");
+            var cols = columns.Skip(1).Select(c => c + " = :" + c);
+            sql.Append(string.Join(", ", cols));
+            sql.Append(" WHERE (");
+            sql.Append(columns.Take(1).Select(c => c + " = :" + c).First());
+            sql.Append(")");
+
+            int result = 0;
+            bool is_open_before = (connexion.State == ConnectionState.Open);
+            try
+            {
+                if (!is_open_before) connexion.Open();
+                result = connexion.Execute(sql.ToString(), data);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                if (!is_open_before) connexion.Close();
+            }
+
+            return result;
+        }
+
+        public static int Delete<T>(this IDbConnection cnx, int id) where T : class
+        {
+            var type = typeof(T);
+            var columns = GetColumns(type);
+            var table_name = GetTableName(type);
+
+            var sql = new StringBuilder();
+            sql.Append("DELETE FROM ");
+            sql.Append(table_name);
+            sql.Append(" WHERE (");
+            sql.Append(columns.First());
+            sql.Append(" = :Id)");
+
+            int result = 0;
+            var is_open_before = (cnx.State == ConnectionState.Open);
+            try
+            {
+                if (!is_open_before) cnx.Open();
+                result = cnx.Execute(sql.ToString(), new { id });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (!is_open_before) cnx.Close();
+            }
+
+            return result;
+        }
+
         private static string GetSelect(Type type, bool where_id = false)
         {
             var columns = GetColumns(type);
@@ -154,9 +255,9 @@ namespace Quick5.Models
 
             if (where_id)
             {
-                sql.Append("WHERE (");
+                sql.Append(" WHERE (");
                 sql.Append(columns.First());
-                sql.Append(" = :Id");
+                sql.Append(" = :Id)");
             }
 
             return sql.ToString();

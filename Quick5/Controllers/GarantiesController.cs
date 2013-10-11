@@ -59,7 +59,7 @@ namespace Quick5.Controllers
             {
                 a_recopier.Garantie_ID = id;
                 a_recopier.Client_ID = garantie.Client_ID;
-                db.Garanties.Save(a_recopier);
+                db.Garanties.Update(a_recopier);
 
                 return RedirectToAction("Details", new { id });
             }
