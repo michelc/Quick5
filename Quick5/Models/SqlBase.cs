@@ -12,12 +12,13 @@ namespace Quick5.Models
 {
     public class SqlBase
     {
-        protected IDbConnection connexion;
+        public IDbConnection connexion;
 
         public SqlBase(string config_key)
         {
             connexion = GetConnection(config_key);
-            MvcApplication.IsDbProduction = connexion.ConnectionString.ToUpper().Contains("=EXTRACV;");
+            MvcApplication.IsDbProduction = connexion.ConnectionString.ToLower().Contains("=extracv;");
+            MvcApplication.IsDbTests = connexion.ConnectionString.ToLower().Contains("db_tests.sdf");
         }
 
         private IDbConnection GetConnection(string config_key)
@@ -30,6 +31,11 @@ namespace Quick5.Models
             conn.ConnectionString = settings.ConnectionString;
 
             return new StackExchange.Profiling.Data.ProfiledDbConnection(conn, MiniProfiler.Current);
+        }
+
+        public void Open()
+        {
+            connexion.Open();
         }
 
         public void Close()
@@ -83,27 +89,20 @@ namespace Quick5.Models
 
             return data;
         }
-
-        public string GetTableName(Type type)
-        {
-            var attribute = type.GetCustomAttributes(false).SingleOrDefault(a => a.GetType().Name == "TableAttribute") as dynamic;
-            if (attribute != null) return attribute.Name;
-
-            return type.Name + "s";
-        }
     }
 
     public static class SqlMapperExtensions
     {
         public static T Get<T>(this IDbConnection cnx, int id) where T : class
         {
+            var prefix = cnx.GetPrefix();
             T data = null;
 
             var is_open_before = (cnx.State == ConnectionState.Open);
             try
             {
                 if (!is_open_before) cnx.Open();
-                var sql = GetSelect(typeof(T), true);
+                var sql = GetSelect(typeof(T), prefix);
                 data = cnx.Query<T>(sql, new { id }).FirstOrDefault();
             }
             catch (Exception ex)
@@ -121,12 +120,20 @@ namespace Quick5.Models
         public static IEnumerable<T> List<T>(this IDbConnection cnx, string where, object param) where T : class
         {
             IEnumerable<T> data = null;
+            if (param == null) param = new { };
+            var where_params = param.GetType().GetProperties().ToArray().Select(p => p.Name);
+            var prefix = cnx.GetPrefix();
+            var bad_prefix = prefix == ":" ? "@" : ":";
 
             var is_open_before = (cnx.State == ConnectionState.Open);
             try
             {
                 if (!is_open_before) cnx.Open();
                 var sql = GetSelect(typeof(T)) + where;
+                foreach (var p in where_params)
+                {
+                    sql = sql.Replace(bad_prefix + p, prefix + p); // ne gère pas majuscule / minuscule !!! 
+                }
                 data = cnx.Query<T>(sql, param);
             }
             catch (Exception ex)
@@ -146,14 +153,15 @@ namespace Quick5.Models
             var type = typeof(T);
             var columns = GetColumns(type).Skip(1);
             var table_name = GetTableName(type);
+            var prefix = connexion.GetPrefix();
 
             var sql = new StringBuilder();
             sql.Append("INSERT INTO ");
             sql.Append(table_name);
             sql.Append(" (");
             sql.Append(string.Join(", ", columns));
-            sql.Append(") VALUES (:");
-            sql.Append(string.Join(", :", columns));
+            sql.Append(") VALUES (" + prefix);
+            sql.Append(string.Join(", " + prefix, columns));
             sql.Append(")");
 
             int result = 0;
@@ -180,15 +188,16 @@ namespace Quick5.Models
             var type = typeof(T);
             var columns = GetColumns(type);
             var table_name = GetTableName(type);
+            var prefix = connexion.GetPrefix();
 
             var sql = new StringBuilder();
             sql.Append("UPDATE ");
             sql.Append(table_name);
             sql.Append(" SET ");
-            var cols = columns.Skip(1).Select(c => c + " = :" + c);
+            var cols = columns.Skip(1).Select(c => c + " = " + prefix + c);
             sql.Append(string.Join(", ", cols));
             sql.Append(" WHERE (");
-            sql.Append(columns.Take(1).Select(c => c + " = :" + c).First());
+            sql.Append(columns.Take(1).Select(c => c + " = " + prefix + c).First());
             sql.Append(")");
 
             int result = 0;
@@ -215,13 +224,14 @@ namespace Quick5.Models
             var type = typeof(T);
             var columns = GetColumns(type);
             var table_name = GetTableName(type);
+            var prefix = cnx.GetPrefix();
 
             var sql = new StringBuilder();
             sql.Append("DELETE FROM ");
             sql.Append(table_name);
             sql.Append(" WHERE (");
             sql.Append(columns.First());
-            sql.Append(" = :Id)");
+            sql.Append(" = " + prefix + "Id)");
 
             int result = 0;
             var is_open_before = (cnx.State == ConnectionState.Open);
@@ -242,7 +252,7 @@ namespace Quick5.Models
             return result;
         }
 
-        private static string GetSelect(Type type, bool where_id = false)
+        private static string GetSelect(Type type, string prefix = null)
         {
             var columns = GetColumns(type);
             var table_name = GetTableName(type);
@@ -253,11 +263,11 @@ namespace Quick5.Models
             sql.Append(" FROM ");
             sql.Append(table_name);
 
-            if (where_id)
+            if (prefix != null)
             {
                 sql.Append(" WHERE (");
                 sql.Append(columns.First());
-                sql.Append(" = :Id)");
+                sql.Append(" = " + prefix + "Id)");
             }
 
             return sql.ToString();
@@ -276,6 +286,13 @@ namespace Quick5.Models
             if (attribute != null) return attribute.Name;
 
             return type.Name + "s";
+        }
+
+        private static string GetPrefix(this IDbConnection cnx)
+        {
+            if (cnx.ConnectionString.ToLower().Contains("db_tests.sdf")) return "@";
+
+            return ":";
         }
     }
 }

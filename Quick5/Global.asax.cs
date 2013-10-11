@@ -11,6 +11,7 @@ namespace Quick5
     public class MvcApplication : System.Web.HttpApplication
     {
         public static bool IsDbProduction { get; set; }
+        public static bool IsDbTests { get; set; }
 
         protected void Application_Start()
         {
