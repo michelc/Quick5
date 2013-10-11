@@ -250,7 +250,7 @@ namespace Quick5.Models
             var sql = new StringBuilder();
             sql.Append("SELECT ");
             sql.Append(string.Join(", ", columns));
-            sql.Append("FROM ");
+            sql.Append(" FROM ");
             sql.Append(table_name);
 
             if (where_id)
@@ -265,7 +265,7 @@ namespace Quick5.Models
 
         private static IEnumerable<string> GetColumns(Type type)
         {
-            var columns = type.GetProperties().ToArray().Skip(1).Select(p => p.Name);
+            var columns = type.GetProperties().ToArray().Select(p => p.Name);
 
             return columns;
         }

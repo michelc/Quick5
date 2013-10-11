@@ -44,7 +44,7 @@ namespace Quick5.Models
 
         public IEnumerable<EdiSite> List(int Accord_ID)
         {
-            var where = "WHERE  (Accord_National_Id = :Id) ORDER BY UPPER(Libelle)";
+            var where = " WHERE  (Accord_National_Id = :Id) ORDER BY UPPER(Libelle)";
 
             var data = connexion.List<DbEdiSite>(where, new { id = Accord_ID });
             var view_model = Mapper.Map<IEnumerable<DbEdiSite>, IEnumerable<EdiSite>>(data);

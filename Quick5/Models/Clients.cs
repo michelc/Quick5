@@ -61,25 +61,25 @@ namespace Quick5.Models
             if (siren.Length >= 14)
             {
                 // Recherche par n° siret
-                where += "WHERE  (Fld109 = :Siret)";
+                where += " WHERE  (Fld109 = :Siret)";
                 param = new { Siret = siren.Substring(0, 14) };
             }
             else if (siren.Length >= 9)
             {
                 // Recherche par n° siren
-                where += "WHERE  (Siren = :Siren)";
+                where += " WHERE  (Siren = :Siren)";
                 param = new { Siren = siren.Substring(0, 9) };
             }
             else if (siren.Length < 3)
             {
                 // Recherche par nom client seul
-                where += "WHERE  (UPPER(Name) LIKE :Nom)";
+                where += " WHERE  (UPPER(Name) LIKE :Nom)";
                 param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
             }
             else
             {
                 // Recherche par nom client ou n° siren
-                where += "WHERE  ((UPPER(Name) LIKE :Nom) OR (Siren LIKE :Siren))";
+                where += " WHERE  ((UPPER(Name) LIKE :Nom) OR (Siren LIKE :Siren))";
                 param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
             }
             where += " ORDER BY UPPER(Name), UPPER(City)";

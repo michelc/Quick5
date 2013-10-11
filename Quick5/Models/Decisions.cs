@@ -68,7 +68,7 @@ namespace Quick5.Models
 
         public IEnumerable<Decision> List(string NSiren)
         {
-            var where = @"WHERE (Siren = :NSiren)
+            var where = @" WHERE (Siren = :NSiren)
                           ORDER BY Decision_Date DESC
                                  , Date_Effet DESC
                                  , Date_Last_Update DESC
