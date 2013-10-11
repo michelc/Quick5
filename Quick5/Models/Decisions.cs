@@ -96,6 +96,14 @@ namespace Quick5.Models
             return view_model;
         }
 
+        public Decision Get(int id)
+        {
+            var data = this.connexion.Get<DbDecision>(id);
+            var view_model = Mapper.Map<Decision>(data);
+
+            return view_model;
+        }
+
         /// <summary>
         /// Requête SQL pour attaquer la table des décisions
         /// </summary>

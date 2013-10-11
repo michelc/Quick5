@@ -70,24 +70,9 @@ namespace Quick5.Models
 
         public EdiSite Get(int id)
         {
-            var data = new DbEdiSite();
-
-            try
-            {
-                connexion.Open();
-                var sql = Sql() + "WHERE  (Id = :Id)";
-                data = connexion.Query<DbEdiSite>(sql, new { id }).FirstOrDefault();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
-            }
-
+            var data = this.connexion.Get<DbEdiSite>(id);
             var view_model = Mapper.Map<EdiSite>(data);
+
             return view_model;
         }
 

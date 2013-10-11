@@ -70,24 +70,9 @@ namespace Quick5.Models
 
         public EdiAccord Get(int id)
         {
-            var data = new DbEdiAccord();
-
-            try
-            {
-                connexion.Open();
-                var sql = Sql() + "WHERE  (Id = :Id)";
-                data = connexion.Query<DbEdiAccord>(sql, new { id }).FirstOrDefault();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
-            }
-
+            var data = this.connexion.Get<DbEdiAccord>(id);
             var view_model = Mapper.Map<EdiAccord>(data);
+
             return view_model;
         }
 

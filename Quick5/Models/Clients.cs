@@ -108,24 +108,9 @@ namespace Quick5.Models
 
         public Client Get(int id)
         {
-            var data = new DbClient();
-
-            try
-            {
-                connexion.Open();
-                var sql = Sql() + "WHERE  (IdCompany = :Id)";
-                data = connexion.Query<DbClient>(sql, new { id }).FirstOrDefault();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
-            }
-
+            var data = this.connexion.Get<DbClient>(id);
             var view_model = Mapper.Map<Client>(data);
+
             return view_model;
         }
 

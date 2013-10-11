@@ -136,24 +136,9 @@ namespace Quick5.Models
 
         public Garantie Get(int id)
         {
-            var data = new DbGarantie();
-
-            try
-            {
-                connexion.Open();
-                var sql = Sql() + "WHERE  (Risque_ID = :Id)";
-                data = connexion.Query<DbGarantie>(sql, new { id }).FirstOrDefault();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
-            }
-
+            var data = this.connexion.Get<DbGarantie>(id);
             var view_model = Mapper.Map<Garantie>(data);
+
             return view_model;
         }
 

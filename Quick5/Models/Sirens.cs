@@ -97,24 +97,9 @@ namespace Quick5.Models
 
         public Siren Get(int id)
         {
-            var data = new DbSiren();
-
-            try
-            {
-                connexion.Open();
-                var sql = Sql() + "WHERE  (ID = :Id)";
-                data = connexion.Query<DbSiren>(sql, new { id }).FirstOrDefault();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                connexion.Close();
-            }
-
+            var data = this.connexion.Get<DbSiren>(id);
             var view_model = Mapper.Map<Siren>(data);
+
             return view_model;
         }
 
