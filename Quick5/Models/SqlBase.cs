@@ -158,9 +158,14 @@ namespace Quick5.Models
             var sql = new StringBuilder();
             sql.Append("INSERT INTO ");
             sql.Append(table_name);
-            sql.Append(" (");
+            sql.Append(Environment.NewLine);
+            sql.Append("  (");
             sql.Append(string.Join(", ", columns));
-            sql.Append(") VALUES (" + prefix);
+            sql.Append(")");
+            sql.Append(Environment.NewLine);
+            sql.Append("VALUES");
+            sql.Append(Environment.NewLine);
+            sql.Append("  (" + prefix);
             sql.Append(string.Join(", " + prefix, columns));
             sql.Append(")");
 
@@ -193,10 +198,11 @@ namespace Quick5.Models
             var sql = new StringBuilder();
             sql.Append("UPDATE ");
             sql.Append(table_name);
-            sql.Append(" SET ");
-            var cols = columns.Skip(1).Select(c => c + " = " + prefix + c);
-            sql.Append(string.Join(", ", cols));
-            sql.Append(" WHERE (");
+            sql.Append(Environment.NewLine);
+            sql.Append("SET    ");
+            var cols = columns.Skip(1).Select(c => c + " = " + prefix + c + Environment.NewLine);
+            sql.Append(string.Join("     , ", cols));
+            sql.Append("WHERE  (");
             sql.Append(columns.Take(1).Select(c => c + " = " + prefix + c).First());
             sql.Append(")");
 
@@ -229,7 +235,8 @@ namespace Quick5.Models
             var sql = new StringBuilder();
             sql.Append("DELETE FROM ");
             sql.Append(table_name);
-            sql.Append(" WHERE (");
+            sql.Append(Environment.NewLine);
+            sql.Append("WHERE  (");
             sql.Append(columns.First());
             sql.Append(" = " + prefix + "Id)");
 
@@ -259,13 +266,15 @@ namespace Quick5.Models
 
             var sql = new StringBuilder();
             sql.Append("SELECT ");
-            sql.Append(string.Join(", ", columns));
-            sql.Append(" FROM ");
+            var cols = columns.Select(c => c + Environment.NewLine);
+            sql.Append(string.Join("     , ", cols));
+            sql.Append("FROM   ");
             sql.Append(table_name);
+            sql.Append(Environment.NewLine);
 
             if (prefix != null)
             {
-                sql.Append(" WHERE (");
+                sql.Append("WHERE  (");
                 sql.Append(columns.First());
                 sql.Append(" = " + prefix + "Id)");
             }

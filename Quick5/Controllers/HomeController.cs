@@ -79,7 +79,7 @@ namespace Quick5.Controllers
                 new DbGarantie { Client_ID = 2, Montant_Risque = 10000, Option_Risque = "OK", Date_Risque = DateTime.Now.AddDays(-150).Date },
                 new DbGarantie { Client_ID = 3, Montant_Risque = 20000, Option_Risque = "OK2", Date_Risque = DateTime.Now.AddDays(-100).Date, Montant_Risque_Compl = 2000 },
                 new DbGarantie { Client_ID = 4, Montant_Risque = 20000, Option_Risque = "OK2", Date_Risque = DateTime.Now.AddDays(-100).Date, Montant_Risque_Compl = 2000 },
-                new DbGarantie { Client_ID = 5, Montant_Risque = 20000, Option_Risque = "OK2", Date_Risque = DateTime.Now.AddDays(-100).Date, Montant_Risque_Compl = 2000 }
+                new DbGarantie { Client_ID = 5, Montant_Risque = 20000, Option_Risque = "OK2", Date_Risque = DateTime.Now.AddDays(-100).Date, Montant_Risque_Compl = 2222 }
             }.ForEach(g => db.connexion.Insert<DbGarantie>(g));
 
             // Alimentation table des accords edi

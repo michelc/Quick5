@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using AutoMapper;
@@ -48,29 +49,30 @@ namespace Quick5.Models
 
         public IEnumerable<Siren> List(string q)
         {
-            var where = " WHERE  (Societe_ID = '001')";
+            var where = "WHERE  (Societe_ID = '001')" + Environment.NewLine;
             object param = null;
 
             var siren = Tools.DigitOnly(q);
             if (siren.Length >= 9)
             {
                 // Recherche par n° siren
-                where += " AND    (Siren = :Siren)";
+                where += "AND    (Siren = :Siren)";
                 param = new { Siren = siren.Substring(0, 9) };
             }
             else if (siren.Length < 3)
             {
                 // Recherche par raison sociale seule
-                where += " AND    (UPPER(Raison_Social) LIKE :Nom)";
+                where += "AND    (UPPER(Raison_Social) LIKE :Nom)";
                 param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
             }
             else
             {
                 // Recherche par raison sociale ou n° siren
-                where += " AND    ((UPPER(Raison_Social) LIKE :Nom) OR (Siren LIKE :Siren))";
+                where += "AND    ((UPPER(Raison_Social) LIKE :Nom) OR (Siren LIKE :Siren))";
                 param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
             }
-            where += " ORDER BY UPPER(Raison_Social), Siren";
+            where += Environment.NewLine;
+            where += "ORDER BY UPPER(Raison_Social), Siren";
 
             var data = connexion.List<DbSiren>(where, param);
             var view_model = Mapper.Map<IEnumerable<DbSiren>, IEnumerable<Siren>>(data);

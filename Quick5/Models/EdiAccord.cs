@@ -44,7 +44,7 @@ namespace Quick5.Models
 
         public IEnumerable<EdiAccord> List()
         {
-            var where = " ORDER BY UPPER(Libelle)";
+            var where = "ORDER BY UPPER(Libelle)";
 
             var data = connexion.List<DbEdiAccord>(where, null);
             var view_model = Mapper.Map<IEnumerable<DbEdiAccord>, IEnumerable<EdiAccord>>(data);

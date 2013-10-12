@@ -109,7 +109,7 @@ namespace Quick5.Models
             else
             {
                 // Recherche par ID client
-                where += " WHERE  (Client_ID = :Client_ID)";
+                where += "WHERE  (Client_ID = :Client_ID)";
                 param = new { Client_ID = (int)id };
             }
 
