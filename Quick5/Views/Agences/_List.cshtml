@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Quick5.Models.Agence>
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        <th class="hidden-print"></th>
+        <th>N°</th>
+        <th>Nom</th>
+        <th>CP</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Details", "Agences", new { id = item.Agence_ID}, new { @class="glyphicon glyphicon-play" })</th>
+        <td>#@item.Agence_ID.ToString("000")</td>
+        <td>@Html.DisplayFor(modelItem => item.Nom)</td>
+        <td>@Html.DisplayFor(modelItem => item.CodePostal)</td>
+    </tr>
+}
+</tbody>
+</table>

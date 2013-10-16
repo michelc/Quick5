@@ -106,6 +106,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AgencesController.cs" />
     <Compile Include="Controllers\EdiAccordsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\GarantiesController.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Helpers\BootstrapHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\Tools.cs" />
+    <Compile Include="Models\Agences.cs" />
     <Compile Include="Models\EdiAccord.cs" />
     <Compile Include="Models\EdiSites.cs" />
     <Compile Include="Models\MappingConfig.cs" />
@@ -180,6 +182,9 @@
     <Content Include="Views\EdiAccords\Details.cshtml" />
     <Content Include="Views\EdiAccords\_List.cshtml" />
     <Content Include="Views\EdiSites\_List.cshtml" />
+    <Content Include="Views\Agences\Index.cshtml" />
+    <Content Include="Views\Agences\_List.cshtml" />
+    <Content Include="Views\Agences\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

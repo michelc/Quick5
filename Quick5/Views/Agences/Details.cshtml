@@ -1,0 +1,9 @@
+﻿@model Quick5.Models.Agence
+
+@{
+    ViewBag.Title = "Agences / " + Model.Nom;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_List", new List<Quick5.Models.Agence>() { Model })

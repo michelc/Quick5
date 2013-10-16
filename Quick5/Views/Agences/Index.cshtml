@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Quick5.Models.Agence>
+
+@{
+    ViewBag.Title = "Agences";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_List", Model)

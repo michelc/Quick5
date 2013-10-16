@@ -15,7 +15,6 @@
             {
                 _Sirens = value;
             }
-
         }
         private Sirens _Sirens;
 
@@ -30,9 +29,22 @@
             {
                 _Clients = value;
             }
-
         }
         private Clients _Clients;
+
+        public Agences Agences
+        {
+            get
+            {
+                if (_Agences == null) _Agences = new Agences(this.connexion);
+                return _Agences;
+            }
+            set
+            {
+                _Agences = value;
+            }
+        }
+        private Agences _Agences;
 
         public Garanties Garanties
         {
@@ -45,7 +57,6 @@
             {
                 _Garanties = value;
             }
-
         }
         private Garanties _Garanties;
 
@@ -60,7 +71,6 @@
             {
                 _Decisions = value;
             }
-
         }
         private Decisions _Decisions;
 
@@ -75,7 +85,6 @@
             {
                 _EdiAccords = value;
             }
-
         }
         private EdiAccords _EdiAccords;
 
@@ -90,7 +99,6 @@
             {
                 _EdiSites = value;
             }
-
         }
         private EdiSites _EdiSites;
     }
