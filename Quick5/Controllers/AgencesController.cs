@@ -10,6 +10,7 @@ namespace Quick5.Controllers
         //
         // GET: /Agences/
 
+        [OutputCache(Duration = 300)]
         public ActionResult Index()
         {
             var agences = new List<Agence>();
