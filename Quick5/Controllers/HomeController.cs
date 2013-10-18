@@ -41,6 +41,7 @@ namespace Quick5.Controllers
             // Suppression des tables existantes
             db.ExecuteSql("DROP TABLE Ct_Fiche_Siren");
             db.ExecuteSql("DROP TABLE Cy");
+            db.ExecuteSql("DROP TABLE Agences");
             db.ExecuteSql("DROP TABLE Ct_Risques_Clients");
             db.ExecuteSql("DROP TABLE Ct_Historique_Atradius");
             db.ExecuteSql("DROP TABLE Accord_Edi_National");
@@ -49,6 +50,7 @@ namespace Quick5.Controllers
             // Création des tables
             db.ExecuteSql(SqlCreate("Ct_Fiche_Siren", typeof(DbSiren)));
             db.ExecuteSql(SqlCreate("Cy", typeof(DbClient)));
+            db.ExecuteSql(SqlCreate("Agences", typeof(DbAgence)));
             db.ExecuteSql(SqlCreate("Ct_Risques_Clients", typeof(DbGarantie)));
             db.ExecuteSql(SqlCreate("Ct_Historique_Atradius", typeof(DbDecision)));
             db.ExecuteSql(SqlCreate("Accord_Edi_National", typeof(DbEdiAccord)));
@@ -71,6 +73,17 @@ namespace Quick5.Controllers
                 new DbClient { Name = "BBB CAPITALE", Siren = "222222222", Fld109 = "22222222200002", PostCode = "75002", City = "PARIS", Fld138 = "Prospect", Fld129 = null },
                 new DbClient { Name = "BIM BAM BOUM", Siren = "222222222", Fld109 = "22222222200003", PostCode = "13002", City = "MARSEILLE", Fld138 = "Prospect", Fld129 = "02" }
             }.ForEach(c => db.connexion.Insert<DbClient>(c));
+
+            // Alimentation table des agences
+            new List<DbAgence>
+            {
+                new DbAgence { Societe_ID = "001", Code_Agn = "001", Libelle = "LYON", Departement = "69001" },
+                new DbAgence { Societe_ID = "001", Code_Agn = "002", Libelle = "PARIS", Departement = "75002" }
+            }.ForEach(a =>
+            {
+                db.connexion.Insert<DbAgence>(a);
+                db.ExecuteSql("UPDATE Agences SET Code_Agn = @Code_Agn WHERE Libelle = @Libelle", a);
+            });
 
             // Alimentation table des garanties
             new List<DbGarantie>

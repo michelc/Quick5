@@ -23,6 +23,7 @@ namespace Quick5.Models
     public class DbAgence
     {
         public string Code_Agn { get; set; }
+        public string Societe_ID { get; set; }
         public string Libelle { get; set; }
         public string Departement { get; set; }
     }
@@ -44,7 +45,9 @@ namespace Quick5.Models
             // Retrouve uniquement les agences avec de l'activité au cours des 2 derniers mois
             var where = @"WHERE  EXISTS (SELECT Code_Agn FROM Ex_Avenant WHERE Ex_Avenant.Code_Agn = Agences.Code_Agn AND Date_Fin_Contrat > SYSDATE - 66)
                           AND    (Societe_ID = '001')
-                          ORDER BY 2";
+                          ORDER BY Libelle";
+
+            if (Quick5.MvcApplication.IsDbTests) where = "ORDER BY Libelle";
 
             var data = connexion.List<DbAgence>(where, null);
             var view_model = Mapper.Map<IEnumerable<DbAgence>, IEnumerable<Agence>>(data);
