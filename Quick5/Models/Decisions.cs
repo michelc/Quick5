@@ -66,7 +66,7 @@ namespace Quick5.Models
             this.connexion = connexion;
         }
 
-        public IEnumerable<Decision> List(string NSiren)
+        public List<Decision> List(string NSiren)
         {
             var where = @"WHERE  (Siren = :NSiren)
                           ORDER BY Decision_Date DESC
@@ -75,7 +75,7 @@ namespace Quick5.Models
                                  , Historique_ID DESC";
 
             var data = connexion.List<DbDecision>(where, new { NSiren });
-            var view_model = Mapper.Map<IEnumerable<DbDecision>, IEnumerable<Decision>>(data);
+            var view_model = Mapper.Map<IEnumerable<DbDecision>, List<Decision>>(data);
 
             return view_model;
         }

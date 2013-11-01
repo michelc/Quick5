@@ -42,12 +42,12 @@ namespace Quick5.Models
             this.connexion = connexion;
         }
 
-        public IEnumerable<EdiAccord> List()
+        public List<EdiAccord> List()
         {
             var where = "ORDER BY UPPER(Libelle)";
 
             var data = connexion.List<DbEdiAccord>(where, null);
-            var view_model = Mapper.Map<IEnumerable<DbEdiAccord>, IEnumerable<EdiAccord>>(data);
+            var view_model = Mapper.Map<IEnumerable<DbEdiAccord>, List<EdiAccord>>(data);
 
             return view_model;
         }

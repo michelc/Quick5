@@ -13,7 +13,7 @@ namespace Quick5.Controllers
         public ActionResult Index()
         {
             var db = new ExtraBase();
-            var accords = db.EdiAccords.List().ToList();
+            var accords = db.EdiAccords.List();
 
             return View(accords);
         }

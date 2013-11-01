@@ -45,13 +45,13 @@ namespace Quick5.Models
             this.connexion = connexion;
         }
 
-        public IEnumerable<EdiSite> List(int Accord_ID)
+        public List<EdiSite> List(int Accord_ID)
         {
             var where = @"WHERE  (Accord_National_Id = :Id)
                           ORDER BY UPPER(Libelle)";
 
             var data = connexion.List<DbEdiSite>(where, new { Id = Accord_ID });
-            var view_model = Mapper.Map<IEnumerable<DbEdiSite>, IEnumerable<EdiSite>>(data);
+            var view_model = Mapper.Map<IEnumerable<DbEdiSite>, List<EdiSite>>(data);
 
             return view_model;
         }

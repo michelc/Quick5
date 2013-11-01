@@ -18,7 +18,7 @@ namespace Quick5.Controllers
                 if (q.Length >= 3)
                 {
                     var db = new ExtraBase();
-                    sirens = db.Sirens.List(q).ToList();
+                    sirens = db.Sirens.List(q);
 
                     if (sirens.Count() == 1)
                     {

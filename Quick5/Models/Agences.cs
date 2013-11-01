@@ -40,7 +40,7 @@ namespace Quick5.Models
             this.connexion = connexion;
         }
 
-        public IEnumerable<Agence> List()
+        public List<Agence> List()
         {
             // Retrouve uniquement les agences avec de l'activité au cours des 2 derniers mois
             var where = @"WHERE  EXISTS (SELECT Code_Agn FROM Ex_Avenant WHERE Ex_Avenant.Code_Agn = Agences.Code_Agn AND Date_Fin_Contrat > SYSDATE - 66)
@@ -50,7 +50,7 @@ namespace Quick5.Models
             if (Quick5.MvcApplication.IsDbTests) where = "ORDER BY Libelle";
 
             var data = connexion.List<DbAgence>(where, null);
-            var view_model = Mapper.Map<IEnumerable<DbAgence>, IEnumerable<Agence>>(data);
+            var view_model = Mapper.Map<IEnumerable<DbAgence>, List<Agence>>(data);
 
             return view_model;
         }

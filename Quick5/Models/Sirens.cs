@@ -47,7 +47,7 @@ namespace Quick5.Models
             this.connexion = connexion;
         }
 
-        public IEnumerable<Siren> List(string q)
+        public List<Siren> List(string q)
         {
             var where = "WHERE  (Societe_ID = '001')" + Environment.NewLine;
             object param = null;
@@ -75,7 +75,7 @@ namespace Quick5.Models
             where += "ORDER BY UPPER(Raison_Social), Siren";
 
             var data = connexion.List<DbSiren>(where, param);
-            var view_model = Mapper.Map<IEnumerable<DbSiren>, IEnumerable<Siren>>(data);
+            var view_model = Mapper.Map<IEnumerable<DbSiren>, List<Siren>>(data);
 
             return view_model;
         }

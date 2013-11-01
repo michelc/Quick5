@@ -13,9 +13,8 @@ namespace Quick5.Controllers
         [OutputCache(Duration = 300)]
         public ActionResult Index()
         {
-            var agences = new List<Agence>();
             var db = new ExtraBase();
-            agences = db.Agences.List().ToList();
+            var agences = db.Agences.List();
 
             return View(agences);
         }

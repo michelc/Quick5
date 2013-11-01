@@ -18,7 +18,7 @@ namespace Quick5.Controllers
                 if (q.Length >= 3)
                 {
                     var db = new ExtraBase();
-                    clients = db.Clients.List(q).ToList();
+                    clients = db.Clients.List(q);
                 }
             }
 

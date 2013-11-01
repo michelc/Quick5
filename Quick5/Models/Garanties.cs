@@ -92,7 +92,7 @@ namespace Quick5.Models
             this.connexion = connexion;
         }
 
-        public IEnumerable<Garantie> List(object id)
+        public List<Garantie> List(object id)
         {
             var where = "";
             object param = null;
@@ -114,7 +114,7 @@ namespace Quick5.Models
             }
 
             var data = connexion.List<DbGarantie>(where, param);
-            var view_model = Mapper.Map<IEnumerable<DbGarantie>, IEnumerable<Garantie>>(data);
+            var view_model = Mapper.Map<IEnumerable<DbGarantie>, List<Garantie>>(data);
 
             return view_model;
         }

@@ -53,7 +53,7 @@ namespace Quick5.Models
             this.connexion = connexion;
         }
 
-        public IEnumerable<Client> List(string q)
+        public List<Client> List(string q)
         {
             var where = "";
             object param = null;
@@ -87,7 +87,7 @@ namespace Quick5.Models
             where += "ORDER BY UPPER(Name), UPPER(City)";
 
             var data = connexion.List<DbClient>(where, param);
-            var view_model = Mapper.Map<IEnumerable<DbClient>, IEnumerable<Client>>(data);
+            var view_model = Mapper.Map<IEnumerable<DbClient>, List<Client>>(data);
 
             return view_model;
         }
