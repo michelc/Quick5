@@ -6,12 +6,12 @@
 
 <h2>@ViewBag.Title</h2>
 
-@Html.Partial("_List", new List<Quick5.Models.EdiSite>() { Model })
+@Html.Partial("_List", Model.AsList())
 
 <h3>Accord</h3>
 
-@Html.Partial("../EdiAccords/_List", new List<Quick5.Models.EdiAccord>() { Model.EdiAccord })
+@Html.Partial("../EdiAccords/_List", Model.EdiAccord.AsList())
 
 <h3>Client</h3>
 
-@Html.Partial("../Clients/_List", new List<Quick5.Models.Client>() { Model.Client })
+@Html.Partial("../Clients/_List", Model.Client.AsList())
