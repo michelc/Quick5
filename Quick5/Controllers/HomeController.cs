@@ -107,7 +107,8 @@ namespace Quick5.Controllers
             {
                 new DbEdiSite { Accord_National_Id = 1, Libelle = "PARIS", Siret = "22222222200002", Code_Externe_Eu = "00002" },
                 new DbEdiSite { Accord_National_Id = 1, Libelle = "LYON", Siret = "22222222200001", Code_Externe_Eu = "00001" },
-                new DbEdiSite { Accord_National_Id = 2, Libelle = "ETS AZERTY LYON", Siret = "11111111100001", Code_Externe_Eu = "LYON" }
+                new DbEdiSite { Accord_National_Id = 2, Libelle = "ETS AZERTY LYON", Siret = "11111111100001", Code_Externe_Eu = "LYON" },
+                new DbEdiSite { Accord_National_Id = 2, Libelle = "AZERTY MARSEILLE", Siret = "11111111100003", Code_Externe_Eu = "MARSEILLE" }
             }.ForEach(s => db.connexion.Insert<DbEdiSite>(s));
  
             // Fermeture de la base de données

@@ -15,6 +15,9 @@ namespace Quick5.Models
         public string Nom { get; set; }
         public string NSiret { get; set; }
         public string Code { get; set; }
+
+        public EdiAccord EdiAccord { get; set; }
+        public Client Client { get; set; }
     }
 
     /// <summary>
