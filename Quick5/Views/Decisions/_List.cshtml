@@ -4,20 +4,18 @@
 <thead>
     <tr>
         <th class="hidden-print"></th>
-        <th>Date</th>
+        <th>Date <span class="badge">1</span></th>
         <th>Sig</th>
-        <th>Resu</th>
+        <th>Résult</th>
         <th>Code</th>
         <th>Cond</th>
         <th>Montant</th>
-        <th>Compl</th>
-        <th>Début</th>
+        <th>Effet <span class="badge">2</span></th>
         <th>Fin</th>
         <th>Entrée</th>
         <th>TCode</th>
         <th>Sup</th>
-        <th>Update</th>
-        <th>Import</th>
+        <th>Update <span class="badge">3</span></th>
         <th>Fichier</th>
     </tr>
 </thead>
@@ -31,15 +29,18 @@
         <td>@Html.DisplayFor(modelItem => item.Resultat)</td>
         <td>@Html.DisplayFor(modelItem => item.Code)</td>
         <td>@Html.DisplayFor(modelItem => item.Condition)</td>
-        <td>@Html.DisplayFor(modelItem => item.Montant)</td>
-        <td>@Html.DisplayFor(modelItem => item.Complement)</td>
+        <td>@Html.DisplayFor(modelItem => item.Montant)
+            @if (item.Complement != 0) {
+                <text> + </text>
+                @Html.DisplayFor(modelItem => item.Complement)
+            }
+        </td>
         <td>@Html.DisplayFor(modelItem => item.Debut)</td>
         <td>@Html.DisplayFor(modelItem => item.Fin)</td>
         <td>@Html.DisplayFor(modelItem => item.DEntree)</td>
         <td>@Html.DisplayFor(modelItem => item.TCode)</td>
         <td>@Html.DisplayFor(modelItem => item.Super)</td>
         <td>@Html.DisplayFor(modelItem => item.DUpdate)</td>
-        <td>@Html.DisplayFor(modelItem => item.DImport)</td>
         <td>@Html.DisplayFor(modelItem => item.DFichier)</td>
     </tr>
 }
