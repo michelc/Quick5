@@ -52,6 +52,7 @@ namespace Quick5.Models
             var where = "WHERE  (Societe_ID = '001')" + Environment.NewLine;
             object param = null;
 
+            q = q.Trim().ToUpperInvariant();
             var siren = Tools.DigitOnly(q);
             if (siren.Length >= 9)
             {
@@ -63,13 +64,13 @@ namespace Quick5.Models
             {
                 // Recherche par raison sociale seule
                 where += "AND    (UPPER(Raison_Social) LIKE :Nom)";
-                param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
+                param = new { Nom = q + "%" };
             }
             else
             {
                 // Recherche par raison sociale ou n° siren
                 where += "AND    ((UPPER(Raison_Social) LIKE :Nom) OR (Siren LIKE :Siren))";
-                param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
+                param = new { Nom = q + "%", Siren = q + "%" };
             }
             where += Environment.NewLine;
             where += "ORDER BY UPPER(Raison_Social), Siren";

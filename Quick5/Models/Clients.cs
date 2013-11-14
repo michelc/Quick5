@@ -58,6 +58,7 @@ namespace Quick5.Models
             var where = "";
             object param = null;
 
+            q = q.Trim().ToUpperInvariant();
             var siren = Tools.DigitOnly(q);
             if (siren.Length >= 14)
             {
@@ -75,13 +76,13 @@ namespace Quick5.Models
             {
                 // Recherche par nom client seul
                 where += "WHERE  (UPPER(Name) LIKE :Nom)";
-                param = new { Nom = "%" + q.ToUpperInvariant() + "%" };
+                param = new { Nom = q + "%" };
             }
             else
             {
                 // Recherche par nom client ou n° siren
                 where += "WHERE  ((UPPER(Name) LIKE :Nom) OR (Siren LIKE :Siren))";
-                param = new { Nom = "%" + q.ToUpperInvariant() + "%", Siren = siren + "%" };
+                param = new { Nom = q + "%", Siren = q + "%" };
             }
             where += Environment.NewLine;
             where += "ORDER BY UPPER(Name), UPPER(City)";
