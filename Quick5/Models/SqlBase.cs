@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Dapper;
 using StackExchange.Profiling;
 
@@ -132,7 +133,7 @@ namespace Quick5.Models
                 var sql = GetSelect(typeof(T)) + where;
                 foreach (var p in where_params)
                 {
-                    sql = sql.Replace(bad_prefix + p, prefix + p); // ne gère pas majuscule / minuscule !!! 
+                    sql = Regex.Replace(sql, bad_prefix + p, prefix + p, RegexOptions.IgnoreCase);
                 }
                 data = cnx.Query<T>(sql, param);
             }
