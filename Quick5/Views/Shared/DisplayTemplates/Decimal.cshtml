@@ -1,2 +1,2 @@
 ﻿@model Decimal
-@if (Model != 0) { @Model.ToString("N") }
+@if (Model != 0) { @Model.ToString("N").Replace(",00", "") }
