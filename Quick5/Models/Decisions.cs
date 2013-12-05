@@ -12,6 +12,7 @@ namespace Quick5.Models
     public class Decision
     {
         public int Decision_ID { get; set; }
+        public string NSiren { get; set; }
         public DateTime DDecision { get; set; }
         public bool Significatif { get; set; }
         public string Resultat { get; set; }
@@ -27,6 +28,8 @@ namespace Quick5.Models
         public DateTime DUpdate { get; set; }
         public DateTime DImport { get; set; }
         public DateTime DFichier { get; set; }
+
+        public Siren Siren { get; set; }
     }
 
     /// <summary>
@@ -99,6 +102,7 @@ namespace Quick5.Models
             Mapper.CreateMap<DbDecision, Decision>().ForAllMembers(opt => opt.Ignore());
             Mapper.CreateMap<DbDecision, Decision>()
                 .ForMember(dest => dest.Decision_ID, opt => opt.MapFrom(src => src.Historique_ID))
+                .ForMember(dest => dest.NSiren, opt => opt.MapFrom(src => src.Siren))
                 .ForMember(dest => dest.DDecision, opt => opt.MapFrom(src => src.Decision_Date))
                 .ForMember(dest => dest.Significatif, opt => opt.MapFrom(src => src.Significatif != "0"))
                 .ForMember(dest => dest.Resultat, opt => opt.MapFrom(src => src.Result_Code))

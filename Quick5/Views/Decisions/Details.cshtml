@@ -1,0 +1,116 @@
+﻿@model Quick5.Models.Decision
+
+@{
+    ViewBag.Title = "Décision / " + Model.Decision_ID;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Siren</h3>
+
+@Html.Partial("../Sirens/_List", Model.Siren.AsList())
+
+<h3>Décision</h3>
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        <th>Champ</th>
+        <th>Valeur</th>
+        <th class="hidden-xs">Description</th>
+        <th class="hidden-xs">Colonne</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>Date décision</td>
+        <td>@Html.DisplayFor(modelItem => Model.DDecision)</td>
+        <td class="hidden-xs"></td>
+        <td class="hidden-xs"><code>Decision_Date</code></td>
+    </tr>
+    <tr>
+        <td>Significatif</td>
+        <td>@Html.DisplayFor(modelItem => Model.Significatif)</td>
+        <td class="hidden-xs">Vrai si cette décision doit être prise en compte</td>
+        <td class="hidden-xs"><code>Significatif</code></td>
+    </tr>
+    <tr>
+        <td>Résultat</td>
+        <td>@Html.DisplayFor(modelItem => Model.Resultat)</td>
+        <td class="hidden-xs"></td>
+        <td class="hidden-xs"><code>Result_Code</code></td>
+    </tr>
+    <tr>
+        <td>Code</td>
+        <td>@Html.DisplayFor(modelItem => Model.Code)</td>
+        <td class="hidden-xs"></td>
+        <td class="hidden-xs"><code>Decision_Code</code></td>
+    </tr>
+    <tr>
+        <td>Condition</td>
+        <td>@Html.DisplayFor(modelItem => Model.Condition)</td>
+        <td class="hidden-xs"></td>
+        <td class="hidden-xs"><code>Condition_Code</code></td>
+    </tr>
+    <tr>
+        <td>Montant</td>
+        <td>@Html.DisplayFor(modelItem => Model.Montant)</td>
+        <td class="hidden-xs">Montant de la garantie principale</td>
+        <td class="hidden-xs"><code>Montant</code></td>
+    </tr>
+    <tr>
+        <td>Complement</td>
+        <td>@Html.DisplayFor(modelItem => Model.Complement)</td>
+        <td class="hidden-xs">Montant de la garantie complémentaire</td>
+        <td class="hidden-xs"><code>Second_Montant</code></td>
+    </tr>
+    <tr>
+        <td>Debut</td>
+        <td>@Html.DisplayFor(modelItem => Model.Debut)</td>
+        <td class="hidden-xs"></td>
+        <td class="hidden-xs"><code>Date_Effet</code></td>
+    </tr>
+    <tr>
+        <td>Fin</td>
+        <td>@Html.DisplayFor(modelItem => Model.Fin)</td>
+        <td class="hidden-xs"></td>
+        <td class="hidden-xs"><code>Date_Fin_Effet</code></td>
+    </tr>
+    <tr>
+        <td>DEntree</td>
+        <td>@Html.DisplayFor(modelItem => Model.DEntree)</td>
+        <td class="hidden-xs"></td>
+        <td class="hidden-xs"><code>Date_Entree</code></td>
+    </tr>
+    <tr>
+        <td>TCode</td>
+        <td>@Html.DisplayFor(modelItem => Model.TCode)</td>
+        <td class="hidden-xs"></td>
+        <td class="hidden-xs"><code>TCode</code></td>
+    </tr>
+    <tr>
+        <td>Super</td>
+        <td>@Html.DisplayFor(modelItem => Model.Super)</td>
+        <td class="hidden-xs">Vrai si cette décision doit remplacer une ancienne décision</td>
+        <td class="hidden-xs"><code>Supersede</code></td>
+    </tr>
+    <tr>
+        <td>DUpdate</td>
+        <td>@Html.DisplayFor(modelItem => Model.DUpdate) @Model.DUpdate.ToShortTimeString()</td>
+        <td class="hidden-xs">Dernière màj de la décision chez l'assureur</td>
+        <td class="hidden-xs"><code>Date_Last_Update</code></td>
+    </tr>
+    <tr>
+        <td>DFichier</td>
+        <td>@Html.DisplayFor(modelItem => Model.DFichier)</td>
+        <td class="hidden-xs">Date création du fichier XML correspondant à la décision</td>
+        <td class="hidden-xs"><code>Date_Fichier</code></td>
+    </tr>
+    <tr>
+        <td>DImport</td>
+        <td>@Html.DisplayFor(modelItem => Model.DImport) @Model.DImport.ToShortTimeString()</td>
+        <td class="hidden-xs">Date dernière intégration de la décision</td>
+        <td class="hidden-xs"><code>Date_Import</code></td>
+    </tr>
+</tbody>
+</table>

@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AgencesController.cs" />
+    <Compile Include="Controllers\DecisionsController.cs" />
     <Compile Include="Controllers\EdiAccordsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\EdiSitesController.cs" />
@@ -187,6 +188,7 @@
     <Content Include="Views\Agences\_List.cshtml" />
     <Content Include="Views\Agences\Details.cshtml" />
     <Content Include="Views\EdiSites\Details.cshtml" />
+    <Content Include="Views\Decisions\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
