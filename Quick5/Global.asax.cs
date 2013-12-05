@@ -25,7 +25,7 @@ namespace Quick5
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            if (Request.IsLocal) MiniProfiler.Start();
+            MiniProfiler.Start();
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
