@@ -179,7 +179,7 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Decimal.cshtml" />
     <Content Include="Views\Decisions\_List.cshtml" />
-    <Content Include="Views\Garanties\Edit.cshtml" />
+    <Content Include="Views\Garanties\Copy.cshtml" />
     <Content Include="Views\EdiAccords\Index.cshtml" />
     <Content Include="Views\EdiAccords\Details.cshtml" />
     <Content Include="Views\EdiAccords\_List.cshtml" />

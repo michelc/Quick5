@@ -134,6 +134,14 @@ namespace Quick5.Models
 
             return result;
         }
+
+        public int Insert(Garantie model)
+        {
+            var data = Mapper.Map<DbGarantie>(model);
+            var result = this.connexion.Insert<DbGarantie>(data);
+
+            return result;
+        }
     }
 
     public partial class MappingConfig

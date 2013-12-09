@@ -12,6 +12,10 @@
 
 @Html.Partial("../Sirens/_List", Model.Siren.AsList())
 
-<h3>Garantie</h3>
+@if (Model.Garantie.Garantie_ID == 0) {
+    <h3>Garantie <small>(@Html.ActionLink("Créer en copiant la garantie d'un autre client de ce siren", "Copy", "Garanties", new { id = 0, Model.Client_ID }, null))</small></h3>
+} else {
+    <h3>Garantie</h3>
+}
 
 @Html.Partial("../Garanties/_Item", Model.Garantie)

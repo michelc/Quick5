@@ -21,15 +21,23 @@ namespace Quick5.Controllers
         }
 
         //
-        // GET: /Garanties/Edit/5
+        // GET: /Garanties/Copy/5
 
-        public ViewResult Edit(int id)
+        public ViewResult Copy(int id, int client_id = 0)
         {
             var db = new ExtraBase();
 
             // Informations liées à la garantie à modifier
-            var garantie = db.Garanties.Get(id);
-            garantie.Client = db.Clients.Get(garantie.Client_ID);
+            var garantie = new Garantie();
+            if (id != 0)
+            {
+                garantie = db.Garanties.Get(id);
+                garantie.Client = db.Clients.Get(garantie.Client_ID);
+            }
+            else
+            {
+                garantie.Client = db.Clients.Get(client_id);
+            }
             garantie.Siren = db.Sirens.List(garantie.Client.NSiren).FirstOrDefault();
 
             // Information liées à une autre garantie du même Siren
@@ -40,16 +48,24 @@ namespace Quick5.Controllers
         }
 
         //
-        // GET: /Garanties/Edit/5
+        // GET: /Garanties/Copy/5
 
         [HttpPost]
-        public ActionResult Edit(int id, string dum)
+        public ActionResult Copy(int id, int client_id = 0, string dum = "")
         {
             var db = new ExtraBase();
 
             // Informations liées à la garantie à modifier
-            var garantie = db.Garanties.Get(id);
-            garantie.Client = db.Clients.Get(garantie.Client_ID);
+            var garantie = new Garantie();
+            if (id != 0)
+            {
+                garantie = db.Garanties.Get(id);
+                garantie.Client = db.Clients.Get(garantie.Client_ID);
+            }
+            else
+            {
+                garantie.Client = db.Clients.Get(client_id);
+            }
             garantie.Siren = db.Sirens.List(garantie.Client.NSiren).FirstOrDefault();
 
             // Information liées à une autre garantie du même Siren
@@ -57,11 +73,21 @@ namespace Quick5.Controllers
 
             if (ModelState.IsValid)
             {
-                a_recopier.Garantie_ID = id;
-                a_recopier.Client_ID = garantie.Client_ID;
-                db.Garanties.Update(a_recopier);
+                if (id != 0)
+                {
+                    a_recopier.Garantie_ID = id;
+                    a_recopier.Client_ID = garantie.Client_ID;
+                    db.Garanties.Update(a_recopier);
 
-                return RedirectToAction("Details", new { id });
+                    return RedirectToAction("Details", new { id });
+                }
+                else
+                {
+                    a_recopier.Client_ID = client_id;
+                    db.Garanties.Insert(a_recopier);
+
+                    return RedirectToAction("Details", "Clients", new { id = client_id });
+                }
             }
 
             ViewBag.Recopier = a_recopier;

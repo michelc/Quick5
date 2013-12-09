@@ -16,11 +16,11 @@
 
 @Html.Partial("_Item", Model)
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm(null, null, new { id = Model.Garantie_ID, Model.Client.Client_ID }, FormMethod.Post, new { @class = "form-horizontal" }))
 {
 <h3>
-    Garantie après remplacement
-    <button type="submit" class="btn btn-primary">Ok pour remplacer !</button>
+    Garantie après recopiage
+    <button type="submit" class="btn btn-primary">Ok pour copier !</button>
 </h3>
 }
 
