@@ -41,11 +41,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.1.0\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper.Net4">
-      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    <Reference Include="AutoMapper.Net4, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.1.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.13\lib\net45\Dapper.dll</HintPath>
@@ -143,18 +145,18 @@
     <Content Include="Content\gh-fork-ribbon.ie.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Cnx.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.7.1.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
