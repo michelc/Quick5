@@ -12,20 +12,13 @@ namespace Quick5.Controllers
 
         public ActionResult Index(string qc)
         {
-            var clients = new List<Client>();
-            if (!string.IsNullOrEmpty(qc))
-            {
-                if (qc.Length >= 3)
-                {
-                    var db = new ExtraBase();
-                    clients = db.Clients.List(qc);
+            var db = new ExtraBase();
+            var clients = db.Clients.List(qc);
 
-                    if (clients.Count() == 1)
-                    {
-                        var id = clients.First().Client_ID;
-                        return RedirectToAction("Details", new { id });
-                    }
-                }
+            if (clients.Count() == 1)
+            {
+                var id = clients.First().Client_ID;
+                return RedirectToAction("Details", new { id });
             }
 
             return View(clients);

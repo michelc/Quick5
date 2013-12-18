@@ -49,11 +49,13 @@ namespace Quick5.Models
 
         public List<Siren> List(string q)
         {
+            q = q.Trim().ToUpperInvariant();
+            if (q.Length < 3) return new List<Siren>();
+
+            var siren = Tools.DigitOnly(q);
             var where = "WHERE  (Societe_ID = '001')" + Environment.NewLine;
             object param = null;
 
-            q = q.Trim().ToUpperInvariant();
-            var siren = Tools.DigitOnly(q);
             if (siren.Length >= 9)
             {
                 // Recherche par n° siren

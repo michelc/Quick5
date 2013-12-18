@@ -12,20 +12,13 @@ namespace Quick5.Controllers
 
         public ActionResult Index(string qs)
         {
-            var sirens = new List<Siren>();
-            if (!string.IsNullOrEmpty(qs))
-            {
-                if (qs.Length >= 3)
-                {
-                    var db = new ExtraBase();
-                    sirens = db.Sirens.List(qs);
+            var db = new ExtraBase();
+            var sirens = db.Sirens.List(qs);
 
-                    if (sirens.Count() == 1)
-                    {
-                        var id = sirens.First().Siren_ID;
-                        return RedirectToAction("Details", new { id });
-                    }
-                }
+            if (sirens.Count() == 1)
+            {
+                var id = sirens.First().Siren_ID;
+                return RedirectToAction("Details", new { id });
             }
 
             return View(sirens);

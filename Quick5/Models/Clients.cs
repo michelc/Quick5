@@ -55,11 +55,13 @@ namespace Quick5.Models
 
         public List<Client> List(string q)
         {
+            q = q.Trim().ToUpperInvariant();
+            if (q.Length < 3) return new List<Client>();
+
+            var siren = Tools.DigitOnly(q);
             var where = "";
             object param = null;
 
-            q = q.Trim().ToUpperInvariant();
-            var siren = Tools.DigitOnly(q);
             if (q.StartsWith("#"))
             {
                 // Recherche par ID client
