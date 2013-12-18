@@ -5,7 +5,7 @@ using Quick5.Models;
 
 namespace Quick5.Controllers
 {
-    public class AgencesController : Controller
+    public class AgencesController : BaseController
     {
         //
         // GET: /Agences/
@@ -13,7 +13,6 @@ namespace Quick5.Controllers
         [OutputCache(Duration = 300)]
         public ActionResult Index()
         {
-            var db = new ExtraBase();
             var agences = db.Agences.List();
 
             return View(agences);
@@ -24,7 +23,6 @@ namespace Quick5.Controllers
 
         public ViewResult Details(int id)
         {
-            var db = new ExtraBase();
             var agence = db.Agences.Get(id);
 
             return View(agence);

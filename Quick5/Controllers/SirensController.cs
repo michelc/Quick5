@@ -5,14 +5,13 @@ using Quick5.Models;
 
 namespace Quick5.Controllers
 {
-    public class SirensController : Controller
+    public class SirensController : BaseController
     {
         //
         // GET: /Sirens/
 
-        public ActionResult Index(string qs)
+        public ActionResult Index(string qs = "")
         {
-            var db = new ExtraBase();
             var sirens = db.Sirens.List(qs);
 
             if (sirens.Count() == 1)
@@ -29,7 +28,6 @@ namespace Quick5.Controllers
 
         public ViewResult Details(int id)
         {
-            var db = new ExtraBase();
             var siren = db.Sirens.Get(id);
 
             siren.Clients = db.Clients.List(siren.NSiren);

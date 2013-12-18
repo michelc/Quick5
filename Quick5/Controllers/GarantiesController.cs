@@ -4,14 +4,13 @@ using Quick5.Models;
 
 namespace Quick5.Controllers
 {
-    public class GarantiesController : Controller
+    public class GarantiesController : BaseController
     {
         //
         // GET: /Garanties/Details/5
 
         public ViewResult Details(int id)
         {
-            var db = new ExtraBase();
             var garantie = db.Garanties.Get(id);
 
             garantie.Client = db.Clients.Get(garantie.Client_ID);
@@ -25,8 +24,6 @@ namespace Quick5.Controllers
 
         public ViewResult Copy(int id, int client_id = 0)
         {
-            var db = new ExtraBase();
-
             // Informations liées à la garantie à modifier
             var garantie = new Garantie();
             if (id != 0)
@@ -53,8 +50,6 @@ namespace Quick5.Controllers
         [HttpPost]
         public ActionResult Copy(int id, int client_id = 0, string dum = "")
         {
-            var db = new ExtraBase();
-
             // Informations liées à la garantie à modifier
             var garantie = new Garantie();
             if (id != 0)

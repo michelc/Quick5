@@ -7,15 +7,13 @@ using Quick5.Models;
 
 namespace Quick5.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         //
         // GET: /Home/
 
         public ActionResult Index()
         {
-            var db = new ExtraBase();
-
             return View();
         }
 
@@ -24,15 +22,14 @@ namespace Quick5.Controllers
 
         public ActionResult Init()
         {
-            RecreateDbTests();
+            RecreateDbTests(db);
 
             return RedirectToAction("Index");
         }
 
-        private void RecreateDbTests()
+        private void RecreateDbTests(ExtraBase db)
         {
             // Rien à faire s'il ne s'agit pas de la base de données de tests
-            var db = new ExtraBase();
             if (!MvcApplication.IsDbTests) return;
 
             // Ouverture de la base de données

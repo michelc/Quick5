@@ -116,6 +116,7 @@
     <Compile Include="Controllers\GarantiesController.cs" />
     <Compile Include="Controllers\SirensController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\_BaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

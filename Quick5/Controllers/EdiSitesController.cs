@@ -5,14 +5,13 @@ using Quick5.Models;
 
 namespace Quick5.Controllers
 {
-    public class EdiSitesController : Controller
+    public class EdiSitesController : BaseController
     {
         //
         // GET: /EdiSites/Details/5
 
         public ActionResult Details(int id)
         {
-            var db = new ExtraBase();
             var site = db.EdiSites.Get(id);
 
             site.EdiAccord = db.EdiAccords.Get(site.Accord_ID);
