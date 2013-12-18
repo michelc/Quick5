@@ -10,15 +10,15 @@ namespace Quick5.Controllers
         //
         // GET: /Clients/
 
-        public ActionResult Index(string q)
+        public ActionResult Index(string qc)
         {
             var clients = new List<Client>();
-            if (!string.IsNullOrEmpty(q))
+            if (!string.IsNullOrEmpty(qc))
             {
-                if (q.Length >= 3)
+                if (qc.Length >= 3)
                 {
                     var db = new ExtraBase();
-                    clients = db.Clients.List(q);
+                    clients = db.Clients.List(qc);
                 }
             }
 

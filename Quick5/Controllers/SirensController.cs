@@ -10,15 +10,15 @@ namespace Quick5.Controllers
         //
         // GET: /Sirens/
 
-        public ActionResult Index(string q)
+        public ActionResult Index(string qs)
         {
             var sirens = new List<Siren>();
-            if (!string.IsNullOrEmpty(q))
+            if (!string.IsNullOrEmpty(qs))
             {
-                if (q.Length >= 3)
+                if (qs.Length >= 3)
                 {
                     var db = new ExtraBase();
-                    sirens = db.Sirens.List(q);
+                    sirens = db.Sirens.List(qs);
 
                     if (sirens.Count() == 1)
                     {

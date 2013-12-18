@@ -60,7 +60,13 @@ namespace Quick5.Models
 
             q = q.Trim().ToUpperInvariant();
             var siren = Tools.DigitOnly(q);
-            if (siren.Length >= 14)
+            if (q.StartsWith("#"))
+            {
+                // Recherche par ID client
+                where += "WHERE  (IdCompany = :Id)";
+                param = new { Id = Convert.ToInt64(siren) };
+            }
+            else if (siren.Length >= 14)
             {
                 // Recherche par n° siret
                 where += "WHERE  (Fld109 = :Siret)";
