@@ -191,6 +191,7 @@
     <Content Include="Views\Agences\Details.cshtml" />
     <Content Include="Views\EdiSites\Details.cshtml" />
     <Content Include="Views\Decisions\Details.cshtml" />
+    <Content Include="Views\Clients\_SearchBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

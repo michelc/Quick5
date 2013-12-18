@@ -4,7 +4,10 @@
     ViewBag.Title = "Clients / " + Model.Nom;
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>
+    @ViewBag.Title
+    @Html.Partial("_SearchBox")
+</h2>
 
 @Html.Partial("_List", Model.AsList())
 
