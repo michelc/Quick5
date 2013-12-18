@@ -19,6 +19,12 @@ namespace Quick5.Controllers
                 {
                     var db = new ExtraBase();
                     clients = db.Clients.List(qc);
+
+                    if (clients.Count() == 1)
+                    {
+                        var id = clients.First().Client_ID;
+                        return RedirectToAction("Details", new { id });
+                    }
                 }
             }
 
