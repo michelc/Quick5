@@ -101,5 +101,19 @@
             }
         }
         private EdiSites _EdiSites;
+
+        public Tables Tables
+        {
+            get
+            {
+                if (_Tables == null) _Tables = new Tables(this.connexion);
+                return _Tables;
+            }
+            set
+            {
+                _Tables = value;
+            }
+        }
+        private Tables _Tables;
     }
 }

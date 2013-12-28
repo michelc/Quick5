@@ -11,6 +11,7 @@
             Decisions();
             EdiAccords();
             EdiSites();
+            Columns();
         }
     }
 }

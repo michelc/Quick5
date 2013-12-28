@@ -300,7 +300,7 @@ namespace Quick5.Models
 
         private static string GetPrefix(this IDbConnection cnx)
         {
-            if (cnx.ConnectionString.ToLower().Contains("db_tests.sdf")) return "@";
+            if (cnx.ConnectionString.ToLower().EndsWith(".sdf")) return "@";
 
             return ":";
         }

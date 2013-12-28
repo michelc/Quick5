@@ -116,6 +116,7 @@
     <Compile Include="Controllers\GarantiesController.cs" />
     <Compile Include="Controllers\SirensController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\_BaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -133,6 +134,7 @@
     <Compile Include="Models\Garanties.cs" />
     <Compile Include="Models\Sirens.cs" />
     <Compile Include="Models\SqlBase.cs" />
+    <Compile Include="Models\Tables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +195,8 @@
     <Content Include="Views\EdiSites\Details.cshtml" />
     <Content Include="Views\Decisions\Details.cshtml" />
     <Content Include="Views\Clients\_SearchBox.cshtml" />
+    <Content Include="Views\Tables\Index.cshtml" />
+    <Content Include="Views\Tables\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

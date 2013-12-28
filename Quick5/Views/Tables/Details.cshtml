@@ -1,0 +1,33 @@
+﻿@model Quick5.Models.Table
+
+@{
+    ViewBag.Title = "Tables / " + Model.Name;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        <th class="hidden-print"></th>
+        <th>Nom</th>
+        <th>Type</th>
+        <th>Taille</th>
+        <th>NotNull?</th>
+        <th>Défaut</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model.Columns)
+{
+    <tr>
+        <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Details", "Tables", new { id = item.Name }, new { @class="glyphicon glyphicon-play" })</th>
+        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+        <td>@Html.DisplayFor(modelItem => item.Type)</td>
+        <td>@Html.DisplayFor(modelItem => item.Size)</td>
+        <td>@Html.DisplayFor(modelItem => item.IsNotNull)</td>
+        <td>@Html.DisplayFor(modelItem => item.Default)</td>
+    </tr>
+}
+</tbody>
+</table>
