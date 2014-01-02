@@ -28,5 +28,15 @@ namespace Quick5.Controllers
 
             return View(table);
         }
+
+        //
+        // GET: /Tables/Content/Xxx
+
+        public ViewResult Content(string id)
+        {
+            var table = db.Tables.Execute("SELECT * FROM " + id);
+
+            return View(table);
+        }
     }
 }

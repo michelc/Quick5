@@ -1,0 +1,27 @@
+﻿@model List<object[]>
+
+@{
+    ViewBag.Title = "Template";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        @foreach (var col in Model.First()) {
+        <th>@col</th>
+        }
+    </tr>
+</thead>
+<tbody>
+@foreach (var line in Model.Skip(1))
+{
+    <tr>
+        @foreach (var col in line) {
+        <td>@col</td>
+        }
+    </tr>
+}
+</tbody>
+</table>

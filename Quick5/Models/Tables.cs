@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
+using System.Text;
 using AutoMapper;
 using Dapper;
 
@@ -92,6 +93,70 @@ namespace Quick5.Models
             };
 
             return table;
+        }
+
+        public List<object[]> Execute(string sql)
+        {
+            //
+            var cmnd = connexion.CreateCommand();
+            cmnd.CommandType = CommandType.Text;
+            cmnd.CommandText = sql;
+
+            connexion.Open();
+            var dr = cmnd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            var lines = new List<object[]>();
+
+            var cols = "";
+            for (int col = 0; col < dr.FieldCount; col++)
+            {
+                cols += " " + dr.GetName(col);
+            }
+            lines.Add(cols.Trim().Split());
+
+            while (dr.Read())
+            {
+                object[] fieldValues = new object[dr.FieldCount];
+                var nb = dr.GetValues(fieldValues);
+                lines.Add(fieldValues);
+            }
+            dr.Close();
+
+            return lines;
+        }
+
+        public Table Query(string sql)
+        {
+            var view = new StringBuilder();
+
+            view.AppendLine("@model IEnumerable<Quick5.Models.Table>");
+            view.AppendLine();
+            view.AppendLine();
+            view.AppendLine();
+
+            //
+            var cmnd = connexion.CreateCommand();
+            cmnd.CommandText = sql;
+            cmnd.CommandType = CommandType.Text;
+
+            connexion.Open();
+            var dr = cmnd.ExecuteReader(CommandBehavior.SchemaOnly);
+
+            for (int col = 0; col < dr.FieldCount; col++)
+            {
+                // table.Name += " " + titi.GetName(col);
+                //table.Name += " " + dr.GetFieldType(col).ToString().Replace("System.", "");
+            }
+            int count = 0;
+            while (dr.Read())
+            {
+                count++;
+            }
+            dr.Close();
+
+            //table.Name += " " + count.ToString();
+
+            return null;
         }
     }
 

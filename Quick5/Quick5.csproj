@@ -197,6 +197,7 @@
     <Content Include="Views\Clients\_SearchBox.cshtml" />
     <Content Include="Views\Tables\Index.cshtml" />
     <Content Include="Views\Tables\Details.cshtml" />
+    <Content Include="Views\Tables\Content.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
