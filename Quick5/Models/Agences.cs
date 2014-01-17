@@ -43,7 +43,7 @@ namespace Quick5.Models
         public List<Agence> List()
         {
             // Retrouve uniquement les agences avec de l'activité au cours des 2 derniers mois
-            var where = @"WHERE  EXISTS (SELECT Code_Agn FROM Ex_Avenant WHERE Ex_Avenant.Code_Agn = Agences.Code_Agn AND Date_Fin_Contrat > SYSDATE - 66)
+            var where = @"WHERE  Code_Agn IN (SELECT Code_Agn FROM Contrats HAVING MAX(Date_Fin) > SYSDATE - 66 GROUP BY Code_Agn)
                           AND    (Societe_ID = '001')
                           ORDER BY Libelle";
 
