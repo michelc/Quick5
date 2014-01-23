@@ -14,6 +14,7 @@ namespace Quick5.Models
         public string Nom { get; set; }
         public string NSiren { get; set; }
         public string Code { get; set; }
+        public string Plateforme { get; set; }
 
         public IEnumerable<EdiSite> Sites { get; set; }
     }
@@ -28,6 +29,7 @@ namespace Quick5.Models
         public string Libelle { get; set; }
         public string Siren { get; set; }
         public string Code_Externe_Eu { get; set; }
+        public int Plateforme_ID { get; set; }
     }
 
     /// <summary>
@@ -68,12 +70,14 @@ namespace Quick5.Models
         /// </summary>
         public static void EdiAccords()
         {
+            var plateformes = "- - ot px cs co fx".Split();
             Mapper.CreateMap<DbEdiAccord, EdiAccord>().ForAllMembers(opt => opt.Ignore());
             Mapper.CreateMap<DbEdiAccord, EdiAccord>()
                 .ForMember(dest => dest.Accord_ID, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Nom, opt => opt.MapFrom(src => src.Libelle))
                 .ForMember(dest => dest.NSiren, opt => opt.MapFrom(src => src.Siren))
                 .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code_Externe_Eu))
+                .ForMember(dest => dest.Plateforme, opt => opt.MapFrom(src => plateformes[src.Plateforme_ID]))
             ;
         }
     }
