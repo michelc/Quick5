@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Quick5.Models.EdiQualification>
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        <th>Libellé</th>
+        <th>Code</th>
+        <th>PCS</th>
+        <th>Bloqué?</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.Libelle)</td>
+        <td>@Html.DisplayFor(modelItem => item.Code)</td>
+        <td>@Html.DisplayFor(modelItem => item.Pcs)</td>
+        <td>@Html.DisplayFor(modelItem => item.EstBloque)</td>
+    </tr>
+}
+</tbody>
+</table>

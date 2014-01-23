@@ -125,6 +125,7 @@
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="Models\Agences.cs" />
+    <Compile Include="Models\EdiQualifications.cs" />
     <Compile Include="Models\EdiAccord.cs" />
     <Compile Include="Models\EdiSites.cs" />
     <Compile Include="Models\MappingConfig.cs" />
@@ -198,6 +199,7 @@
     <Content Include="Views\Tables\Index.cshtml" />
     <Content Include="Views\Tables\Details.cshtml" />
     <Content Include="Views\Tables\Content.cshtml" />
+    <Content Include="Views\EdiQualifications\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

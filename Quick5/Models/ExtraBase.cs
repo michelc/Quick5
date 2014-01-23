@@ -102,6 +102,20 @@
         }
         private EdiSites _EdiSites;
 
+        public EdiQualifications EdiQualifications
+        {
+            get
+            {
+                if (_EdiQualifications == null) _EdiQualifications = new EdiQualifications(this.connexion);
+                return _EdiQualifications;
+            }
+            set
+            {
+                _EdiQualifications = value;
+            }
+        }
+        private EdiQualifications _EdiQualifications;
+
         public Tables Tables
         {
             get

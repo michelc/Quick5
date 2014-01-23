@@ -17,6 +17,7 @@ namespace Quick5.Controllers
             site.EdiAccord = db.EdiAccords.Get(site.Accord_ID);
             site.Client = db.Clients.List(site.NSiret).FirstOrDefault();
             if (site.Client == null) site.Client = new Client();
+            site.Qualifications = db.EdiQualifications.List(id).Take(100);
 
             return View(site);
         }

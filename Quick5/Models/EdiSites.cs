@@ -18,6 +18,7 @@ namespace Quick5.Models
 
         public EdiAccord EdiAccord { get; set; }
         public Client Client { get; set; }
+        public IEnumerable<EdiQualification> Qualifications { get; set; }
     }
 
     /// <summary>
