@@ -19,7 +19,7 @@ namespace Quick5.Models
     /// <summary>
     /// Objet DbAgence stocké dans la base de données
     /// </summary>
-    [Table("Agences")]
+    [Table("V_Agences")]
     public class DbAgence
     {
         public string Code_Agn { get; set; }
@@ -43,11 +43,7 @@ namespace Quick5.Models
         public List<Agence> List()
         {
             // Retrouve uniquement les agences avec de l'activité au cours des 2 derniers mois
-            var where = @"WHERE  Code_Agn IN (SELECT Code_Agn FROM Contrats HAVING MAX(Date_Fin) > SYSDATE - 66 GROUP BY Code_Agn)
-                          AND    (Societe_ID = '001')
-                          ORDER BY Libelle";
-
-            if (Quick5.MvcApplication.IsDbTests) where = "ORDER BY Libelle";
+            var where = @"ORDER BY Libelle";
 
             var data = connexion.List<DbAgence>(where, null);
             var view_model = Mapper.Map<IEnumerable<DbAgence>, List<Agence>>(data);
