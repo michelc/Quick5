@@ -1,16 +1,20 @@
 ﻿@model List<object[]>
 
 @{
-    ViewBag.Title = "Template";
+    ViewBag.Title = "Tables / " + ViewBag.TableName.ToLower();
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>
+    @ViewBag.Title / Contenu
+    <span class="pull-right">@Html.ActionLink("description", "Details", new { id = @ViewBag.TableName })</span>
+</h2>
 
+<div class="table-scrollable">
 <table class="table table-condensed table-striped table-hover">
 <thead>
     <tr>
         @foreach (var col in Model.First()) {
-        <th>@col</th>
+        <th>@col.ToString().ToLower()</th>
         }
     </tr>
 </thead>
@@ -25,3 +29,4 @@
 }
 </tbody>
 </table>
+</div>

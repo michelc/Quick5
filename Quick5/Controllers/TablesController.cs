@@ -36,6 +36,7 @@ namespace Quick5.Controllers
         {
             var table = db.Tables.Execute("SELECT * FROM " + id);
 
+            ViewBag.TableName = id;
             return View(table);
         }
     }

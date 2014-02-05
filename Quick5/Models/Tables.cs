@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
-using System.Text;
 using AutoMapper;
 using Dapper;
 
@@ -49,6 +48,23 @@ namespace Quick5.Models
     }
 
     /// <summary>
+    /// Objet OracleColumn stocké dans la base de données Oracle
+    /// </summary>
+    [Table("Cols")]
+    public class OracleColumn
+    {
+            public string Table_Name { get; set; }
+            public string Column_Name { get; set; }
+            public string Data_Default { get; set; }
+            public string Data_Length { get; set; }
+            public string Nullable { get; set; }
+            public string Data_Type { get; set; }
+            public string Char_Col_Decl_Length { get; set; }
+            public string Data_Precision { get; set; }
+            public string Data_Scale { get; set; }
+    }
+
+    /// <summary>
     /// Fonctions utilitaires pour gérer les tables
     /// </summary>
     public class Tables
@@ -68,11 +84,16 @@ namespace Quick5.Models
                         WHERE  (Table_Type = 'TABLE')
                         ORDER BY Table_Name";
 
+                sql = @"SELECT Table_Name AS Name
+                        FROM   Tabs
+                        WHERE  (Tablespace_Name IS NOT NULL)
+                        ORDER BY Table_Name";
+
             var data = connexion.Query<Table>(sql).ToList();
             return data;
         }
 
-        public Table Get(string Table_Name)
+        public Table GetX(string Table_Name)
         {
             // Retrouve toutes les colonnes de la table depuis SQL Server CE
             var where = @"WHERE  (Table_Name = :Table_Name)
@@ -90,6 +111,27 @@ namespace Quick5.Models
             {
                 Name = Table_Name,
                 Columns = Mapper.Map<IEnumerable<SqlCeColumn>, List<Column>>(data)
+            };
+
+            return table;
+        }
+
+        public Table Get(string Table_Name)
+        {
+            // Retrouve toutes les colonnes de la table depuis Oracle
+            var where = @"WHERE  (Table_Name = :Table_Name)
+                          ORDER BY Column_ID";
+
+            var data = connexion.List<OracleColumn>(where, new { Table_Name }).ToList();
+
+            data.ForEach(c => { if (c.Data_Type == "CLOB") c.Char_Col_Decl_Length = null; });
+            data.ForEach(c => { if (c.Data_Type == "FLOAT") c.Data_Precision = null; });
+            data.ForEach(c => { if ((c.Data_Type == "NUMBER") && (c.Data_Length == "22") && (c.Data_Precision == null) && (c.Data_Scale == "0")) c.Data_Type = "INTEGER"; });
+
+            var table = new Table
+            {
+                Name = Table_Name,
+                Columns = Mapper.Map<IEnumerable<OracleColumn>, List<Column>>(data)
             };
 
             return table;
@@ -124,40 +166,6 @@ namespace Quick5.Models
 
             return lines;
         }
-
-        public Table Query(string sql)
-        {
-            var view = new StringBuilder();
-
-            view.AppendLine("@model IEnumerable<Quick5.Models.Table>");
-            view.AppendLine();
-            view.AppendLine();
-            view.AppendLine();
-
-            //
-            var cmnd = connexion.CreateCommand();
-            cmnd.CommandText = sql;
-            cmnd.CommandType = CommandType.Text;
-
-            connexion.Open();
-            var dr = cmnd.ExecuteReader(CommandBehavior.SchemaOnly);
-
-            for (int col = 0; col < dr.FieldCount; col++)
-            {
-                // table.Name += " " + titi.GetName(col);
-                //table.Name += " " + dr.GetFieldType(col).ToString().Replace("System.", "");
-            }
-            int count = 0;
-            while (dr.Read())
-            {
-                count++;
-            }
-            dr.Close();
-
-            //table.Name += " " + count.ToString();
-
-            return null;
-        }
     }
 
     public partial class MappingConfig
@@ -174,6 +182,15 @@ namespace Quick5.Models
                 .ForMember(dest => dest.Size, opt => opt.MapFrom(src => Convert.ToInt32(src.Character_Maximum_Length) + Convert.ToInt32(src.Numeric_Precision) + (Convert.ToInt32(src.Numeric_Scale) / 10)))
                 .ForMember(dest => dest.Default, opt => opt.MapFrom(src => src.Column_Default))
                 .ForMember(dest => dest.IsNotNull, opt => opt.MapFrom(src => src.Is_Nullable == "NO"))
+            ;
+
+            Mapper.CreateMap<OracleColumn, Column>().ForAllMembers(opt => opt.Ignore());
+            Mapper.CreateMap<OracleColumn, Column>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Column_Name))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Data_Type))
+                .ForMember(dest => dest.Size, opt => opt.MapFrom(src => Convert.ToInt32(src.Char_Col_Decl_Length) + Convert.ToInt32(src.Data_Precision) + (Convert.ToInt32(src.Data_Scale) / 10m)))
+                .ForMember(dest => dest.Default, opt => opt.MapFrom(src => src.Data_Default))
+                .ForMember(dest => dest.IsNotNull, opt => opt.MapFrom(src => src.Nullable == "Y"))
             ;
         }
     }

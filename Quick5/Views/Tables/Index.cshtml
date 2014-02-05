@@ -17,7 +17,7 @@
 @foreach (var item in Model)
 {
     <tr>
-        <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Content", "Tables", new { id = item.Name }, new { @class="glyphicon glyphicon-play" })</th>
+        <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Details", "Tables", new { id = item.Name }, new { @class="glyphicon glyphicon-play" })</th>
         <td>@Html.DisplayFor(modelItem => item.Name)</td>
     </tr>
 }

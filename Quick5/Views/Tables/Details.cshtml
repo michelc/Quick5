@@ -1,10 +1,13 @@
 ﻿@model Quick5.Models.Table
 
 @{
-    ViewBag.Title = "Tables / " + Model.Name;
+    ViewBag.Title = "Tables / " + Model.Name.ToLower();
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>
+    @ViewBag.Title / Description
+    <span class="pull-right">@Html.ActionLink("contenu", "Content", new { id = Model.Name })</span>
+</h2>
 
 <table class="table table-condensed table-striped table-hover">
 <thead>
@@ -24,7 +27,8 @@
         <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Details", "Tables", new { id = item.Name }, new { @class="glyphicon glyphicon-play" })</th>
         <td>@Html.DisplayFor(modelItem => item.Name)</td>
         <td>@Html.DisplayFor(modelItem => item.Type)</td>
-        <td>@Html.DisplayFor(modelItem => item.Size)</td>
+        <td>@if (item.Size != 0)
+            { @item.Size.ToString("N").Trim(",0".ToCharArray()) }</td>
         <td>@Html.DisplayFor(modelItem => item.IsNotNull)</td>
         <td>@Html.DisplayFor(modelItem => item.Default)</td>
     </tr>
