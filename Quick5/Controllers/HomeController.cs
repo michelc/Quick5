@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Security;
 using Quick5.Models;
 
 namespace Quick5.Controllers
@@ -12,9 +13,48 @@ namespace Quick5.Controllers
         //
         // GET: /Home/
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated) return View();
+
+            return Content("Quick5...");
+        }
+
+        //
+        // GET: /Home/Logon/xxx
+
+        [AllowAnonymous]
+        public ActionResult Logon(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return RedirectToAction("Index");
+
             return View();
+        }
+
+        //
+        // POST: /Home/Logon/xxx
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Logon(string id, string pw)
+        {
+            if (!FormsAuthentication.Authenticate(id, pw)) return RedirectToAction("Index");
+
+            FormsAuthentication.SetAuthCookie(id, false);
+
+            return RedirectToAction("Index");
+        }
+
+        //
+        // GET: /Home/Logout
+
+        [AllowAnonymous]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            
+            return RedirectToAction("Index");
         }
 
         //
