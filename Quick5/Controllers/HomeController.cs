@@ -41,7 +41,7 @@ namespace Quick5.Controllers
         {
             if (!FormsAuthentication.Authenticate(id, pw)) return RedirectToAction("Index");
 
-            FormsAuthentication.SetAuthCookie(id, false);
+            FormsAuthentication.SetAuthCookie(id, true);
 
             return RedirectToAction("Index");
         }
