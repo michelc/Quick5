@@ -160,6 +160,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Auth.secret" />
+    <Content Include="App.secret" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -206,6 +207,7 @@
     <Content Include="Views\EdiQualifications\_List.cshtml" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
     <Content Include="Views\Home\Logon.cshtml" />
+    <Content Include="Views\Sirens\Api.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

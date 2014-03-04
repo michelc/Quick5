@@ -1,0 +1,15 @@
+﻿@model Quick5.Models.Siren
+
+@{
+    ViewBag.Title = "Sirens / " + Model.Nom;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_List", Model.AsList())
+
+<h3>Api</h3>
+
+<pre>@ViewBag.Url</pre>
+
+<pre>@ViewBag.Text</pre>
