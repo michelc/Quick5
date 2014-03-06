@@ -18,6 +18,13 @@ namespace Quick5.Controllers
         {
             if (User.Identity.IsAuthenticated) return View();
 
+            // Connexion automatique sur localhost
+            if (this.Request.IsLocal)
+            {
+                FormsAuthentication.SetAuthCookie("admin", true);
+                return RedirectToAction("Index");
+            }
+
             return Content("Quick5...");
         }
 
