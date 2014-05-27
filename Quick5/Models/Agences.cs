@@ -13,7 +13,14 @@ namespace Quick5.Models
     {
         public int Agence_ID { get; set; }
         public string Nom { get; set; }
+        public string Adresse1 { get; set; }
+        public string Adresse2 { get; set; }
         public string CodePostal { get; set; }
+        public string Ville { get; set; }
+        public string Siret { get; set; }
+        public string Urssaf { get; set; }
+        public string Siret_Urssaf { get; set; }
+        public int Rattachement_ID { get; set; }
     }
 
     /// <summary>
@@ -25,7 +32,14 @@ namespace Quick5.Models
         public string Code_Agn { get; set; }
         public string Societe_ID { get; set; }
         public string Libelle { get; set; }
+        public string Adresse { get; set; }
+        public string Adresse2 { get; set; }
         public string Departement { get; set; }
+        public string Ville { get; set; }
+        public string Siret { get; set; }
+        public string Urssaf { get; set; }
+        public string Siret_Urssaf { get; set; }
+        public string Ag_Rattachement { get; set; }
     }
 
     /// <summary>
@@ -73,7 +87,14 @@ namespace Quick5.Models
             Mapper.CreateMap<DbAgence, Agence>()
                 .ForMember(dest => dest.Agence_ID, opt => opt.MapFrom(src => src.Code_Agn))
                 .ForMember(dest => dest.Nom, opt => opt.MapFrom(src => src.Libelle))
+                .ForMember(dest => dest.Adresse1, opt => opt.MapFrom(src => src.Adresse))
+                .ForMember(dest => dest.Adresse2, opt => opt.MapFrom(src => src.Adresse2))
                 .ForMember(dest => dest.CodePostal, opt => opt.MapFrom(src => src.Departement))
+                .ForMember(dest => dest.Ville, opt => opt.MapFrom(src => src.Ville))
+                .ForMember(dest => dest.Siret, opt => opt.MapFrom(src => src.Siret))
+                .ForMember(dest => dest.Urssaf, opt => opt.MapFrom(src => src.Urssaf))
+                .ForMember(dest => dest.Siret_Urssaf, opt => opt.MapFrom(src => src.Siret_Urssaf))
+                .ForMember(dest => dest.Rattachement_ID, opt => opt.MapFrom(src => src.Ag_Rattachement))
             ;
         }
     }

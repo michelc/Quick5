@@ -27,5 +27,31 @@ namespace Quick5.Controllers
 
             return View(agence);
         }
+
+        //
+        // POST: /Agences/UpdateUrssaf/5?Value=xxx
+
+        [HttpPost]
+        public RedirectToRouteResult UpdateUrssaf(int id, string value)
+        {
+            var code = id.ToString("000");
+            if (string.IsNullOrEmpty(value)) value = "427 000000";
+            db.ExecuteSql("UPDATE Agences SET Urssaf = :value WHERE Code_Agn = :code", new { code, value });
+
+            return RedirectToAction("Details", new { id });
+        }
+
+        //
+        // POST: /Agences/UpdateSiretUrssaf/5?Value=xxx
+
+        [HttpPost]
+        public RedirectToRouteResult UpdateSiretUrssaf(int id, string value)
+        {
+            var code = id.ToString("000");
+            if (string.IsNullOrEmpty(value)) value = "33999316490000";
+            db.ExecuteSql("UPDATE Agences SET Siret_Urssaf = :value WHERE Code_Agn = :code", new { code, value });
+
+            return RedirectToAction("Details", new { id });
+        }
     }
 }

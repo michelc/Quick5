@@ -7,3 +7,83 @@
 <h2>@ViewBag.Title</h2>
 
 @Html.Partial("_List", Model.AsList())
+
+<table class="table table-condensed table-striped table-hover">
+<thead>
+    <tr>
+        <th>Champ</th>
+        <th>Valeur</th>
+        <th>Modification</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>Code agence</td>
+        <td>@Model.Agence_ID.ToString("000")</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Nom</td>
+        <td>@Html.DisplayFor(modelItem => Model.Nom)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Adresse</td>
+        <td>@Html.DisplayFor(modelItem => Model.Adresse1)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>(suite)</td>
+        <td>@Html.DisplayFor(modelItem => Model.Adresse2)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Code Postal</td>
+        <td>@Html.DisplayFor(modelItem => Model.CodePostal)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Ville</td>
+        <td>@Html.DisplayFor(modelItem => Model.Ville)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>N° Siret</td>
+        <td>@Html.DisplayFor(modelItem => Model.Siret)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Code Urssaf</td>
+        <td>@Html.DisplayFor(modelItem => Model.Urssaf)</td>
+        <td>
+            @if (Model.Urssaf == "427 000000")
+            {
+            using (Html.BeginForm("UpdateUrssaf", "Agences", new { id = Model.Agence_ID }, FormMethod.Post, new { @class = "form-inline", @role = "form" }))
+            {
+                <input type="text" class="form-control input-sm" name="Value" id="Urssaf" value="@Model.Urssaf">
+                <button class="btn btn-sm btn-primary" type="submit">Modifier</button>
+            }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>Siret_Urssaf</td>
+        <td>@Html.DisplayFor(modelItem => Model.Siret_Urssaf)</td>
+        <td>
+            @if (Model.Siret_Urssaf == "33999316490000")
+            {
+            using (Html.BeginForm("UpdateSiretUrssaf", "Agences", new { id = Model.Agence_ID }, FormMethod.Post, new { @class = "form-inline", @role = "form" }))
+            {
+                <input type="text" class="form-control input-sm" name="Value" id="Siret_Urssaf" value="@Model.Siret_Urssaf">
+                <button class="btn btn-sm btn-primary" type="submit">Modifier</button>
+            }
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>Rattachement</td>
+        <td>@Model.Rattachement_ID.ToString("000")</td>
+        <td></td>
+    </tr>
+</tbody>
+</table>
