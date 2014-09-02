@@ -21,10 +21,11 @@ namespace Quick5.Controllers
         //
         // GET: /Agences/Details/5
 
-        public ViewResult Details(int id)
+        public ViewResult Details(int id, bool maj = false)
         {
             var agence = db.Agences.Get(id);
 
+            ViewBag.Maj = maj;
             return View(agence);
         }
 

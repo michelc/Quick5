@@ -56,7 +56,7 @@
         <td>Code Urssaf</td>
         <td>@Html.DisplayFor(modelItem => Model.Urssaf)</td>
         <td>
-            @if (Model.Urssaf == "427 000000")
+            @if ((Model.Urssaf == "427 000000") || ((bool)ViewBag.Maj == true))
             {
             using (Html.BeginForm("UpdateUrssaf", "Agences", new { id = Model.Agence_ID }, FormMethod.Post, new { @class = "form-inline", @role = "form" }))
             {
@@ -64,19 +64,27 @@
                 <button class="btn btn-sm btn-primary" type="submit">Modifier</button>
             }
             }
+            else
+            {
+                <a href="@Url.Action("Details", "Agences", new { id = Model.Agence_ID, maj = true })">Modifier</a>
+            }
         </td>
     </tr>
     <tr>
         <td>Siret_Urssaf</td>
         <td>@Html.DisplayFor(modelItem => Model.Siret_Urssaf)</td>
         <td>
-            @if (Model.Siret_Urssaf == "33999316490000")
+            @if ((Model.Siret_Urssaf == "33999316490000") || ((bool)ViewBag.Maj == true))
             {
             using (Html.BeginForm("UpdateSiretUrssaf", "Agences", new { id = Model.Agence_ID }, FormMethod.Post, new { @class = "form-inline", @role = "form" }))
             {
                 <input type="text" class="form-control input-sm" name="Value" id="Siret_Urssaf" value="@Model.Siret_Urssaf">
                 <button class="btn btn-sm btn-primary" type="submit">Modifier</button>
             }
+            }
+            else
+            {
+                <a href="@Url.Action("Details", "Agences", new { id = Model.Agence_ID, maj = true })">Modifier</a>
             }
         </td>
     </tr>
