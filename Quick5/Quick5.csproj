@@ -111,6 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AgencesController.cs" />
+    <Compile Include="Controllers\CommunesController.cs" />
+    <Compile Include="Controllers\InseesController.cs" />
     <Compile Include="Controllers\DecisionsController.cs" />
     <Compile Include="Controllers\EdiAccordsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
@@ -127,6 +129,8 @@
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="Models\Agences.cs" />
+    <Compile Include="Models\Communes.cs" />
+    <Compile Include="Models\Insees.cs" />
     <Compile Include="Models\EdiQualifications.cs" />
     <Compile Include="Models\EdiAccord.cs" />
     <Compile Include="Models\EdiSites.cs" />
@@ -206,6 +210,15 @@
     <Content Include="Views\Home\Logon.cshtml" />
     <Content Include="Views\Sirens\Api.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Views\Communes\_List.cshtml" />
+    <Content Include="Views\Communes\_SearchBox.cshtml" />
+    <Content Include="Views\Communes\Details.cshtml" />
+    <Content Include="Views\Communes\Index.cshtml" />
+    <Content Include="Views\Insees\_List.cshtml" />
+    <Content Include="Views\Insees\_SearchBox.cshtml" />
+    <Content Include="Views\Insees\Details.cshtml" />
+    <Content Include="Views\Insees\Index.cshtml" />
+    <Content Include="Views\Insees\Import.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

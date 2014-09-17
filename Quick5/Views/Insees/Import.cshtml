@@ -1,0 +1,19 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Communes Insees / Importation";
+}
+
+<h2>
+    @ViewBag.Title
+    @Html.Partial("_SearchBox")
+</h2>
+
+@using (Html.BeginForm("Import", "Insees", FormMethod.Post, new { @role = "form", enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label for="file">Fichier comsimpyyyy</label>
+        <input type="file" name="file" id="file">
+    </div>
+    <button type="submit" class="btn btn-default">Importer</button>
+}

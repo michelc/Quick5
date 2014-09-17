@@ -94,7 +94,7 @@ namespace Quick5.Models
 
     public static class SqlMapperExtensions
     {
-        public static T Get<T>(this IDbConnection cnx, int id) where T : class
+        public static T Get<T>(this IDbConnection cnx, object id) where T : class
         {
             var prefix = cnx.GetPrefix();
             T data = null;
@@ -104,7 +104,14 @@ namespace Quick5.Models
             {
                 if (!is_open_before) cnx.Open();
                 var sql = GetSelect(typeof(T), prefix);
-                data = cnx.Query<T>(sql, new { id }).FirstOrDefault();
+                if (id is string)
+                {
+                    data = cnx.Query<T>(sql, new { id = (string)id }).FirstOrDefault();
+                }
+                else
+                {
+                    data = cnx.Query<T>(sql, new { id = (int)id }).FirstOrDefault();
+                }
             }
             catch (Exception ex)
             {

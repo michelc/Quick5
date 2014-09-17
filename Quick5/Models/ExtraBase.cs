@@ -46,6 +46,34 @@
         }
         private Agences _Agences;
 
+        public Communes Communes
+        {
+            get
+            {
+                if (_Communes == null) _Communes = new Communes(this.connexion);
+                return _Communes;
+            }
+            set
+            {
+                _Communes = value;
+            }
+        }
+        private Communes _Communes;
+
+        public Insees Insees
+        {
+            get
+            {
+                if (_Insees == null) _Insees = new Insees(this.connexion);
+                return _Insees;
+            }
+            set
+            {
+                _Insees = value;
+            }
+        }
+        private Insees _Insees;
+
         public Garanties Garanties
         {
             get

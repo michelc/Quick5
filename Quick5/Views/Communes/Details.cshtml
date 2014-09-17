@@ -1,0 +1,12 @@
+﻿@model Quick5.Models.Commune
+
+@{
+    ViewBag.Title = "Communes / " + Model.Nom;
+}
+
+<h2>
+    @ViewBag.Title
+    @Html.Partial("_SearchBox")
+</h2>
+
+@Html.Partial("_List", Model.AsList())

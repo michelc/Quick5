@@ -7,6 +7,8 @@
             Sirens();
             Clients();
             Agences();
+            Communes();
+            Insees();
             Garanties();
             Decisions();
             EdiAccords();

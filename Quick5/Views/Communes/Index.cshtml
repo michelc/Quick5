@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Quick5.Models.Commune>
+
+@{
+    ViewBag.Title = "Communes";
+}
+
+<h2>
+    @ViewBag.Title
+    @Html.Partial("_SearchBox")
+</h2>
+
+@Html.Partial("_List", Model)
+
+<p>Gérer la table des @Html.ActionLink("communes de l'Insee", "Index", "Insees").</p>
