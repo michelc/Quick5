@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Quick5.Models;
 
 namespace Quick5.Controllers
 {
