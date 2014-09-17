@@ -38,7 +38,8 @@ namespace Quick5.Controllers
             garantie.Siren = db.Sirens.List(garantie.Client.NSiren).FirstOrDefault();
 
             // Information liées à une autre garantie du même Siren
-            var a_recopier = db.Garanties.List(garantie.Siren.NSiren).Where(g => g.Garantie_ID != id).First();
+            var a_recopier = db.Garanties.List(garantie.Siren.NSiren).Where(g => g.Garantie_ID != id && g.Totale != garantie.Totale).FirstOrDefault();
+            if (a_recopier == null) a_recopier = db.Garanties.List(garantie.Siren.NSiren).Where(g => g.Garantie_ID != id).First();
             ViewBag.Recopier = a_recopier;
 
             return View(garantie);
@@ -64,7 +65,8 @@ namespace Quick5.Controllers
             garantie.Siren = db.Sirens.List(garantie.Client.NSiren).FirstOrDefault();
 
             // Information liées à une autre garantie du même Siren
-            var a_recopier = db.Garanties.List(garantie.Siren.NSiren).Where(g => g.Garantie_ID != id).First();
+            var a_recopier = db.Garanties.List(garantie.Siren.NSiren).Where(g => g.Garantie_ID != id && g.Totale != garantie.Totale).FirstOrDefault();
+            if (a_recopier == null) a_recopier = db.Garanties.List(garantie.Siren.NSiren).Where(g => g.Garantie_ID != id).First();
 
             if (ModelState.IsValid)
             {
