@@ -2,4 +2,56 @@
     ViewBag.Title = "Accueil";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Rechercher un siren</h2>
+
+@using (Html.BeginForm("Index", "Sirens", FormMethod.Get, new { @class = "form-horizontal", @role = "search" }))
+{
+    <div class="form-group">
+        <label for="qs" class="col-sm-2 control-label">Quel siren ?</label>
+        <div class="col-sm-4">
+            <input type="search" class="form-control" id="qs" name="qs">
+            <p class="help-block">Raison sociale, siren ou identifiant siren précédé de #.</p>
+        </div>
+    </div>    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Go !</button>
+        </div>
+    </div>
+}
+
+<h2>Rechercher un client</h2>
+
+@using (Html.BeginForm("Index", "Clients", FormMethod.Get, new { @class = "form-horizontal", @role = "search" }))
+{
+    <div class="form-group">
+        <label for="qc" class="col-sm-2 control-label">Quel client ?</label>
+        <div class="col-sm-4">
+            <input type="search" class="form-control" id="qc" name="qc">
+            <p class="help-block">Nom client, siret ou identifiant client précédé de #.</p>
+        </div>
+    </div>    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Go !</button>
+        </div>
+    </div>
+}
+
+<h2>Rechercher une agence</h2>
+
+@using (Html.BeginForm("Details", "Agences", FormMethod.Get, new { @class = "form-horizontal", @role = "search" }))
+{
+    <div class="form-group">
+        <label for="id" class="col-sm-2 control-label">Quelle agence ?</label>
+        <div class="col-sm-4">
+            <input type="search" class="form-control" id="id" name="id">
+            <p class="help-block">Code agence sur 3 chiffres.</p>
+        </div>
+    </div>    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Go !</button>
+        </div>
+    </div>
+}
