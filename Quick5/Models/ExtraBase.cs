@@ -157,5 +157,19 @@
             }
         }
         private Tables _Tables;
+
+        public MdxOrganisations MdxOrganisations
+        {
+            get
+            {
+                if (_MdxOrganisations == null) _MdxOrganisations = new MdxOrganisations(this.connexion);
+                return _MdxOrganisations;
+            }
+            set
+            {
+                _MdxOrganisations = value;
+            }
+        }
+        private MdxOrganisations _MdxOrganisations;
     }
 }

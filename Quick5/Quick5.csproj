@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AgencesController.cs" />
     <Compile Include="Controllers\CommunesController.cs" />
+    <Compile Include="Controllers\MdxOrganisationsController.cs" />
     <Compile Include="Controllers\InseesController.cs" />
     <Compile Include="Controllers\DecisionsController.cs" />
     <Compile Include="Controllers\EdiAccordsController.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="Models\Agences.cs" />
     <Compile Include="Models\Communes.cs" />
+    <Compile Include="Models\MdxOrganisations.cs" />
     <Compile Include="Models\Insees.cs" />
     <Compile Include="Models\EdiQualifications.cs" />
     <Compile Include="Models\EdiAccord.cs" />
@@ -219,6 +221,9 @@
     <Content Include="Views\Insees\Details.cshtml" />
     <Content Include="Views\Insees\Index.cshtml" />
     <Content Include="Views\Insees\Import.cshtml" />
+    <Content Include="Views\MdxOrganisations\_List.cshtml" />
+    <Content Include="Views\MdxOrganisations\Details.cshtml" />
+    <Content Include="Views\MdxOrganisations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
