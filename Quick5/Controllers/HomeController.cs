@@ -97,8 +97,8 @@ namespace Quick5.Controllers
             db.ExecuteSql(SqlCreate("Agences", typeof(DbAgence)));
             db.ExecuteSql(SqlCreate("Ct_Risques_Clients", typeof(DbGarantie)));
             db.ExecuteSql(SqlCreate("Ct_Historique_Atradius", typeof(DbDecision)));
-            db.ExecuteSql(SqlCreate("Accord_Edi_National", typeof(DbEdiAccord)));
-            db.ExecuteSql(SqlCreate("Etablissement_Edi", typeof(DbEdiSite)));
+            db.ExecuteSql(SqlCreate("Accord_Edi_National", typeof(DbPxGroupe)));
+            db.ExecuteSql(SqlCreate("Etablissement_Edi", typeof(DbPxSite)));
 
             // Alimentation table des sirens
             new List<DbSiren>
@@ -140,20 +140,20 @@ namespace Quick5.Controllers
             }.ForEach(g => db.connexion.Insert<DbGarantie>(g));
 
             // Alimentation table des accords edi
-            new List<DbEdiAccord>
+            new List<DbPxGroupe>
             {
-                new DbEdiAccord { Libelle = "BIM BAM BOUM", Siren = "222222222", Code_Externe_Eu = "222222222" },
-                new DbEdiAccord { Libelle = "AZERTY", Siren = "111111111", Code_Externe_Eu = "AZERTY" }
-            }.ForEach(a => db.connexion.Insert<DbEdiAccord>(a));
+                new DbPxGroupe { Libelle = "BIM BAM BOUM", Siren = "222222222", Code_Externe_Eu = "222222222" },
+                new DbPxGroupe { Libelle = "AZERTY", Siren = "111111111", Code_Externe_Eu = "AZERTY" }
+            }.ForEach(a => db.connexion.Insert<DbPxGroupe>(a));
 
             // Alimentation des sites edi
-            new List<DbEdiSite>
+            new List<DbPxSite>
             {
-                new DbEdiSite { Accord_National_Id = 1, Libelle = "PARIS", Siret = "22222222200002", Code_Externe_Eu = "00002" },
-                new DbEdiSite { Accord_National_Id = 1, Libelle = "LYON", Siret = "22222222200001", Code_Externe_Eu = "00001" },
-                new DbEdiSite { Accord_National_Id = 2, Libelle = "ETS AZERTY LYON", Siret = "11111111100001", Code_Externe_Eu = "LYON" },
-                new DbEdiSite { Accord_National_Id = 2, Libelle = "AZERTY MARSEILLE", Siret = "11111111100003", Code_Externe_Eu = "MARSEILLE" }
-            }.ForEach(s => db.connexion.Insert<DbEdiSite>(s));
+                new DbPxSite { Accord_National_Id = 1, Libelle = "PARIS", Siret = "22222222200002", Code_Externe_Eu = "00002" },
+                new DbPxSite { Accord_National_Id = 1, Libelle = "LYON", Siret = "22222222200001", Code_Externe_Eu = "00001" },
+                new DbPxSite { Accord_National_Id = 2, Libelle = "ETS AZERTY LYON", Siret = "11111111100001", Code_Externe_Eu = "LYON" },
+                new DbPxSite { Accord_National_Id = 2, Libelle = "AZERTY MARSEILLE", Siret = "11111111100003", Code_Externe_Eu = "MARSEILLE" }
+            }.ForEach(s => db.connexion.Insert<DbPxSite>(s));
  
             // Fermeture de la base de données
             db.Close();

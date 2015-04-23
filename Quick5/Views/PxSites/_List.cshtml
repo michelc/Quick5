@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Quick5.Models.EdiSite>
+﻿@model IEnumerable<Quick5.Models.PxSite>
 
 <table class="table table-condensed table-striped table-hover">
 <thead>
@@ -13,7 +13,7 @@
 @foreach (var item in Model)
 {
     <tr>
-        <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Details", "EdiSites", new { id = item.Site_ID}, new { @class="glyphicon glyphicon-play" })</th>
+        <th class="hidden-print iconwidth">@Html.ActionLink(" ", "Details", "PxSites", new { id = item.Site_ID}, new { @class="glyphicon glyphicon-play" })</th>
         <td>@Html.DisplayFor(modelItem => item.Nom)</td>
         <td>@Html.DisplayFor(modelItem => item.NSiret)</td>
         <td>@Html.DisplayFor(modelItem => item.Code)</td>

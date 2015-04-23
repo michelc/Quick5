@@ -2,7 +2,7 @@
 {
     public class ExtraBase : SqlBase
     {
-        public ExtraBase() : base("Extra") { }
+        public ExtraBase() : base("Extra.Dev") { }
 
         public Sirens Sirens
         {
@@ -46,34 +46,6 @@
         }
         private Agences _Agences;
 
-        public Communes Communes
-        {
-            get
-            {
-                if (_Communes == null) _Communes = new Communes(this.connexion);
-                return _Communes;
-            }
-            set
-            {
-                _Communes = value;
-            }
-        }
-        private Communes _Communes;
-
-        public Insees Insees
-        {
-            get
-            {
-                if (_Insees == null) _Insees = new Insees(this.connexion);
-                return _Insees;
-            }
-            set
-            {
-                _Insees = value;
-            }
-        }
-        private Insees _Insees;
-
         public Garanties Garanties
         {
             get
@@ -102,74 +74,32 @@
         }
         private Decisions _Decisions;
 
-        public EdiAccords EdiAccords
+        public PxGroupes PxGroupes
         {
             get
             {
-                if (_EdiAccords == null) _EdiAccords = new EdiAccords(this.connexion);
-                return _EdiAccords;
+                if (_PxGroupes == null) _PxGroupes = new PxGroupes(this.connexion);
+                return _PxGroupes;
             }
             set
             {
-                _EdiAccords = value;
+                _PxGroupes = value;
             }
         }
-        private EdiAccords _EdiAccords;
+        private PxGroupes _PxGroupes;
 
-        public EdiSites EdiSites
+        public PxSites PxSites
         {
             get
             {
-                if (_EdiSites == null) _EdiSites = new EdiSites(this.connexion);
-                return _EdiSites;
+                if (_PxSites == null) _PxSites = new PxSites(this.connexion);
+                return _PxSites;
             }
             set
             {
-                _EdiSites = value;
+                _PxSites = value;
             }
         }
-        private EdiSites _EdiSites;
-
-        public EdiQualifications EdiQualifications
-        {
-            get
-            {
-                if (_EdiQualifications == null) _EdiQualifications = new EdiQualifications(this.connexion);
-                return _EdiQualifications;
-            }
-            set
-            {
-                _EdiQualifications = value;
-            }
-        }
-        private EdiQualifications _EdiQualifications;
-
-        public Tables Tables
-        {
-            get
-            {
-                if (_Tables == null) _Tables = new Tables(this.connexion);
-                return _Tables;
-            }
-            set
-            {
-                _Tables = value;
-            }
-        }
-        private Tables _Tables;
-
-        public MdxOrganisations MdxOrganisations
-        {
-            get
-            {
-                if (_MdxOrganisations == null) _MdxOrganisations = new MdxOrganisations(this.connexion);
-                return _MdxOrganisations;
-            }
-            set
-            {
-                _MdxOrganisations = value;
-            }
-        }
-        private MdxOrganisations _MdxOrganisations;
+        private PxSites _PxSites;
     }
 }

@@ -1,0 +1,18 @@
+﻿@model Quick5.Models.PxGroupe
+
+@{
+    ViewBag.Title = "Pixid / " + Model.Nom;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_List", Model.AsList())
+
+<h3>Clients</h3>
+
+@Html.Partial("../Clients/_List", Model.Clients)
+
+<h3>Sites</h3>
+
+@Html.Partial("../PxSites/_List", Model.Sites)
+

@@ -19,6 +19,8 @@ namespace Quick5.Models
         public string CodePostal { get; set; }
         public string Ville { get; set; }
         public string Type { get; set; }
+        public string CodeGroupe { get; set; }
+        public string CodeSite { get; set; }
         public bool EstBloque { get; set; }
 
         public Siren Siren { get; set; }
@@ -39,6 +41,8 @@ namespace Quick5.Models
         public string City { get; set; }
         public string Fld138 { get; set; }
         public string Fld129 { get; set; }
+        public string Pixid_Group { get; set; }
+        public string Pixid_Etab { get; set; }
     }
 
     /// <summary>
@@ -67,6 +71,12 @@ namespace Quick5.Models
                 // Recherche par ID client
                 where += "WHERE  (IdCompany = :Id)";
                 param = new { Id = Convert.ToInt64(siren) };
+            }
+            else if (q.StartsWith("px="))
+            {
+                // Recherche par groupe Pixid
+                where += "WHERE  (Pixid_Group = :Pixid_Group)";
+                param = new { Pixid_Group = q.Substring(3).Trim() };
             }
             else if (siren.Length >= 14)
             {
@@ -126,6 +136,8 @@ namespace Quick5.Models
                 .ForMember(dest => dest.CodePostal, opt => opt.MapFrom(src => src.PostCode))
                 .ForMember(dest => dest.Ville, opt => opt.MapFrom(src => src.City))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Fld138))
+                .ForMember(dest => dest.CodeGroupe, opt => opt.MapFrom(src => src.Pixid_Group))
+                .ForMember(dest => dest.CodeSite, opt => opt.MapFrom(src => src.Pixid_Etab))
                 .ForMember(dest => dest.EstBloque, opt => opt.MapFrom(src => !string.IsNullOrEmpty(src.Fld129)))
             ;
         }

@@ -111,17 +111,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AgencesController.cs" />
-    <Compile Include="Controllers\CommunesController.cs" />
-    <Compile Include="Controllers\MdxOrganisationsController.cs" />
-    <Compile Include="Controllers\InseesController.cs" />
+    <Compile Include="Controllers\PxGroupesController.cs" />
     <Compile Include="Controllers\DecisionsController.cs" />
-    <Compile Include="Controllers\EdiAccordsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
-    <Compile Include="Controllers\EdiSitesController.cs" />
     <Compile Include="Controllers\GarantiesController.cs" />
     <Compile Include="Controllers\SirensController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\_BaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -130,12 +125,8 @@
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="Models\Agences.cs" />
-    <Compile Include="Models\Communes.cs" />
-    <Compile Include="Models\MdxOrganisations.cs" />
-    <Compile Include="Models\Insees.cs" />
-    <Compile Include="Models\EdiQualifications.cs" />
-    <Compile Include="Models\EdiAccord.cs" />
-    <Compile Include="Models\EdiSites.cs" />
+    <Compile Include="Models\PxSites.cs" />
+    <Compile Include="Models\PxGroupe.cs" />
     <Compile Include="Models\MappingConfig.cs" />
     <Compile Include="Models\Clients.cs" />
     <Compile Include="Models\Decisions.cs" />
@@ -143,7 +134,6 @@
     <Compile Include="Models\Garanties.cs" />
     <Compile Include="Models\Sirens.cs" />
     <Compile Include="Models\SqlBase.cs" />
-    <Compile Include="Models\Tables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -195,35 +185,19 @@
     <Content Include="Views\Shared\DisplayTemplates\Decimal.cshtml" />
     <Content Include="Views\Decisions\_List.cshtml" />
     <Content Include="Views\Garanties\Copy.cshtml" />
-    <Content Include="Views\EdiAccords\Index.cshtml" />
-    <Content Include="Views\EdiAccords\Details.cshtml" />
-    <Content Include="Views\EdiAccords\_List.cshtml" />
-    <Content Include="Views\EdiSites\_List.cshtml" />
     <Content Include="Views\Agences\Index.cshtml" />
     <Content Include="Views\Agences\_List.cshtml" />
     <Content Include="Views\Agences\Details.cshtml" />
-    <Content Include="Views\EdiSites\Details.cshtml" />
     <Content Include="Views\Decisions\Details.cshtml" />
     <Content Include="Views\Clients\_SearchBox.cshtml" />
-    <Content Include="Views\Tables\Index.cshtml" />
-    <Content Include="Views\Tables\Details.cshtml" />
-    <Content Include="Views\Tables\Content.cshtml" />
-    <Content Include="Views\EdiQualifications\_List.cshtml" />
     <Content Include="Views\Home\Logon.cshtml" />
     <Content Include="Views\Sirens\Api.cshtml" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Views\Communes\_List.cshtml" />
-    <Content Include="Views\Communes\_SearchBox.cshtml" />
-    <Content Include="Views\Communes\Details.cshtml" />
-    <Content Include="Views\Communes\Index.cshtml" />
-    <Content Include="Views\Insees\_List.cshtml" />
-    <Content Include="Views\Insees\_SearchBox.cshtml" />
-    <Content Include="Views\Insees\Details.cshtml" />
-    <Content Include="Views\Insees\Index.cshtml" />
-    <Content Include="Views\Insees\Import.cshtml" />
-    <Content Include="Views\MdxOrganisations\_List.cshtml" />
-    <Content Include="Views\MdxOrganisations\Details.cshtml" />
-    <Content Include="Views\MdxOrganisations\Index.cshtml" />
+    <Content Include="Views\PxGroupes\_List.cshtml" />
+    <Content Include="Views\PxGroupes\Details.cshtml" />
+    <Content Include="Views\PxGroupes\Index.cshtml" />
+    <Content Include="Views\PxSites\_List.cshtml" />
+    <Content Include="Views\PxSites\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

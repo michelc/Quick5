@@ -7,15 +7,10 @@
             Sirens();
             Clients();
             Agences();
-            Communes();
-            Insees();
             Garanties();
             Decisions();
-            EdiAccords();
-            EdiSites();
-            EdiQualifications();
-            Columns();
-            MdxOrganisations();
+            PxGroupes();
+            PxSites();
         }
     }
 }

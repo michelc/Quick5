@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using AutoMapper;
@@ -6,26 +7,24 @@ using AutoMapper;
 namespace Quick5.Models
 {
     /// <summary>
-    /// Objet EdiSite utilisé par l'application (essentiellement dans les vues)
+    /// Objet PxSite utilisé par l'application (essentiellement dans les vues)
     /// </summary>
-    public class EdiSite
+    public class PxSite
     {
         public int Site_ID { get; set; }
-        public int Accord_ID { get; set; }
+        public int Groupe_ID { get; set; }
         public string Nom { get; set; }
         public string NSiret { get; set; }
         public string Code { get; set; }
 
-        public EdiAccord EdiAccord { get; set; }
-        public Client Client { get; set; }
-        public IEnumerable<EdiQualification> Qualifications { get; set; }
+        public PxGroupe PxGroupe { get; set; }
     }
 
     /// <summary>
-    /// Objet DbEdiSite stocké dans la base de données
+    /// Objet DbPxSite stocké dans la base de données
     /// </summary>
     [Table("Etablissement_Edi")]
-    public class DbEdiSite
+    public class DbPxSite
     {
         public int Id { get; set; }
         public int Accord_National_Id { get; set; }
@@ -37,30 +36,30 @@ namespace Quick5.Models
     /// <summary>
     /// Fonctions utilitaires pour gérer les accords
     /// </summary>
-    public class EdiSites
+    public class PxSites
     {
         private IDbConnection connexion;
 
-        public EdiSites(IDbConnection connexion)
+        public PxSites(IDbConnection connexion)
         {
             this.connexion = connexion;
         }
 
-        public List<EdiSite> List(int Accord_ID)
+        public List<PxSite> List(int Groupe_ID)
         {
             var where = @"WHERE  (Accord_National_Id = :Id)
                           ORDER BY UPPER(Libelle)";
 
-            var data = connexion.List<DbEdiSite>(where, new { Id = Accord_ID });
-            var view_model = Mapper.Map<IEnumerable<DbEdiSite>, List<EdiSite>>(data);
+            var data = connexion.List<DbPxSite>(where, new { Id = Groupe_ID });
+            var view_model = Mapper.Map<IEnumerable<DbPxSite>, List<PxSite>>(data);
 
             return view_model;
         }
 
-        public EdiSite Get(int id)
+        public PxSite Get(int id)
         {
-            var data = this.connexion.Get<DbEdiSite>(id);
-            var view_model = Mapper.Map<EdiSite>(data);
+            var data = this.connexion.Get<DbPxSite>(id);
+            var view_model = Mapper.Map<PxSite>(data);
 
             return view_model;
         }
@@ -69,14 +68,14 @@ namespace Quick5.Models
     public partial class MappingConfig
     {
         /// <summary>
-        /// Configuration AutoMapper pour passer de DbEdiSite à EdiSite
+        /// Configuration AutoMapper pour passer de DbPxSite à PxSite
         /// </summary>
-        public static void EdiSites()
+        public static void PxSites()
         {
-            Mapper.CreateMap<DbEdiSite, EdiSite>().ForAllMembers(opt => opt.Ignore());
-            Mapper.CreateMap<DbEdiSite, EdiSite>()
+            Mapper.CreateMap<DbPxSite, PxSite>().ForAllMembers(opt => opt.Ignore());
+            Mapper.CreateMap<DbPxSite, PxSite>()
                 .ForMember(dest => dest.Site_ID, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Accord_ID, opt => opt.MapFrom(src => src.Accord_National_Id))
+                .ForMember(dest => dest.Groupe_ID, opt => opt.MapFrom(src => src.Accord_National_Id))
                 .ForMember(dest => dest.Nom, opt => opt.MapFrom(src => src.Libelle))
                 .ForMember(dest => dest.NSiret, opt => opt.MapFrom(src => src.Siret))
                 .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code_Externe_Eu))
