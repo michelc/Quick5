@@ -155,11 +155,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -192,7 +192,7 @@
     <Content Include="Views\Clients\_SearchBox.cshtml" />
     <Content Include="Views\Home\Logon.cshtml" />
     <Content Include="Views\Sirens\Api.cshtml" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\PxGroupes\_List.cshtml" />
     <Content Include="Views\PxGroupes\Details.cshtml" />
     <Content Include="Views\PxGroupes\Index.cshtml" />
